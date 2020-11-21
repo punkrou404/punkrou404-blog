@@ -1,0 +1,11 @@
+{
+    "lang": "ja",
+    "name": "Punkrou404 Blog",
+    "short_name": "Punkrou404 Blog",
+    "icons": [{
+          "src": "/favicon.manifest.ico",
+          "sizes": "144x144",
+          "type": "image/ico"
+        }],
+    "display": "standalone"
+  }
