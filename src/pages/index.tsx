@@ -1,11 +1,12 @@
 import Card from '../components/card';
 import { getSortedPostsData } from '../lib/posts';
+import Layout from '../components/layout';
 import { NextPage } from 'next';
 import { PostMetaData } from '../lib/types';
 
 const Home: NextPage = ({ allPostsData }) => {
     return (
-        <>
+        <Layout>
             <section>
                 <h2>Blog</h2>
                 <div className="flex flex-wrap -m-3">
@@ -14,7 +15,7 @@ const Home: NextPage = ({ allPostsData }) => {
                     ))}
                 </div>
             </section>
-        </>
+        </Layout>
     );
 };
 
