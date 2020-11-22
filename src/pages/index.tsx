@@ -1,19 +1,41 @@
+import { getSortedPostsData } from '../lib/posts';
 import { NextPage } from 'next';
+import { PostMetaData } from '../lib/types';
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ allPostsData }) => {
     return (
         <>
             <section>
-                <p className="text-5xl text-center text-gray-700 dark:text-gray-100">
-                    [Your Self Introduction]
-                </p>
-                <p>
-                    (This is a sample website - you’ll be building a site like this on{' '}
-                    <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
-                </p>
+                <h2>Blog</h2>
+                <ul className="flex flex-wrap overflow-hidden md:-mx-2">
+                    {allPostsData.map(({ id, date, title }) => (
+                        <li key={id} className="w-1/5 overflow-hidden md:my-2 md:px-2">
+                            {title}
+                            <br />
+                            {id}
+                            <br />
+                            {date}
+                        </li>
+                    ))}
+                </ul>
             </section>
         </>
     );
 };
 
+const getStaticProps = async (): Promise<{
+    props: {
+        allPostsData: Array<PostMetaData>;
+    };
+}> => {
+    const allPostsData = getSortedPostsData();
+    return {
+        props: {
+            allPostsData,
+        },
+    };
+};
+
 export default Home;
+
+export { getStaticProps };
