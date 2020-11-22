@@ -1,3 +1,4 @@
+import Card from '../components/card';
 import { getSortedPostsData } from '../lib/posts';
 import { NextPage } from 'next';
 import { PostMetaData } from '../lib/types';
@@ -7,17 +8,11 @@ const Home: NextPage = ({ allPostsData }) => {
         <>
             <section>
                 <h2>Blog</h2>
-                <ul className="flex flex-wrap overflow-hidden md:-mx-2">
-                    {allPostsData.map(({ id, date, title }) => (
-                        <li key={id} className="w-1/5 overflow-hidden md:my-2 md:px-2">
-                            {title}
-                            <br />
-                            {id}
-                            <br />
-                            {date}
-                        </li>
+                <div className="flex flex-wrap -m-3">
+                    {allPostsData.map((postMetaData) => (
+                        <Card props={postMetaData} key={postMetaData.id} />
                     ))}
-                </ul>
+                </div>
             </section>
         </>
     );
