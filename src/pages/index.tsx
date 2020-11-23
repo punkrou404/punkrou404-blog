@@ -4,20 +4,18 @@ import Layout from '../components/layout';
 import { NextPage } from 'next';
 import { PostMetaData } from '../lib/types';
 
-const Home: NextPage = ({ allPostsData }) => {
-    return (
-        <Layout>
-            <section>
-                <h2>Blog</h2>
-                <div className="flex flex-wrap -m-3">
-                    {allPostsData.map((postMetaData) => (
-                        <Card props={postMetaData} key={postMetaData.id} />
-                    ))}
-                </div>
-            </section>
-        </Layout>
-    );
-};
+const Home: NextPage = ({ allPostsData }) => (
+    <Layout>
+        <section>
+            <h2>Blog</h2>
+            <div className="flex flex-wrap -m-3">
+                {allPostsData.map((postMetaData) => (
+                    <Card props={postMetaData} key={postMetaData.id} />
+                ))}
+            </div>
+        </section>
+    </Layout>
+);
 
 const getStaticProps = async (): Promise<{
     props: {

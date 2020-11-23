@@ -1,15 +1,19 @@
 import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
 
 class Document extends NextDocument {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    render() {
+    render(): JSX.Element {
         return (
             <Html lang="ja">
-                <Head />
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
+                <Head>
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+                    />
+                    <link rel="shortcut icon" href="/favicon.ico" key="shortcutIcon" />
+                    <link rel="manifest" href="/manifest.json" />
+                </Head>
+                <Main />
+                <NextScript />
             </Html>
         );
     }

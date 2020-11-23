@@ -1,18 +1,19 @@
+import Date from '../../components/date';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Layout from '../../components/layout';
 import { NextPage } from 'next';
 
-const Post: NextPage = ({ postData }) => {
-    return (
-        <Layout>
-            {postData.title}
-            <br />
-            {postData.id}
-            <br />
-            {postData.date}
-        </Layout>
-    );
-};
+const Post: NextPage = ({ postData }) => (
+    <Layout>
+        {postData.title}
+        <br />
+        {postData.id}
+        <br />
+        <Date dateString={postData.date} />
+        <br />
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+    </Layout>
+);
 
 const getStaticPaths = async (): Promise<{
     paths: {
@@ -30,7 +31,7 @@ const getStaticPaths = async (): Promise<{
 };
 
 const getStaticProps = async ({ params }) => {
-    const postData = getPostData(params.id);
+    const postData = await getPostData(params.id);
     return {
         props: {
             postData,
