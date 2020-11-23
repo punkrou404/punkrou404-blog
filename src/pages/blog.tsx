@@ -1,0 +1,31 @@
+import Card from '../components/card';
+import { getSortedPostsData } from '../lib/posts';
+import Layout from '../components/layout';
+import { NextPage } from 'next';
+import { PostMetaData } from '../lib/types';
+
+const Blog: NextPage = ({ allPostData }) => (
+    <Layout>
+        <div className="flex flex-wrap -m-3">
+            {allPostData.map((postMetaData) => (
+                <Card props={postMetaData} key={postMetaData.id} />
+            ))}
+        </div>
+    </Layout>
+);
+
+const getStaticProps = async (): Promise<{
+    props: {
+        allPostData: Array<PostMetaData>;
+    };
+}> => {
+    const allPostData = getSortedPostsData();
+    return {
+        props: {
+            allPostData,
+        },
+    };
+};
+
+export default Blog;
+export { getStaticProps };

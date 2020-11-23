@@ -1,34 +1,27 @@
-import Card from '../components/card';
-import { getSortedPostsData } from '../lib/posts';
 import Layout from '../components/layout';
 import { NextPage } from 'next';
-import { PostMetaData } from '../lib/types';
+import SNS from '../components/sns';
 
-const Home: NextPage = ({ allPostsData }) => (
+const Home: NextPage = () => (
     <Layout>
-        <section>
-            <div className="flex flex-wrap -m-3">
-                {allPostsData.map((postMetaData) => (
-                    <Card props={postMetaData} key={postMetaData.id} />
-                ))}
+        <section className="grid grid-cols-6 gap-4 justify-center items-center h-screen">
+            <div className="col-start-1 col-span-6 h-full ">{/*padding area.*/}</div>
+            <div className="col-start-3 col-span-1 place-self-center">
+                <img src="profile.png" />
             </div>
+            <div className="flex-col col-start-4 col-span-1 place-self-center">
+                <div className="font-semibold text-xl text-white">Sato Kotaro</div>
+                <div className="font-semibold text-l text-white">@punkrou404</div>
+                <div className="font-semibold text-m text-gray-400 pt-6">
+                    frontend, backend, infrastructure, sauna, and more...
+                </div>
+            </div>
+            <div className="col-start-3 col-span-2 h-full">
+                <SNS />
+            </div>
+            <div className="col-start-1 col-span-6">{/*padding area.*/}</div>
         </section>
     </Layout>
 );
 
-const getStaticProps = async (): Promise<{
-    props: {
-        allPostsData: Array<PostMetaData>;
-    };
-}> => {
-    const allPostsData = getSortedPostsData();
-    return {
-        props: {
-            allPostsData,
-        },
-    };
-};
-
 export default Home;
-
-export { getStaticProps };
