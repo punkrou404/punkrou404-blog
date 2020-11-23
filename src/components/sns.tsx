@@ -20,6 +20,11 @@ const SNS = () => (
                 <img src="/images/logo/zenn.logo.png" />
             </a>
         </div>
+        <div className="flex-grow">
+            <a href="https://sauna-ikitai.com/saunners/26885" target="_blank">
+                <img src="/images/logo/sauna-ikitai.logo.svg" />
+            </a>
+        </div>
     </nav>
 );
 

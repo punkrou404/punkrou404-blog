@@ -3,7 +3,7 @@
     "name": "Punkrou404 Blog",
     "short_name": "Punkrou404 Blog",
     "icons": [{
-          "src": "/favicon.manifest.ico",
+          "src": "/profile.png",
           "sizes": "144x144",
           "type": "image/ico"
         }],

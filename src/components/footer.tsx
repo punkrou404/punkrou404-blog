@@ -1,6 +1,6 @@
 const Footer = () => (
-    <footer>
-        <p className="text-center bg-gray-400 text-white">© 2020/11 @punkrou404 </p>
+    <footer className="h-10 border bg-blue-300">
+        <p className="text-center text-white">© 2020/11 @punkrou404 </p>
     </footer>
 );
 

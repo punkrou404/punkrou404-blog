@@ -9,7 +9,7 @@ class Document extends NextDocument {
                         name="viewport"
                         content="width=device-width, initial-scale=1, shrink-to-fit=no"
                     />
-                    <link rel="shortcut icon" href="/favicon.ico" key="shortcutIcon" />
+                    <link rel="shortcut icon" href="/profile.png" key="shortcutIcon" />
                     <link rel="manifest" href="/manifest.json" />
                 </Head>
                 <Main />

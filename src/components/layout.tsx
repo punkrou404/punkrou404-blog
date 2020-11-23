@@ -8,9 +8,9 @@ const Layout: NextPage = ({ children }) => (
         <Head>
             <title>{`punkrou404 blog`}</title>
         </Head>
-        <body className="bg-blue-200">
+        <body className="bg-blue-200 text-white h-screen">
             <Header />
-            <main className="p-5">{children}</main>
+            <main className="p-5 h-full">{children}</main>
             <Footer />
         </body>
     </div>
