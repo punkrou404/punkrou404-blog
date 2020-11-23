@@ -1,6 +1,6 @@
 import { parseISO, format } from 'date-fns';
 
-const Date = ({ dateString }) => {
+const Date = ({ dateString }): JSX.Element => {
     const date = parseISO(dateString);
     return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>;
 };

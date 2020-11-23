@@ -30,7 +30,16 @@ const getStaticPaths = async (): Promise<{
     };
 };
 
-const getStaticProps = async ({ params }) => {
+const getStaticProps = async ({
+    params,
+}): Promise<{
+    props: {
+        postData: {
+            id: string;
+            contentHtml: string;
+        };
+    };
+}> => {
     const postData = await getPostData(params.id);
     return {
         props: {
