@@ -7,7 +7,6 @@ import { PostMetaData } from '../lib/types';
 const Home: NextPage = ({ allPostsData }) => (
     <Layout>
         <section>
-            <h2>Blog</h2>
             <div className="flex flex-wrap -m-3">
                 {allPostsData.map((postMetaData) => (
                     <Card props={postMetaData} key={postMetaData.id} />
