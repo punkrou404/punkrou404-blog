@@ -1,12 +1,12 @@
 import Linkable from './linkable';
 
 const Header = () => (
-    <header className="sticky border">
+    <header className="border-b">
         <nav className="flex items-center justify-between bg-teal-500 p-4">
-            <div className="p-2 w-full flex-row">
+            <div className="p-2 flex-row">
                 <div className="font-semibold">@punkrou404</div>
             </div>
-            <div className="flex w-full flex-row-reverse">
+            <div className="flex flex-row-reverse">
                 <Linkable href="/contact" name="Contact" />
                 <div className="border-l-2" />
                 <Linkable href="/blog" name="Blog" />

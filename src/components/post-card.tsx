@@ -2,7 +2,7 @@ import Date from './date';
 import TagList from './tag-list';
 
 const PostCard = ({ postData }) => (
-    <div className="w-full h-full flex flex-col p-3 text-gray-500">
+    <div className="w-full flex flex-col p-3 text-gray-500">
         <div className="p-4 bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
             <header className="bg-cover">
                 <h3 className="mb-4 text-2xl">{postData.title}</h3>
