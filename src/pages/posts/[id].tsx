@@ -1,17 +1,11 @@
-import Date from '../../components/date';
+import PostCard from '../../components/post-card';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Layout from '../../components/layout';
 import { NextPage } from 'next';
 
 const Post: NextPage = ({ postData }) => (
     <Layout>
-        {postData.title}
-        <br />
-        {postData.id}
-        <br />
-        <Date dateString={postData.date} />
-        <br />
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <PostCard postData={postData} />
     </Layout>
 );
 
