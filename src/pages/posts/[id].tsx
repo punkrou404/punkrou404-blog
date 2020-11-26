@@ -1,11 +1,12 @@
-import PostCard from '../../components/post-card';
-import { getAllPostIds, getPostData } from '../../lib/posts';
-import Layout from '../../components/layout';
+import PostCard from '~/components/post-card';
+import { getAllPostIds, getPostData } from '~/lib/posts';
+import Layout from '~/components/layout';
 import { NextPage } from 'next';
+import { PostData } from '~/lib/types';
 
 const Post: NextPage = ({ postData }) => (
     <Layout>
-        <PostCard postData={postData} />
+        <PostCard props={postData} />
     </Layout>
 );
 
@@ -28,10 +29,7 @@ const getStaticProps = async ({
     params,
 }): Promise<{
     props: {
-        postData: {
-            id: string;
-            contentHtml: string;
-        };
+        postData: PostData;
     };
 }> => {
     const postData = await getPostData(params.id);

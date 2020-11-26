@@ -3,13 +3,13 @@ import marked from 'marked';
 import highlightjs from 'highlight.js';
 import path from 'path';
 import matter from 'gray-matter';
-import { PostMetaData } from '../lib/types';
+import { PostData } from '../lib/types';
 
 const postsDirectory = path.join(process.cwd(), 'src/pages/posts');
 
-const getAllPostIds = (): Array<{
+const getAllPostIds = (): {
     params: { id: string };
-}> => {
+}[] => {
     const fileNames = fs.readdirSync(postsDirectory);
     return fileNames.map((fileName) => {
         return {
@@ -22,6 +22,7 @@ const getAllPostIds = (): Array<{
 
 const getPostData = async (id: string) => {
     const fullPath = path.join(postsDirectory, `${id}.md`);
+    const date = fs.statSync(fullPath).mtime;
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
 
@@ -37,11 +38,17 @@ const getPostData = async (id: string) => {
     return {
         id,
         contentHtml,
-        ...matterResult.data,
+        date,
+        ...(matterResult.data as {
+            title: string;
+            type: string;
+            topics: string[];
+            published: boolean;
+        }),
     };
 };
 
-const getSortedPostsData = (): Array<PostMetaData> => {
+const getSortedPostsData = (): PostData[] => {
     // /posts/ 配下のファイル名を取得
     const fileNames = fs.readdirSync(postsDirectory);
     const allPostsData = fileNames
@@ -57,11 +64,18 @@ const getSortedPostsData = (): Array<PostMetaData> => {
 
             // gray-matter を使用してメタデータを取得
             const matterResult = matter(fileContents);
+            const date = fs.statSync(fullPath).mtime;
 
             // idとメタデータを返却
             return {
                 id,
-                ...(matterResult.data as { date: string; title: string }),
+                date,
+                ...(matterResult.data as {
+                    title: string;
+                    type: string;
+                    topics: string[];
+                    published: boolean;
+                }),
             };
         });
 

@@ -1,21 +1,21 @@
 import Date from './date';
-import TagList from './tag-list';
+import Topics from './topics';
 
-const PostCard = ({ postData }) => (
+const PostCard = ({ props }) => (
     <div className="w-full flex flex-col p-3 text-gray-500">
         <div className="p-4 bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
             <header className="bg-cover">
-                <h3 className="mb-4 text-2xl">{postData.title}</h3>
+                <h3 className="mb-4 text-2xl">{props.title}</h3>
                 <div className="mb-4 text-grey-darker text-sm flex-1">
-                    <Date dateString={postData.date} />
+                    <Date dateString={props.date} />
                 </div>
                 <div>
-                    <TagList />
+                    <Topics list={props.topics} title={props.title} />
                 </div>
             </header>
             <main className="pt-4 flex-1 flex flex-col">
                 <div className="pt-4 border-t" />
-                <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+                <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
             </main>
             <footer>
                 <div className="border-t" />
