@@ -1,9 +1,9 @@
 import fs from 'fs';
-import html from 'remark-html';
+import marked from 'marked';
+import highlightjs from 'highlight.js';
 import path from 'path';
 import matter from 'gray-matter';
 import { PostMetaData } from '../lib/types';
-import remark from 'remark';
 
 const postsDirectory = path.join(process.cwd(), 'src/pages/posts');
 
@@ -24,8 +24,15 @@ const getPostData = async (id: string) => {
     const fullPath = path.join(postsDirectory, `${id}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
-    const processedContent = await remark().use(html).process(matterResult.content);
-    const contentHtml = processedContent.toString();
+
+    marked.setOptions({
+        highlight: (code, lang) => highlightjs.highlightAuto(code, [lang]).value,
+        pedantic: false,
+        gfm: true,
+        breaks: true,
+        silent: false,
+    });
+    const contentHtml = marked(matterResult.content);
 
     return {
         id,
