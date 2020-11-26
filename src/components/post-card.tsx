@@ -1,4 +1,5 @@
 import Date from '~/components/date';
+import MarkdownPreview from '~/components/markdown-preview';
 import Topics from '~/components/topics';
 
 const PostCard = ({ props }) => (
@@ -14,11 +15,11 @@ const PostCard = ({ props }) => (
                 </div>
             </header>
             <main className="pt-4 flex-1 flex flex-col">
-                <div className="pt-4 border-t" />
-                <div dangerouslySetInnerHTML={{ __html: props.contentHtml }} />
+                <div className="pb-4 border-t" />
+                <MarkdownPreview content={props.contentHtml} />
             </main>
-            <footer>
-                <div className="border-t" />
+            <footer className="pt-4">
+                <div className="pb-4 border-t" />
                 Comment.
             </footer>
         </div>
