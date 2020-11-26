@@ -2,7 +2,7 @@ import Card from '../components/card';
 import { getSortedPostsData } from '../lib/posts';
 import Layout from '../components/layout';
 import { NextPage } from 'next';
-import { PostData } from '../lib/types';
+import { PostMeta } from '../lib/types';
 
 const Blog: NextPage = ({ allPostData }) => (
     <Layout>
@@ -16,7 +16,7 @@ const Blog: NextPage = ({ allPostData }) => (
 
 const getStaticProps = async (): Promise<{
     props: {
-        allPostData: Array<PostData>;
+        allPostData: Array<PostMeta>;
     };
 }> => {
     const allPostData = getSortedPostsData();

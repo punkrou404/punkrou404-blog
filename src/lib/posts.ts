@@ -3,13 +3,11 @@ import marked from 'marked';
 import highlightjs from 'highlight.js';
 import path from 'path';
 import matter from 'gray-matter';
-import { PostData } from '../lib/types';
+import { PostID, PostMeta, PostContent } from '../lib/types';
 
 const postsDirectory = path.join(process.cwd(), 'src/pages/posts');
 
-const getAllPostIds = (): {
-    params: { id: string };
-}[] => {
+const getAllPostIds = (): PostID[] => {
     const fileNames = fs.readdirSync(postsDirectory);
     return fileNames.map((fileName) => {
         return {
@@ -20,7 +18,7 @@ const getAllPostIds = (): {
     });
 };
 
-const getPostData = async (id: string) => {
+const getPostData = async (id: string): Promise<PostContent> => {
     const fullPath = path.join(postsDirectory, `${id}.md`);
     const date = fs.statSync(fullPath).mtime;
     const fileContents = fs.readFileSync(fullPath, 'utf8');
@@ -48,7 +46,7 @@ const getPostData = async (id: string) => {
     };
 };
 
-const getSortedPostsData = (): PostData[] => {
+const getSortedPostsData = (): PostMeta[] => {
     // /posts/ 配下のファイル名を取得
     const fileNames = fs.readdirSync(postsDirectory);
     const allPostsData = fileNames
@@ -64,12 +62,18 @@ const getSortedPostsData = (): PostData[] => {
 
             // gray-matter を使用してメタデータを取得
             const matterResult = matter(fileContents);
+
+            // 更新日付を取得
             const date = fs.statSync(fullPath).mtime;
+
+            // 本文要約を取得
+            const summary = matterResult.content.substr(0, 200);
 
             // idとメタデータを返却
             return {
                 id,
                 date,
+                summary,
                 ...(matterResult.data as {
                     title: string;
                     type: string;

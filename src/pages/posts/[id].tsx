@@ -2,7 +2,7 @@ import PostCard from '~/components/post-card';
 import { getAllPostIds, getPostData } from '~/lib/posts';
 import Layout from '~/components/layout';
 import { NextPage } from 'next';
-import { PostData } from '~/lib/types';
+import { PostContent } from '~/lib/types';
 
 const Post: NextPage = ({ postData }) => (
     <Layout>
@@ -29,7 +29,7 @@ const getStaticProps = async ({
     params,
 }): Promise<{
     props: {
-        postData: PostData;
+        postData: PostContent;
     };
 }> => {
     const postData = await getPostData(params.id);

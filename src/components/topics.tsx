@@ -5,12 +5,11 @@ const Topics = ({ list, title }) => {
     return (
         <div className="flex">
             {list.map((topic) => (
-                <div className="pr-2" key={`${title}-${topic}`}>
-                    <a
-                        href="#"
-                        className="text-xs text-grey hover:text-red uppercase tracking-wide"
-                    >
-                        <div className="pr-2 pl-2 bg-blue-200 rounded-lg">{topic}</div>
+                <div className="text-xs text-grey pr-2" key={`${title}-${topic}`}>
+                    <a href="#" className="uppercase tracking-wide">
+                        <div className="pr-2 pl-2 active:bg-blue-400 hover:bg-blue-300 bg-blue-200 rounded-lg shadow-lg">
+                            {topic}
+                        </div>
                     </a>
                 </div>
             ))}

@@ -3,7 +3,7 @@ import Topics from './topics';
 
 const PostCard = ({ props }) => (
     <div className="w-full flex flex-col p-3 text-gray-500">
-        <div className="p-4 bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
+        <div className="p-4 bg-white rounded-lg shadow-lg flex-1 flex flex-col">
             <header className="bg-cover">
                 <h3 className="mb-4 text-2xl">{props.title}</h3>
                 <div className="mb-4 text-grey-darker text-sm flex-1">
