@@ -1,6 +1,6 @@
 import Layout from '~/components/layout';
 import { NextPage } from 'next';
-import SNS from '~/components/sns';
+import IconLink from '~/components/icon-link';
 
 const Home: NextPage = () => (
     <Layout>
@@ -17,7 +17,28 @@ const Home: NextPage = () => (
                 </div>
             </div>
             <div className="col-start-3 col-span-2 h-full">
-                <SNS />
+                <nav className="flex w-full h-full">
+                    <IconLink
+                        href="https://github.com/punkrou404"
+                        data="/images/logo/github.logo.svg"
+                    />
+                    <IconLink
+                        href="https://twitter.com/punkrou404"
+                        data="/images/logo/twitter.logo.svg"
+                    />
+                    <IconLink
+                        href="https://qiita.com/punkrou404"
+                        data="/images/logo/qiita.logo.svg"
+                    />
+                    <IconLink
+                        href="https://zenn.dev/punkrou404"
+                        data="/images/logo/zenn.logo.svg"
+                    />
+                    <IconLink
+                        href="https://sauna-ikitai.com/saunners/26885"
+                        data="/images/logo/sauna-ikitai.logo.svg"
+                    />
+                </nav>
             </div>
             <div className="col-start-1 col-span-6">{/*padding area.*/}</div>
         </section>
