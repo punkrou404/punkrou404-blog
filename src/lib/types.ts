@@ -1,5 +1,5 @@
 export type PostMeta = {
-    date: Date;
+    date: string;
     id: string;
     published: boolean;
     summary: string;
@@ -10,7 +10,7 @@ export type PostMeta = {
 
 export type PostContent = {
     contentHtml: string;
-    date: Date;
+    date: string;
     id: string;
     published: boolean;
     title: string;

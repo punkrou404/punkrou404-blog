@@ -20,7 +20,7 @@ const getAllPostIds = (): PostID[] => {
 
 const getPostData = async (id: string): Promise<PostContent> => {
     const fullPath = path.join(postsDirectory, `${id}.md`);
-    const date = fs.statSync(fullPath).mtime;
+    const date = fs.statSync(fullPath).mtime.toISOString();
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const matterResult = matter(fileContents);
 
@@ -84,13 +84,27 @@ const getSortedPostsData = (): PostMeta[] => {
         });
 
     // 日付でポストをソート
-    return allPostsData.sort((a, b) => {
-        if (a.date < b.date) {
-            return 1;
-        } else {
-            return -1;
-        }
-    });
+    return allPostsData
+        .sort((a, b) => {
+            if (a.date.getTime() < b.date.getTime()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        })
+        .map((post) => {
+            return {
+                ...(post as {
+                    id: string;
+                    published: boolean;
+                    summary: string;
+                    title: string;
+                    topics: string[];
+                    type: string;
+                }),
+                date: post.date.toISOString(),
+            };
+        });
 };
 
 export { getAllPostIds, getPostData, getSortedPostsData };
