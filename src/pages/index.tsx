@@ -1,6 +1,6 @@
-import Layout from '../components/layout';
+import Layout from '~/components/layout';
 import { NextPage } from 'next';
-import SNS from '../components/sns';
+import SNS from '~/components/sns';
 
 const Home: NextPage = () => (
     <Layout>

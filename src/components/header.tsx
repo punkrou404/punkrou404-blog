@@ -1,4 +1,4 @@
-import Linkable from './linkable';
+import Linkable from '~/components/linkable';
 
 const Header = () => (
     <header className="border-b">

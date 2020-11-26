@@ -1,6 +1,6 @@
-import Footer from './footer';
+import Footer from '~/components/footer';
 import Head from 'next/head';
-import Header from './header';
+import Header from '~/components/header';
 import { NextPage } from 'next';
 
 const Layout: NextPage = ({ children }) => (

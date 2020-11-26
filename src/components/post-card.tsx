@@ -1,5 +1,5 @@
-import Date from './date';
-import Topics from './topics';
+import Date from '~/components/date';
+import Topics from '~/components/topics';
 
 const PostCard = ({ props }) => (
     <div className="w-full flex flex-col p-3 text-gray-500">

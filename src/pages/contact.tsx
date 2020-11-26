@@ -1,4 +1,4 @@
-import Layout from '../components/layout';
+import Layout from '~/components/layout';
 import { NextPage } from 'next';
 
 const Contact: NextPage = () => (
