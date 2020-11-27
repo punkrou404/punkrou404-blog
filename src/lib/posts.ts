@@ -32,6 +32,9 @@ const getPostData = async (id: string): Promise<PostContent> => {
         silent: false,
     });
     const contentHtml = marked(matterResult.content);
+    const time2FinishReading = Math.floor(
+        contentHtml.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').length / 500
+    );
 
     return {
         id,
@@ -43,6 +46,7 @@ const getPostData = async (id: string): Promise<PostContent> => {
             topics: string[];
             published: boolean;
         }),
+        time2FinishReading,
     };
 };
 

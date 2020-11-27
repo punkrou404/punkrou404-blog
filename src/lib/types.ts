@@ -14,6 +14,7 @@ export type PostContent = {
     id: string;
     published: boolean;
     title: string;
+    time2FinishReading: number;
     topics: string[];
     type: string;
 };
