@@ -5,7 +5,7 @@ import Topics from '~/components/topics';
 
 const Card = ({ props }: PostMeta) => (
     <Link href={`/posts/${props.id}`} key={props.id}>
-        <div className="w-full flex flex-col p-3 text-gray-500 ">
+        <div className="w-full flex flex-col p-3 text-gray-500">
             <div className="p-4 active:bg-blue-400 hover:bg-blue-300 bg-white rounded-lg shadow-lg flex-1 flex flex-col">
                 <header className="bg-cover">
                     <h3 className="mb-4 text-2xl">{props.title}</h3>
