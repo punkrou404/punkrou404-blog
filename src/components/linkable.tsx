@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Linkable = ({ href, name }) => (
     <Link href={href}>
-        <div className="cursor-pointer p-8 active:bg-blue-500 hover:bg-blue-300 focus:bg-blue-300">
+        <div className="cursor-pointer pr-6 pl-6 active:text-blue-200 hover:text-blue-100 focus:text-blue-100">
             {name}
         </div>
     </Link>

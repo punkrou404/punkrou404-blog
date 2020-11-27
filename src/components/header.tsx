@@ -2,16 +2,14 @@ import Linkable from '~/components/linkable';
 
 const Header = () => (
     <header className="border-b">
-        <nav className="flex items-center justify-between bg-teal-500 p-4">
+        <nav className="bg-blue-300 flex font-semibold items-center justify-between bg-teal-500 py-4 px-16">
             <div className="p-2 flex-row">
-                <div className="font-semibold">@punkrou404</div>
+                <Linkable href="/" name="@punkrou404" />
             </div>
-            <div className="flex flex-row-reverse">
+            <div className="flex flex-row-reverse uppercase">
                 <Linkable href="/contact" name="Contact" />
-                <div className="border-l-2" />
                 <Linkable href="/blog" name="Blog" />
-                <div className="border-l-2" />
-                <Linkable href="/" name="Home" />
+                <Linkable href="/about" name="About" />
             </div>
         </nav>
     </header>

@@ -6,7 +6,7 @@ import { PostMeta } from '~/lib/types';
 
 const Blog: NextPage = ({ allPostData }) => (
     <Layout>
-        <div className="max-h-screen overflow-y-scroll">
+        <div className="">
             {allPostData.map((postMetaData) => (
                 <Card props={postMetaData} key={postMetaData.id} />
             ))}
