@@ -2,12 +2,32 @@ import PostCard from '~/components/post-card';
 import { getAllPostIds, getPostData } from '~/lib/posts';
 import { NextPage } from 'next';
 import { PostContent } from '~/lib/types';
+import { useBreadcrumb } from '~/lib/use-breadcrumb';
 
-const Post: NextPage = ({ postData }) => (
-    <>
-        <PostCard props={postData} />
-    </>
-);
+const Blog: NextPage = ({ postData }) => {
+    useBreadcrumb([
+        {
+            id: 1,
+            text: 'Home',
+            href: '/',
+        },
+        {
+            id: 2,
+            text: 'Blog',
+            href: '/blog',
+        },
+        {
+            id: 3,
+            text: postData.id,
+        },
+    ]);
+
+    return (
+        <>
+            <PostCard props={postData} />
+        </>
+    );
+};
 
 const getStaticPaths = async (): Promise<{
     paths: {
@@ -39,5 +59,5 @@ const getStaticProps = async ({
     };
 };
 
-export default Post;
+export default Blog;
 export { getStaticPaths, getStaticProps };
