@@ -1,9 +1,8 @@
-import Layout from '~/components/layout';
 import { NextPage } from 'next';
 import IconLink from '~/components/icon-link';
 
 const Home: NextPage = () => (
-    <Layout>
+    <>
         <section className="grid grid-cols-6 gap-4 justify-center items-center">
             <div className="col-start-1 col-span-6 h-full ">{/*padding area.*/}</div>
             <div className="col-start-3 col-span-1 place-self-center">
@@ -42,7 +41,7 @@ const Home: NextPage = () => (
             </div>
             <div className="col-start-1 col-span-6">{/*padding area.*/}</div>
         </section>
-    </Layout>
+    </>
 );
 
 export default Home;

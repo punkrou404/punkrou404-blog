@@ -11,6 +11,7 @@ class Document extends NextDocument {
                     />
                     <link rel="shortcut icon" href="/profile.png" key="shortcutIcon" />
                     <link rel="manifest" href="/manifest.json" />
+                    <title>{`punkrou404 blog`}</title>
                 </Head>
                 <Main />
                 <NextScript />

@@ -1,13 +1,12 @@
 import PostCard from '~/components/post-card';
 import { getAllPostIds, getPostData } from '~/lib/posts';
-import Layout from '~/components/layout';
 import { NextPage } from 'next';
 import { PostContent } from '~/lib/types';
 
 const Post: NextPage = ({ postData }) => (
-    <Layout>
+    <>
         <PostCard props={postData} />
-    </Layout>
+    </>
 );
 
 const getStaticPaths = async (): Promise<{
