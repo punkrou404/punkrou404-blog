@@ -1,4 +1,4 @@
-const Main = ({ children }, pageProps) => {
+const Main = ({ children }) => {
     return (
         <main className="grid grid-cols-6 p-5">
             <aside className="col-start-1 col-span-2" />
