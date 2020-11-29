@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 
 module.exports = {
     webpack: (config, { isServer }) => {
@@ -12,5 +13,8 @@ module.exports = {
             '~': path.resolve(__dirname, './src'),
         };
         return config;
+    },
+    env: {
+        access_key: process.env.ACCESS_KEY,
     },
 };
