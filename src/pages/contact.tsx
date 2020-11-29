@@ -24,7 +24,7 @@ const Contact: NextPage = () => {
         honeypot: '',
         message: '',
         replyTo: 'punkrou404@gmail.com',
-        accessKey: process.env.access_key,
+        accessKey: process.env.staticform_access_key,
     });
 
     const [response, setResponse] = useState({
