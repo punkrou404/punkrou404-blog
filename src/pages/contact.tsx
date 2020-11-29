@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Router from 'next/router';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import { useState } from 'react';
 
@@ -17,18 +16,19 @@ const Contact: NextPage = () => {
             text: 'Contact',
         },
     ]);
+
     const [contact, setContact] = useState({
         name: '',
         email: '',
         subject: 'Contact.',
         honeypot: '',
         message: '',
-        replyTo: '@',
+        replyTo: 'punkrou404@gmail.com',
         accessKey: process.env.access_key,
     });
 
     const [response, setResponse] = useState({
-        type: '',
+        isError: true,
         message: '',
     });
 
@@ -46,25 +46,36 @@ const Contact: NextPage = () => {
             const json = await res.json();
 
             if (json.success) {
-                //成功したらsuccessページに飛ぶ
-                Router.push('/success');
+                setResponse({
+                    isError: false,
+                    message: json.message,
+                });
             } else {
                 setResponse({
-                    type: 'error',
+                    isError: true,
                     message: json.message,
                 });
             }
         } catch (e) {
             console.log('An error occurred', e);
             setResponse({
-                type: 'error',
+                isError: true,
                 message: 'An error occured while submitting the form',
             });
         }
     };
     return (
         <div>
-            <p>{response.message}</p>
+            {response.isError ? (
+                <div className="bg-red-400">
+                    <p>{response.message}</p>
+                </div>
+            ) : (
+                <div className="bg-blue-400">
+                    <p>{response.message}</p>
+                </div>
+            )}
+
             <div>
                 <h2>Contact.</h2>
                 <form
@@ -74,7 +85,7 @@ const Contact: NextPage = () => {
                 >
                     <div className="field p-4">
                         <label>Name</label>
-                        <div>
+                        <div className="text-gray-500">
                             <input
                                 type="text"
                                 placeholder="Please enter fullname."
@@ -86,7 +97,7 @@ const Contact: NextPage = () => {
                     </div>
                     <div className="p-4">
                         <label>Mail</label>
-                        <div>
+                        <div className="text-gray-500">
                             <input
                                 type="email"
                                 placeholder="Please enter adress."
@@ -110,7 +121,7 @@ const Contact: NextPage = () => {
                     </div>
                     <div className="p-4">
                         <label>Content</label>
-                        <div>
+                        <div className="text-gray-500">
                             <textarea
                                 placeholder="Your Message."
                                 name="message"
