@@ -34,6 +34,13 @@ const getArticles = async () => {
             })
         );
     }
+
+    allPostData.map((data, index) => {
+        // const contents = decodeURIComponent(escape(atob(data.content)));
+        const buffer = new Buffer(data.content, 'base64');
+        const markdown = buffer.toString("utf-8");
+        datas[index].content = markdown;
+    });
 };
 
 export { getArticles };
