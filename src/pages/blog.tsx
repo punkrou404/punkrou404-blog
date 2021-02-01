@@ -30,7 +30,7 @@ const getStaticProps = async (): Promise<{
         allPostData: Array<PostMeta>;
     };
 }> => {
-    const allPostData = getSortedPostsData();
+    const allPostData = await getSortedPostsData();
     return {
         props: {
             allPostData,

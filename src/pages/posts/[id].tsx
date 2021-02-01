@@ -37,7 +37,7 @@ const getStaticPaths = async (): Promise<{
     }[];
     fallback: boolean;
 }> => {
-    const paths = getAllPostIds();
+    const paths = await getAllPostIds();
     return {
         paths,
         fallback: false,

@@ -1,28 +1,34 @@
-import fs from 'fs';
 import marked from 'marked';
 import highlightjs from 'highlight.js';
-import path from 'path';
 import matter from 'gray-matter';
 import { PostID, PostMeta, PostContent } from '../lib/types';
 
-const postsDirectory = path.join(process.cwd(), 'src/pages/posts');
+const getAllPostIds = async (): PostID[] => {
+    const key = {
+        headers: { 'X-API-KEY': process.env.microcms_access_key },
+    };
 
-const getAllPostIds = (): PostID[] => {
-    const fileNames = fs.readdirSync(postsDirectory);
-    return fileNames.map((fileName) => {
+    const res = await fetch('https://punkrou404.microcms.io/api/v1/blog', key);
+    const body = await res.json();
+    return body.contents.map((content) => {
         return {
             params: {
-                id: fileName.replace(/\.md$/, ''),
+                id: content.id,
             },
         };
     });
 };
 
 const getPostData = async (id: string): Promise<PostContent> => {
-    const fullPath = path.join(postsDirectory, `${id}.md`);
-    const date = fs.statSync(fullPath).mtime.toISOString();
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const matterResult = matter(fileContents);
+    const key = {
+        headers: { 'X-API-KEY': process.env.microcms_access_key },
+    };
+
+    const res = await fetch(`https://punkrou404.microcms.io/api/v1/blog/${id}`, key);
+    const body = await res.json();
+
+    const date = body.createdAt;
+    const matterResult = matter(body.body);
 
     marked.setOptions({
         highlight: (code, lang) => highlightjs.highlightAuto(code, [lang]).value,
@@ -50,42 +56,37 @@ const getPostData = async (id: string): Promise<PostContent> => {
     };
 };
 
-const getSortedPostsData = (): PostMeta[] => {
-    // /posts/ 配下のファイル名を取得
-    const fileNames = fs.readdirSync(postsDirectory);
-    const allPostsData = fileNames
-        // `[id].tsx`を解析対象外にする
-        .filter((fileName) => fileName.endsWith('.md'))
-        .map((fileName) => {
-            // idを取得するために`.md`を削除
-            const id = fileName.replace(/\.md$/, '');
+const getSortedPostsData = async (): PostMeta[] => {
+    const key = {
+        headers: { 'X-API-KEY': process.env.microcms_access_key },
+    };
 
-            // 文字列としてmarkdown読み込む
-            const fullPath = path.join(postsDirectory, fileName);
-            const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const res = await fetch('https://punkrou404.microcms.io/api/v1/blog', key);
+    const body = await res.json();
 
-            // gray-matter を使用してメタデータを取得
-            const matterResult = matter(fileContents);
+    const allPostsData = body.contents.map(content => {
+        // gray-matter を使用してメタデータを取得
+        const matterResult = matter(content.body);
 
-            // 更新日付を取得
-            const date = fs.statSync(fullPath).mtime;
+        // 更新日付を取得
+        const date = new Date(content.createdAt);
 
-            // 本文要約を取得
-            const summary = matterResult.content.substr(0, 200);
+        // 本文要約を取得
+        const summary = matterResult.content.substr(0, 200);
 
-            // idとメタデータを返却
-            return {
-                id,
-                date,
-                summary,
-                ...(matterResult.data as {
-                    title: string;
-                    type: string;
-                    topics: string[];
-                    published: boolean;
-                }),
-            };
-        });
+        // idとメタデータを返却
+        return {
+            id: content.id,
+            date,
+            summary,
+            ...(matterResult.data as {
+                title: string;
+                type: string;
+                topics: string[];
+                published: boolean;
+            }),
+        };
+    });
 
     // 日付でポストをソート
     return allPostsData
