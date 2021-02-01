@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { PostContent } from '~/lib/types';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 
-const Blog: NextPage = ({ postData }) => {
+const Blog: NextPage = ({ postData }: PostContent) => {
     useBreadcrumb([
         {
             id: 1,
@@ -18,7 +18,7 @@ const Blog: NextPage = ({ postData }) => {
         },
         {
             id: 3,
-            text: postData.id,
+            text: postData.title,
         },
     ]);
 
