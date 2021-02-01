@@ -1,6 +1,7 @@
 const MarkdownPreview = ({ content }) => (
     <div className="border">
-        <div className="border" dangerouslySetInnerHTML={{ __html: content }} />
+        <link rel="stylesheet" href="https://sindresorhus.com/github-markdown-css/github-markdown.css"></link>
+        <div className="markdown-body" dangerouslySetInnerHTML={{ __html: content }} />
     </div>
 );
 
