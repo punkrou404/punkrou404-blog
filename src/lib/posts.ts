@@ -3,7 +3,7 @@ import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import { PostID, PostMeta, PostContent } from '../lib/types';
 
-const getAllPostIds = async (): PostID[] => {
+const getAllPostIds = async (): Promise<PostID[]> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
@@ -56,7 +56,7 @@ const getPostData = async (id: string): Promise<PostContent> => {
     };
 };
 
-const getSortedPostsData = async (): PostMeta[] => {
+const getSortedPostsData = async (): Promise<PostMeta[]> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
