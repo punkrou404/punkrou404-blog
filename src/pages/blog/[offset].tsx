@@ -1,11 +1,11 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import React, { useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { Pagination } from '@material-ui/lab';
 import { PostMeta } from '~/lib/types';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
-import { getBlogPagePaths, getSortedPostsData } from '~/lib/posts';
+import { getSortedPostsData } from '~/lib/posts';
 
 const DynamicPage: NextPage<{
     allPostData: {
@@ -15,7 +15,7 @@ const DynamicPage: NextPage<{
     };
 }> = ({ allPostData }) => {
     const router = useRouter();
-    const offset = router.query.offset ? Number.parseInt(String(router.query.offset), 10) : 1;
+    const offset = Number(router.query.offset) || 1;
     useBreadcrumb([
         {
             id: 1,
@@ -39,8 +39,9 @@ const DynamicPage: NextPage<{
         },
         [router]
     );
+
     return (
-        <div className="">
+        <div>
             <Pagination
                 count={Math.ceil(allPostData.totalCount / allPostData.limit)}
                 page={offset}
@@ -58,15 +59,9 @@ const DynamicPage: NextPage<{
     );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const paths = await getBlogPagePaths();
-
-    return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps = async ({
-    params,
-}): Promise<{
+const getServerSideProps = async (
+    params: NextPageContext
+): Promise<{
     props: {
         allPostData: {
             sortedAllPostsData: PostMeta[];
@@ -75,7 +70,7 @@ export const getStaticProps: GetStaticProps = async ({
         };
     };
 }> => {
-    const allPostData = await getSortedPostsData(params);
+    const allPostData = await getSortedPostsData(params.query);
     return {
         props: {
             allPostData,
@@ -84,3 +79,4 @@ export const getStaticProps: GetStaticProps = async ({
 };
 
 export default DynamicPage;
+export { getServerSideProps };

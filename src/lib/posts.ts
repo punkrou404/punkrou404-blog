@@ -5,22 +5,6 @@ import { PostID, PostMeta, PostContent } from '../lib/types';
 
 const ENDPOINT = 'https://punkrou404.microcms.io/api/v1' as const;
 
-const getAllPostIds = async (): Promise<PostID[]> => {
-    const key = {
-        headers: { 'X-API-KEY': process.env.microcms_access_key },
-    };
-
-    const res = await fetch(`${ENDPOINT}/blog?offset=0&limit=5`, key);
-    const body = await res.json();
-    return body.contents.map((content) => {
-        return {
-            params: {
-                id: content.id,
-            },
-        };
-    });
-};
-
 const getPostData = async (id: string): Promise<PostContent> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
@@ -168,4 +152,4 @@ const getBlogPagePaths = async (): Promise<string[]> => {
     return paths;
 };
 
-export { getAllPostIds, getPostData, getSortedPostsData, getProfile, getBlogPagePaths };
+export { getPostData, getSortedPostsData, getProfile, getBlogPagePaths };

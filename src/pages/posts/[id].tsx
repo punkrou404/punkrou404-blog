@@ -1,6 +1,6 @@
 import PostCard from '~/components/post-card';
-import { getAllPostIds, getPostData } from '~/lib/posts';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { getPostData } from '~/lib/posts';
+import { NextPage, NextPageContext } from 'next';
 import { PostContent } from '~/lib/types';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 
@@ -31,22 +31,14 @@ const Blog: NextPage<{
     );
 };
 
-const getStaticPaths: GetStaticPaths = async () => {
-    const paths = await getAllPostIds();
-    return {
-        paths,
-        fallback: false,
-    };
-};
-
-const getStaticProps: GetStaticProps = async ({
-    params,
-}): Promise<{
+const getServerSideProps = async (
+    params: NextPageContext
+): Promise<{
     props: {
         postData: PostContent;
     };
 }> => {
-    const postData = await getPostData(params.id);
+    const postData = await getPostData(params.query.id);
     return {
         props: {
             postData,
@@ -55,4 +47,4 @@ const getStaticProps: GetStaticProps = async ({
 };
 
 export default Blog;
-export { getStaticPaths, getStaticProps };
+export { getServerSideProps };
