@@ -2,7 +2,7 @@ import Linkable from '~/components/linkable';
 
 const Header = () => (
     <header className="border-b">
-        <nav className="bg-blue-300 flex font-semibold items-center justify-between bg-teal-500 py-4 px-16">
+        <nav className="bg-blue-300 flex font-semibold items-center justify-between bg-teal-500 py-4">
             <div className="p-2 flex-row">
                 <Linkable href="/" name="@punkrou404" />
             </div>
