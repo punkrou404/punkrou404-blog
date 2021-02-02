@@ -3,12 +3,14 @@ import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import { PostID, PostMeta, PostContent } from '../lib/types';
 
+const ENDPOINT = 'https://punkrou404.microcms.io/api/v1' as const;
+
 const getAllPostIds = async (): Promise<PostID[]> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch('https://punkrou404.microcms.io/api/v1/blog', key);
+    const res = await fetch(`${ENDPOINT}/blog?offset=0&limit=5`, key);
     const body = await res.json();
     return body.contents.map((content) => {
         return {
@@ -24,7 +26,7 @@ const getPostData = async (id: string): Promise<PostContent> => {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch(`https://punkrou404.microcms.io/api/v1/blog/${id}`, key);
+    const res = await fetch(`${ENDPOINT}/blog/${id}`, key);
     const body = await res.json();
 
     const date = body.createdAt;
@@ -56,15 +58,28 @@ const getPostData = async (id: string): Promise<PostContent> => {
     };
 };
 
-const getSortedPostsData = async (): Promise<PostMeta[]> => {
+const getSortedPostsData = async (
+    params
+): Promise<{
+    sortedAllPostsData: PostMeta[];
+    totalCount: number;
+    limit: number;
+}> => {
+    const offset = params?.offset ? String(params?.offset) : '0';
+
+    const query = {
+        offset: String(Math.ceil(Number.parseInt(offset, 10) - 1) * 3),
+        limit: '3',
+    };
+
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch('https://punkrou404.microcms.io/api/v1/blog', key);
+    const res = await fetch(`${ENDPOINT}/blog?offset=${query.offset}&limit=${query.limit}`, key);
     const body = await res.json();
 
-    const allPostsData = body.contents.map(content => {
+    const allPostsData = body.contents.map((content) => {
         // gray-matter を使用してメタデータを取得
         const matterResult = matter(content.body);
 
@@ -89,7 +104,7 @@ const getSortedPostsData = async (): Promise<PostMeta[]> => {
     });
 
     // 日付でポストをソート
-    return allPostsData
+    const sortedAllPostsData = allPostsData
         .sort((a, b) => {
             if (a.date.getTime() < b.date.getTime()) {
                 return 1;
@@ -110,6 +125,12 @@ const getSortedPostsData = async (): Promise<PostMeta[]> => {
                 date: post.date.toISOString(),
             };
         });
+
+    return {
+        sortedAllPostsData,
+        totalCount: body.totalCount,
+        limit: body.limit,
+    };
 };
 
 const getProfile = async (): Promise<string> => {
@@ -117,7 +138,7 @@ const getProfile = async (): Promise<string> => {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch('https://punkrou404.microcms.io/api/v1/profile', key);
+    const res = await fetch(`${ENDPOINT}/profile`, key);
     const body = await res.json();
     const matterResult = matter(body.contents[0].body);
 
@@ -132,4 +153,19 @@ const getProfile = async (): Promise<string> => {
     return contentHtml;
 };
 
-export { getAllPostIds, getPostData, getSortedPostsData, getProfile };
+const getBlogPagePaths = async (): Promise<string[]> => {
+    const key = {
+        headers: { 'X-API-KEY': process.env.microcms_access_key ?? '' },
+    };
+    const contents = await fetch(`${ENDPOINT}/blog?offset=0&limit=5`, key)
+        .then((res) => res.json())
+        .catch(() => null);
+
+    const paths = [...Array(Math.ceil(contents.totalCount / contents.limit))]
+        .map((_, i) => i + 1)
+        .map((offset) => `/blog/${offset}`);
+
+    return paths;
+};
+
+export { getAllPostIds, getPostData, getSortedPostsData, getProfile, getBlogPagePaths };

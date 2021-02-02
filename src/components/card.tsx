@@ -1,6 +1,5 @@
 import Date from '~/components/date';
 import Link from 'next/link';
-import { PostMeta } from '~/lib/types';
 import Topics from '~/components/topics';
 
 const Card = ({ props }) => (
