@@ -38,7 +38,7 @@ const getServerSideProps = async (
         postData: PostContent;
     };
 }> => {
-    const postData = await getPostData(params.query.id);
+    const postData = await getPostData(params.query.id as string);
     return {
         props: {
             postData,

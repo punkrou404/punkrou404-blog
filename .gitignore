@@ -32,3 +32,4 @@ yarn-error.log*
 # punkrou404-blog
 src/pages/posts/*.md
 .env
+.vscode/
