@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import PageHead from '~/components/page-head';
 
 // Ref: https://code-log.hatenablog.com/entry/2020/01/15/205930
 
@@ -66,6 +67,12 @@ const Contact: NextPage = () => {
     };
     return (
         <div>
+            <PageHead
+                subtitle={`Contact page`}
+                description={`Contact page`}
+                image={``}
+                url={``}
+            ></PageHead>
             {response.isError ? (
                 <div className="bg-red-400">
                     <p>{response.message}</p>

@@ -3,6 +3,8 @@ import { getPostData } from '~/lib/posts';
 import { NextPage, NextPageContext } from 'next';
 import { PostContent } from '~/lib/types';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
+import React from 'react';
+import PageHead from '~/components/page-head';
 
 const Blog: NextPage<{
     postData: PostContent;
@@ -26,6 +28,12 @@ const Blog: NextPage<{
 
     return (
         <>
+            <PageHead
+                subtitle={`${postData.title}`}
+                description={`Blog detail page`}
+                image={``}
+                url={``}
+            ></PageHead>
             <PostCard props={postData} />
         </>
     );

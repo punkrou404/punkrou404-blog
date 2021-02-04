@@ -3,6 +3,8 @@ import { NextPage } from 'next';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import MarkdownPreview from '~/components/markdown-preview';
 import { getProfile } from '~/lib/posts';
+import React from 'react';
+import PageHead from '~/components/page-head';
 
 const About: NextPage<{
     postData: string;
@@ -21,6 +23,12 @@ const About: NextPage<{
 
     return (
         <>
+            <PageHead
+                subtitle={`About page`}
+                description={`About page`}
+                image={``}
+                url={``}
+            ></PageHead>
             <section className="">
                 <div className="py-5">{/* padding area */}</div>
                 <div className="w-32 h-32">

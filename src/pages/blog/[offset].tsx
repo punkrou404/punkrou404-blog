@@ -6,6 +6,7 @@ import { PostMeta } from '~/lib/types';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import { getSortedPostsData } from '~/lib/posts';
+import PageHead from '~/components/page-head';
 
 const DynamicPage: NextPage<{
     allPostData: {
@@ -42,6 +43,12 @@ const DynamicPage: NextPage<{
 
     return (
         <div>
+            <PageHead
+                subtitle={`Blog page.${offset}`}
+                description={`Blog list`}
+                image={``}
+                url={``}
+            ></PageHead>
             <Pagination
                 count={Math.ceil(allPostData.totalCount / allPostData.limit)}
                 page={offset}
