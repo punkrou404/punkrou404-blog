@@ -1,16 +1,14 @@
 import marked from 'marked';
 import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
-import { PostID, PostMeta, PostContent } from '../lib/types';
-
-const ENDPOINT = 'https://punkrou404.microcms.io/api/v1' as const;
+import { PostMeta, PostContent } from '../lib/types';
 
 const getPostData = async (id: string): Promise<PostContent> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch(`${ENDPOINT}/blog/${id}`, key);
+    const res = await fetch(`${process.env.MICROCMS_BASEURL}/blog/${id}`, key);
     const body = await res.json();
 
     const date = body.createdAt;
@@ -60,7 +58,7 @@ const getSortedPostsData = async (
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch(`${ENDPOINT}/blog?offset=${query.offset}&limit=${query.limit}`, key);
+    const res = await fetch(`${process.env.MICROCMS_BASEURL}/blog?offset=${query.offset}&limit=${query.limit}`, key);
     const body = await res.json();
 
     const allPostsData = body.contents.map((content) => {
@@ -122,7 +120,7 @@ const getProfile = async (): Promise<string> => {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch(`${ENDPOINT}/profile`, key);
+    const res = await fetch(`${process.env.MICROCMS_BASEURL}/profile`, key);
     const body = await res.json();
     const matterResult = matter(body.contents[0].body);
 
@@ -141,7 +139,7 @@ const getBlogPagePaths = async (): Promise<string[]> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key ?? '' },
     };
-    const contents = await fetch(`${ENDPOINT}/blog?offset=0&limit=5`, key)
+    const contents = await fetch(`${process.env.MICROCMS_BASEURL}/blog?offset=0&limit=5`, key)
         .then((res) => res.json())
         .catch(() => null);
 
