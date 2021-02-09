@@ -1,22 +1,14 @@
-import { NextPage, NextPageContext } from 'next';
-import React, { useCallback } from 'react';
-import { useRouter } from 'next/router';
-import { Pagination } from '@material-ui/lab';
-import { PostMeta } from '~/lib/types';
+import React from 'react';
+import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
-import { getSortedPostsData } from '~/lib/posts';
 import PageHead from '~/components/page-head';
+import { Content, getBlog, getBlogByQuery } from '~/lib/blog';
 
-const DynamicPage: NextPage<{
-    allPostData: {
-        sortedAllPostsData: PostMeta[];
-        totalCount: number;
-        limit: number;
-    };
-}> = ({ allPostData }) => {
-    const router = useRouter();
-    const offset = Number(router.query.offset) || 1;
+const PER_PAGE = 5;
+const MAX_PAGE = 5;
+
+const BlogOffset = ({ blog, totalCount, offset }): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -34,13 +26,6 @@ const DynamicPage: NextPage<{
         },
     ]);
 
-    const handleChangePage = useCallback(
-        (_: React.ChangeEvent<unknown>, page: number) => {
-            void router.push(`/blog/${page}`);
-        },
-        [router]
-    );
-
     return (
         <div>
             <PageHead
@@ -48,42 +33,50 @@ const DynamicPage: NextPage<{
                 description={`Blog list`}
                 image={``}
                 url={``}
-            ></PageHead>
-            <Pagination
-                count={Math.ceil(allPostData.totalCount / allPostData.limit)}
-                page={offset}
-                onChange={handleChangePage}
             />
-            {allPostData.sortedAllPostsData.map((postMetaData) => (
-                <Card props={postMetaData} key={postMetaData.id} />
+            <Pagination totalCount={totalCount} />
+            {blog.map((content) => (
+                <Card props={content} key={content.id} />
             ))}
-            <Pagination
-                count={Math.ceil(allPostData.totalCount / allPostData.limit)}
-                page={offset}
-                onChange={handleChangePage}
-            />
+            <Pagination totalCount={totalCount} />
         </div>
     );
-};
+}
 
-const getServerSideProps = async (
-    params: NextPageContext
-): Promise<{
+export const getStaticProps = async (context: {
+    params: { offset: any };
+}): Promise<{
     props: {
-        allPostData: {
-            sortedAllPostsData: PostMeta[];
-            totalCount: number;
-            limit: number;
-        };
+        blog: Content[];
+        totalCount: number;
+        offset: any;
     };
 }> => {
-    const allPostData = await getSortedPostsData(params.query);
+    const offset = context.params.offset;
+
+    const body = await getBlogByQuery(offset, PER_PAGE, MAX_PAGE);
+
     return {
         props: {
-            allPostData,
+            blog: body.contents,
+            totalCount: body.totalCount,
+            offset,
         },
     };
 };
 
-export default DynamicPage;
-export { getServerSideProps };
+export const getStaticPaths = async (): Promise<{
+    paths: `/blog/${number}`[];
+    fallback: boolean;
+}> => {
+    const body = await getBlog();
+
+    const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
+
+    const paths = range(1, Math.ceil(body.totalCount / PER_PAGE)).map(
+        (offset) => `/blog/${offset}`
+    );
+
+    return { paths, fallback: false };
+};
+export default BlogOffset;

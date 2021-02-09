@@ -18,11 +18,14 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items, separator = '>' }) => {
             {items
                 .map((item) =>
                     item.href != null ? (
-                        <span className="active:text-blue-100 hover:text-blue-50 focus:text-blue-50">
+                        <span
+                            key={item.text}
+                            className="active:text-blue-100 hover:text-blue-50 focus:text-blue-50"
+                        >
                             <Link href={item.href}>{item.text}</Link>
                         </span>
                     ) : (
-                        <span>{item.text}</span>
+                        <span key={item.text}>{item.text}</span>
                     )
                 )
                 .reduce(

@@ -58,7 +58,13 @@ const getSortedPostsData = async (
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
 
-    const res = await fetch(`${process.env.MICROCMS_BASEURL}/blog?offset=${query.offset}&limit=${query.limit}`, key);
+    const topics = params?.topics ? `&q=${String(params?.topics)}` : '';
+
+    const res = await fetch(
+        `${process.env.MICROCMS_BASEURL}/blog?offset=${query.offset}&limit=${query.limit}${topics}`,
+        key
+    );
+
     const body = await res.json();
 
     const allPostsData = body.contents.map((content) => {
@@ -75,8 +81,8 @@ const getSortedPostsData = async (
         return {
             id: content.id,
             date,
-            summary,
             ...(matterResult.data as {
+                summary: string;
                 title: string;
                 type: string;
                 topics: string[];
