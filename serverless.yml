@@ -1,0 +1,6 @@
+myApp:
+  component: "@sls-next/serverless-component@1.18.0"
+  inputs:
+    bucketName: "serverless-next-punkrou404-blog"
+    name: "serverless-next-func"
+    domain: "happyhotlife.work"

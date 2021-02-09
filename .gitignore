@@ -33,3 +33,5 @@ yarn-error.log*
 src/pages/posts/*.md
 .env
 .vscode/
+.serverless/
+.serverless_nextjs/
