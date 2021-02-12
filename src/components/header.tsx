@@ -9,8 +9,6 @@ const Header = () => (
             <div className="flex flex-row-reverse uppercase">
                 <Linkable href="/contact" name="Contact" />
                 <Linkable href="/blog/1" name="Blog" />
-                <Linkable href="/blog/1?topics=Sauna" name="Sauna" />
-                <Linkable href="/blog/1?topics=Tech" name="Tech" />
                 <Linkable href="/about" name="About" />
             </div>
         </nav>
