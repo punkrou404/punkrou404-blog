@@ -11,7 +11,6 @@ const Card = ({ props }): JSX.Element => {
                         <header className="bg-cover">
                             <h3 className="mb-4 text-2xl">{props.title}</h3>
                             <div className="mb-4 text-grey-darker text-sm flex-1">
-                                {props.date}
                                 <Date dateString={props.createdAt} />
                             </div>
                             <Topics list={props.topics} title={props.title} />

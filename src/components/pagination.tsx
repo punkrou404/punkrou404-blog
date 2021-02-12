@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export const Pagination = ({ totalCount }) => {
+export const Pagination = ({ totalCount }): JSX.Element => {
     const PER_PAGE = 5;
 
     const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);

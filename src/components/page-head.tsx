@@ -8,7 +8,7 @@ interface Props {
     url: string;
 }
 
-export default ({ subtitle, description, image, url }: Props): JSX.Element => {
+const PageHead = ({ subtitle, description, image, url }: Props): JSX.Element => {
     const title = `punkrou404 blog - ${subtitle}`;
     return (
         <Head>
@@ -31,3 +31,5 @@ export default ({ subtitle, description, image, url }: Props): JSX.Element => {
         </Head>
     );
 };
+
+export default PageHead;

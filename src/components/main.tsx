@@ -1,4 +1,4 @@
-const Main = ({ children }) => {
+const Main = ({ children }): JSX.Element => {
     return (
         <main className="p-5 sm:grid sm:grid-cols-6">
             <aside className="sm:col-start-1 sm:col-span-2" />
