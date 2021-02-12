@@ -76,9 +76,9 @@ export const getBlogByID = async (id: string): Promise<GetBlogByIDOutput> => {
         silent: false,
     });
     const contentHtml = marked(matterResult.content);
-    const time2FinishReading = Math.floor(
-        contentHtml.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '').length / 500
-    );
+    const onlyContentString = /<("[^"]*"|'[^']*'|[^'">])*>/g;
+    const time2FinishReading =
+        Math.floor(contentHtml.replace(onlyContentString, '').length / 500) || 1;
 
     return {
         id,
