@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { Content, getBlogByQuery } from '~/lib/blog';
+import { useRouter } from 'next/router';
 
 const Blog = ({ blog, totalCount }): JSX.Element => {
     useBreadcrumb([
@@ -29,7 +30,7 @@ const Blog = ({ blog, totalCount }): JSX.Element => {
             <Pagination totalCount={totalCount} />
         </div>
     );
-}
+};
 
 export const getStaticProps = async (): Promise<{
     props: { blog: Content[]; totalCount: number };

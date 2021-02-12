@@ -8,7 +8,13 @@ import { Content, getBlog, getBlogByQuery } from '~/lib/blog';
 const PER_PAGE = 5;
 const MAX_PAGE = 5;
 
-const BlogOffset = ({ blog, totalCount, offset }): JSX.Element => {
+interface BlogOffsetInput {
+    blog: Content[];
+    totalCount: number;
+    offset: number;
+}
+
+const BlogOffset = ({ blog, totalCount, offset }: BlogOffsetInput): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -41,16 +47,12 @@ const BlogOffset = ({ blog, totalCount, offset }): JSX.Element => {
             <Pagination totalCount={totalCount} />
         </div>
     );
-}
+};
 
 export const getStaticProps = async (context: {
-    params: { offset: any };
+    params: { offset: number };
 }): Promise<{
-    props: {
-        blog: Content[];
-        totalCount: number;
-        offset: any;
-    };
+    props: BlogOffsetInput;
 }> => {
     const offset = context.params.offset;
 
