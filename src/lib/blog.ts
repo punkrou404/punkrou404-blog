@@ -24,6 +24,22 @@ export interface Content {
     published: boolean;
 }
 
+export interface GetBlogByIDOutput {
+    time2FinishReading: number;
+    title: string;
+    type: string;
+    topics: string[];
+    published: boolean;
+    id: string;
+    contentHtml: string;
+    date: string;
+}
+
+export interface GetBlogOutput {
+    contents: Content[];
+    totalCount: number;
+}
+
 const parsedContent = (content: MicrocmsContent) => {
     const matterResult = matter(content.body);
     return {
@@ -42,18 +58,7 @@ const parsedContent = (content: MicrocmsContent) => {
     };
 };
 
-export const getBlogByID = async (
-    id: string
-): Promise<{
-    time2FinishReading: number;
-    title: string;
-    type: string;
-    topics: string[];
-    published: boolean;
-    id: string;
-    contentHtml: string;
-    date: string;
-}> => {
+export const getBlogByID = async (id: string): Promise<GetBlogByIDOutput> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
@@ -89,10 +94,7 @@ export const getBlogByID = async (
     };
 };
 
-export const getBlog = async (): Promise<{
-    contents: Content[];
-    totalCount: number;
-}> => {
+export const getBlog = async (): Promise<GetBlogOutput> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };
@@ -112,10 +114,7 @@ export const getBlogByQuery = async (
     offset: number,
     perPage: number,
     maxPage: number
-): Promise<{
-    contents: Content[];
-    totalCount: number;
-}> => {
+): Promise<GetBlogOutput> => {
     const key = {
         headers: { 'X-API-KEY': process.env.microcms_access_key },
     };

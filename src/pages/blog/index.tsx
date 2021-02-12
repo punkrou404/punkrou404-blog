@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { Content, getBlogByQuery } from '~/lib/blog';
-import { useRouter } from 'next/router';
 
-const Blog = ({ blog, totalCount }): JSX.Element => {
+interface BlogInput {
+    blog: Content[];
+    totalCount: number;
+}
+
+const Blog = ({ blog, totalCount }: BlogInput): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -33,7 +37,7 @@ const Blog = ({ blog, totalCount }): JSX.Element => {
 };
 
 export const getStaticProps = async (): Promise<{
-    props: { blog: Content[]; totalCount: number };
+    props: BlogInput;
 }> => {
     const body = await getBlogByQuery(1, 5, 5);
 

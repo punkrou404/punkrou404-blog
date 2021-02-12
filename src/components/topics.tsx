@@ -1,4 +1,4 @@
-const Topics = ({ list, title }) => {
+const Topics = ({ list, title }): JSX.Element => {
     if (null == list || undefined == list) {
         return <div />;
     }

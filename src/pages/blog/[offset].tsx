@@ -67,8 +67,10 @@ export const getStaticProps = async (context: {
     };
 };
 
+type blogOffsetPaths = `/blog/${number}`;
+
 export const getStaticPaths = async (): Promise<{
-    paths: `/blog/${number}`[];
+    paths: blogOffsetPaths[];
     fallback: boolean;
 }> => {
     const body = await getBlog();
@@ -76,7 +78,7 @@ export const getStaticPaths = async (): Promise<{
     const range = (start, end) => [...Array(end - start + 1)].map((_, i) => start + i);
 
     const paths = range(1, Math.ceil(body.totalCount / PER_PAGE)).map(
-        (offset) => `/blog/${offset}`
+        (offset) => `/blog/${offset}` as blogOffsetPaths
     );
 
     return { paths, fallback: false };

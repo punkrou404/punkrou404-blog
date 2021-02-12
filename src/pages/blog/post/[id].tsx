@@ -2,10 +2,9 @@ import PostCard from '~/components/post-card';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
-import { getBlog, getBlogByID } from '~/lib/blog';
-import { NextPage } from 'next';
+import { getBlog, getBlogByID, GetBlogByIDOutput } from '~/lib/blog';
 
-const BlogPostId: NextPage = ({ content }): JSX.Element => {
+const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -40,16 +39,7 @@ export const getStaticProps = async (context: {
     params: { id: string };
 }): Promise<{
     props: {
-        content: {
-            time2FinishReading: number;
-            title: string;
-            type: string;
-            topics: string[];
-            published: boolean;
-            id: string;
-            contentHtml: string;
-            date: string;
-        };
+        content: GetBlogByIDOutput;
     };
 }> => {
     return {
@@ -59,11 +49,13 @@ export const getStaticProps = async (context: {
     };
 };
 
+type blogPostIDPaths = `/blog/post/${string}`;
+
 export const getStaticPaths = async (): Promise<{
-    paths: `/blog/post/${string}`[];
+    paths: blogPostIDPaths[];
     fallback: boolean;
 }> => {
-    const paths = await (await getBlog()).contents.map((c) => `/blog/post/${c.id}`);
+    const paths = (await getBlog()).contents.map((c) => `/blog/post/${c.id}` as blogPostIDPaths);
     return {
         paths,
         fallback: false,
