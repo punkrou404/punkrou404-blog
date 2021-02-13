@@ -45,7 +45,7 @@ const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
     );
 };
 
-export const getStaticProps = async (context: {
+export const getServerSideProps = async (context: {
     params: { id: string };
 }): Promise<{
     props: {
@@ -65,19 +65,4 @@ export const getStaticProps = async (context: {
     };
 };
 
-type blogPostIDPaths = `/blog/post/${string}`;
-
-export const getStaticPaths = async (): Promise<{
-    paths: blogPostIDPaths[];
-    fallback: boolean;
-}> => {
-    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blogs`, {
-        method: 'GET',
-    });
-    const paths = (await res.json()).contents.map((c) => `/blog/post/${c.id}` as blogPostIDPaths);
-    return {
-        paths,
-        fallback: false,
-    };
-};
 export default BlogPostId;
