@@ -25,7 +25,7 @@ const BlogOffset = ({ blog, totalCount, offset }: BlogOffsetInput): JSX.Element 
         {
             id: 2,
             text: 'Blog',
-            href: `/blog/${String(offset)}`,
+            href: `/blog/1`,
         },
         {
             id: 3,

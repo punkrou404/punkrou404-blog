@@ -11,9 +11,9 @@ const PageLinks = ({ current, start, end, total }) => (
             <a>{`<<`}</a>
         </Link>
         {range(start, end).map((e) => {
-            const style = e == current ? `text-blue-300` : ``;
+            const style = e == current ? `text-blue-400` : ``;
             return (
-                <div key={e} className={style}>
+                <div key={e} className={`active:text-blue-600 hover:bg-blue-300 ${style}`}>
                     <Link href={`/blog/${e}`}>
                         <a>{e}</a>
                     </Link>
