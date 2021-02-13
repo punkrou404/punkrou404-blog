@@ -10,21 +10,16 @@ const PageLinks = ({ current, start, end, total }) => (
         <Link key={START_INDEX} href={`/blog/${START_INDEX}`}>
             <a>{`<<`}</a>
         </Link>
-        {range(start, end)
-            .map((e) => {
-                console.log(e);
-                return e;
-            })
-            .map((e) => {
-                const style = e == current ? `text-blue-300` : ``;
-                return (
-                    <div key={e} className={style}>
-                        <Link href={`/blog/${e}`}>
-                            <a>{e}</a>
-                        </Link>
-                    </div>
-                );
-            })}
+        {range(start, end).map((e) => {
+            const style = e == current ? `text-blue-300` : ``;
+            return (
+                <div key={e} className={style}>
+                    <Link href={`/blog/${e}`}>
+                        <a>{e}</a>
+                    </Link>
+                </div>
+            );
+        })}
         <Link key={total} href={`/blog/${total}`}>
             <a>{`>>`}</a>
         </Link>
