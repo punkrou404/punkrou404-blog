@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { id } from '~/pages/api/blog/id';
-import { initialize } from '~/pages/api/blog/initialize';
-import { offset } from './offset';
+import { blog } from '~/pages/api/blog/blog';
+import { offset } from '~/pages/api/blog/offset';
 
 const Blog = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {
@@ -15,7 +15,7 @@ const Blog = async (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
             return res.status(200).json(result);
         }
 
-        const result = await initialize();
+        const result = await blog();
         return res.status(200).json(result);
     } catch (e) {
         res.status(e.status).json(e.message);

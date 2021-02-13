@@ -14,6 +14,8 @@ interface GetBlogByIDOutput {
     date: string;
 }
 
+type blogIdPaths = `/blog/post/${string}`;
+
 const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
     useBreadcrumb([
         {
@@ -45,7 +47,7 @@ const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
     );
 };
 
-export const getServerSideProps = async (context: {
+export const getStaticProps = async (context: {
     params: { id: string };
 }): Promise<{
     props: {
@@ -53,7 +55,7 @@ export const getServerSideProps = async (context: {
     };
 }> => {
     const res = await fetch(
-        `${process.env.MYDOMAIN_BASEURL}/api/blogs/id?${new URLSearchParams(context.params)}`,
+        `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams(context.params)}`,
         {
             method: 'GET',
         }
@@ -63,6 +65,20 @@ export const getServerSideProps = async (context: {
             content: await res.json(),
         },
     };
+};
+
+export const getStaticPaths = async (): Promise<{
+    paths: blogIdPaths[];
+    fallback: boolean;
+}> => {
+    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog`, {
+        method: 'GET',
+    });
+    const json = await res.json();
+
+    const paths = json.contents.map((c) => `/blog/post/${c.id}` as blogIdPaths);
+
+    return { paths, fallback: false };
 };
 
 export default BlogPostId;

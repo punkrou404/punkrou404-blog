@@ -9,7 +9,11 @@ const PostCard = ({ props }): JSX.Element => {
                 <header className="bg-cover">
                     <h3 className="mb-4 text-2xl">{props.title}</h3>
                     <div className="mb-4 text-sm">
-                        <Date dateString={props.date} />
+                        <Date dateString={props.createdAt} />
+                        {` (created)`}
+                        {` `}
+                        <Date dateString={props.createdAt} />
+                        {` (updated)`}
                     </div>
                     <div className="pb-4 text-sm">
                         このPOSTは約{props.time2FinishReading}分で読めます。

@@ -8,14 +8,14 @@ import { PER_PAGE } from '~/lib/const';
 import { range } from '~/lib/range';
 
 interface BlogOffsetInput {
-    blog: Content[];
+    contents: Content[];
     totalCount: number;
     offset: number;
 }
 
 type blogOffsetPaths = `/blog/${number}`;
 
-const BlogOffset = ({ blog, totalCount, offset }: BlogOffsetInput): JSX.Element => {
+const BlogOffset = ({ contents, totalCount, offset }: BlogOffsetInput): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -42,7 +42,7 @@ const BlogOffset = ({ blog, totalCount, offset }: BlogOffsetInput): JSX.Element 
                 url={``}
             />
             <Pagination current={offset} totalCount={totalCount} />
-            {blog.map((content) => (
+            {contents.map((content) => (
                 <Card props={content} key={content.id} />
             ))}
             <Pagination current={offset} totalCount={totalCount} />
@@ -56,8 +56,13 @@ export const getStaticProps = async (context: {
     props: BlogOffsetInput;
 }> => {
     const offset = context.params.offset;
+    // Dare asynchronous, only once.
+    fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog/init`, {
+        method: 'GET',
+    });
+
     const res = await fetch(
-        `${process.env.MYDOMAIN_BASEURL}/api/blogs?${new URLSearchParams({
+        `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams({
             offset: String(offset),
         })}`,
         {
@@ -68,7 +73,7 @@ export const getStaticProps = async (context: {
 
     return {
         props: {
-            blog: json.contents,
+            contents: json.contents,
             totalCount: json.totalCount,
             offset,
         },
@@ -79,7 +84,7 @@ export const getStaticPaths = async (): Promise<{
     paths: blogOffsetPaths[];
     fallback: boolean;
 }> => {
-    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blogs`, {
+    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog`, {
         method: 'GET',
     });
     const json = await res.json();
