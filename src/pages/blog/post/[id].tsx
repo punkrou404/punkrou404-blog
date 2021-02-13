@@ -2,7 +2,17 @@ import PostCard from '~/components/post-card';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
-import { getBlog, getBlogByID, GetBlogByIDOutput } from '~/lib/blog';
+
+interface GetBlogByIDOutput {
+    time2FinishReading: number;
+    title: string;
+    type: string;
+    topics: string[];
+    published: boolean;
+    id: string;
+    contentHtml: string;
+    date: string;
+}
 
 const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
     useBreadcrumb([
@@ -42,9 +52,15 @@ export const getStaticProps = async (context: {
         content: GetBlogByIDOutput;
     };
 }> => {
+    const res = await fetch(
+        `${process.env.MYDOMAIN_BASEURL}/api/blogs/id?${new URLSearchParams(context.params)}`,
+        {
+            method: 'GET',
+        }
+    );
     return {
         props: {
-            content: await getBlogByID(context.params.id),
+            content: await res.json(),
         },
     };
 };
@@ -55,7 +71,10 @@ export const getStaticPaths = async (): Promise<{
     paths: blogPostIDPaths[];
     fallback: boolean;
 }> => {
-    const paths = (await getBlog()).contents.map((c) => `/blog/post/${c.id}` as blogPostIDPaths);
+    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blogs`, {
+        method: 'GET',
+    });
+    const paths = (await res.json()).contents.map((c) => `/blog/post/${c.id}` as blogPostIDPaths);
     return {
         paths,
         fallback: false,

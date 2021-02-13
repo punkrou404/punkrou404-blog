@@ -3,7 +3,9 @@ import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
-import { Content, getBlogByQuery } from '~/lib/blog';
+import { Content } from '~/pages/api/blogs';
+
+const DEFAULT_OFFSET = 1 as const;
 
 interface BlogInput {
     blog: Content[];
@@ -39,12 +41,20 @@ const Blog = ({ blog, totalCount }: BlogInput): JSX.Element => {
 export const getStaticProps = async (): Promise<{
     props: BlogInput;
 }> => {
-    const body = await getBlogByQuery(1, 5, 5);
+    const res = await fetch(
+        `${process.env.MYDOMAIN_BASEURL}/api/blogs?${new URLSearchParams({
+            offset: String(DEFAULT_OFFSET),
+        })}`,
+        {
+            method: 'GET',
+        }
+    );
+    const json = await res.json();
 
     return {
         props: {
-            blog: body.contents,
-            totalCount: body.totalCount,
+            blog: json.contents,
+            totalCount: json.totalCount,
         },
     };
 };

@@ -47,7 +47,7 @@ const Contact: NextPage = () => {
 
     const onSubmit = async (contact: Contact): Promise<void> => {
         try {
-            const res = await fetch(`/api/contacts`, {
+            const res = await fetch(`/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
