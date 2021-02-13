@@ -24,7 +24,7 @@ const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
         {
             id: 2,
             text: 'Blog',
-            href: '/blog',
+            href: '/blog/1',
         },
         {
             id: 3,
