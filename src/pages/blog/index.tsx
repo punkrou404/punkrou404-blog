@@ -28,11 +28,11 @@ const Blog = ({ blog, totalCount }: BlogInput): JSX.Element => {
     return (
         <div>
             <PageHead subtitle={`Blog page`} description={`Blog list`} image={``} url={``} />
-            <Pagination totalCount={totalCount} />
+            <Pagination current={DEFAULT_OFFSET} totalCount={totalCount} />
             {blog.map((content) => (
                 <Card props={content} key={content.id} />
             ))}
-            <Pagination totalCount={totalCount} />
+            <Pagination current={DEFAULT_OFFSET} totalCount={totalCount} />
         </div>
     );
 };

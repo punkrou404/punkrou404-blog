@@ -41,11 +41,11 @@ const BlogOffset = ({ blog, totalCount, offset }: BlogOffsetInput): JSX.Element 
                 image={``}
                 url={``}
             />
-            <Pagination totalCount={totalCount} />
+            <Pagination current={offset} totalCount={totalCount} />
             {blog.map((content) => (
                 <Card props={content} key={content.id} />
             ))}
-            <Pagination totalCount={totalCount} />
+            <Pagination current={offset} totalCount={totalCount} />
         </div>
     );
 };
