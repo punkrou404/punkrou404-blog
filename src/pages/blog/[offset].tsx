@@ -4,8 +4,7 @@ import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { Content } from '~/pages/api/blogs';
-
-const PER_PAGE = 5;
+import { PER_PAGE } from '~/lib/const';
 
 interface BlogOffsetInput {
     blog: Content[];

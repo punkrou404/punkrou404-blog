@@ -1,8 +1,6 @@
 import matter from 'gray-matter';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const PER_PAGE = 5 as const;
-const MAX_PAGE = 5 as const;
+import { MAX_PAGE, PER_PAGE } from '~/lib/const';
 
 interface MicrocmsContent {
     id: string;
