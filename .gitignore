@@ -35,3 +35,4 @@ src/pages/posts/*.md
 .vscode/
 .serverless/
 .serverless_nextjs/
+posts/*.md
