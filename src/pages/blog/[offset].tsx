@@ -5,6 +5,7 @@ import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { Content } from '~/pages/api/blogs';
 import { PER_PAGE } from '~/lib/const';
+import { range } from '~/lib/range';
 
 interface BlogOffsetInput {
     blog: Content[];
@@ -13,16 +14,6 @@ interface BlogOffsetInput {
 }
 
 type blogOffsetPaths = `/blog/${number}`;
-
-/**
- * Returns an array of serial numbers of integer values ​​starting with START and ending with END
- * @param {number} start
- * @param {number} end
- * @returns {number[]} serial numbers
- */
-const range = (start, end) => {
-    return [...Array(end - start + 1)].map((_, i) => start + i);
-};
 
 const BlogOffset = ({ blog, totalCount, offset }: BlogOffsetInput): JSX.Element => {
     useBreadcrumb([
