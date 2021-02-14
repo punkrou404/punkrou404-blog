@@ -5,6 +5,7 @@ import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { PER_PAGE } from '~/lib/const';
 import { range } from '~/lib/range';
+import SearchInput from '~/components/search-input';
 
 interface BlogOffsetInput {
     contents: ({ id: string; summary: string } & { [key: string]: any })[];
@@ -40,6 +41,7 @@ const BlogOffset = ({ contents, totalCount, offset }: BlogOffsetInput): JSX.Elem
                 image={``}
                 url={``}
             />
+            <SearchInput />
             <Pagination current={offset} totalCount={totalCount} />
             {contents.map((content) => (
                 <Card props={content} key={content.id} />

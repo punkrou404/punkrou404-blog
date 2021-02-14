@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { NextPageContext } from 'next';
+import SearchInput from '~/components/search-input';
 
 const BlogSearch = ({ contents, totalCount, keyword }): JSX.Element => {
     useBreadcrumb([
@@ -30,6 +31,7 @@ const BlogSearch = ({ contents, totalCount, keyword }): JSX.Element => {
                 image={``}
                 url={``}
             />
+            <SearchInput />
             <div className="text-blue-500">
                 {`Blog page. search for "${String(keyword)}". ${totalCount} hits.`}
             </div>

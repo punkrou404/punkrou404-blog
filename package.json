@@ -15,6 +15,7 @@
   "devDependencies": {
     "@hookform/resolvers": "1.3.0 because of https://github.com/react-hook-form/resolvers/issues/100",
     "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@serverless/aws-cloudfront": "^6.0.0",
     "@serverless/aws-lambda": "^3.0.3",
