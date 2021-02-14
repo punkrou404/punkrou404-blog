@@ -22,7 +22,3 @@ export type BlogError = {
     status: number;
     message: string;
 };
-
-export type InputBlogId = {
-    id: string;
-};

@@ -6,13 +6,19 @@ import fs from 'fs';
 import { POSTS_PATH } from '~/pages/api/const';
 import { BlogError, ContentHeader } from '~/pages/api/types';
 
-interface OutputBody extends ContentHeader {
+interface InputSelectBlogById {
+    id: string | string[];
+}
+
+interface OutputSelectBlogById extends ContentHeader {
     id: string;
     contentHtml: string;
     time2FinishReading: number;
 }
 
-export const id = async (id: string | string[]): Promise<OutputBody> => {
+export const selectBlogById = async ({
+    id,
+}: InputSelectBlogById): Promise<OutputSelectBlogById> => {
     console.log(`[getBlogByID] start`);
     console.log(`[getBlogByID]Query parameter validation start`);
 
@@ -58,7 +64,7 @@ export const id = async (id: string | string[]): Promise<OutputBody> => {
             time2FinishReading,
         },
         matterResult.data
-    ) as OutputBody;
+    ) as OutputSelectBlogById;
 
     console.log(`[getBlogByID]Response setting end`);
     console.log(`[getBlogByID] end`);

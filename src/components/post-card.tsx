@@ -12,7 +12,7 @@ const PostCard = ({ props }): JSX.Element => {
                         <Date dateString={props.createdAt} />
                         {` (created)`}
                         {` `}
-                        <Date dateString={props.createdAt} />
+                        <Date dateString={props.updatedAt} />
                         {` (updated)`}
                     </div>
                     <div className="pb-4 text-sm">

@@ -4,16 +4,22 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-export const offset = async (
-    offset: string | string[]
-): Promise<{
+interface InputFindBlogByOffset {
+    offset: string | string[];
+}
+
+interface OutputFindBlogByOffset {
     contents: ({ id: string; summary: string } & { [key: string]: any })[];
     totalCount: number;
-}> => {
-    console.log(`[offset] start`);
-    console.log(`[offset]Query parameter validation start`);
+}
 
-    console.log(`[offset] offset=${offset}`);
+export const findBlogByOffset = async ({
+    offset,
+}: InputFindBlogByOffset): Promise<OutputFindBlogByOffset> => {
+    console.log(`[findBlogByOffset] start`);
+    console.log(`[findBlogByOffset]Query parameter validation start`);
+
+    console.log(`[findBlogByOffset] offset=${offset}`);
     const postIndex = Number(offset) - 1;
     if (isNaN(postIndex) || postIndex < 0) {
         throw {
@@ -22,8 +28,8 @@ export const offset = async (
         } as BlogError;
     }
 
-    console.log(`[offset]Query parameter validation end`);
-    console.log(`[offset]Get metadata to display on the page start`);
+    console.log(`[findBlogByOffset]Query parameter validation end`);
+    console.log(`[findBlogByOffset]Get metadata to display on the page start`);
 
     const end = MAX_DISPLAY_POST + postIndex;
     const fileNames = fs.readdirSync(POSTS_PATH).filter((e) => /\.md$/.test(e));
@@ -46,8 +52,8 @@ export const offset = async (
             return res;
         });
 
-    console.log(`[offset]Get metadata to display on the page end`);
-    console.log(`[offset] end`);
+    console.log(`[findBlogByOffset]Get metadata to display on the page end`);
+    console.log(`[findBlogByOffset] end`);
 
     return {
         contents,

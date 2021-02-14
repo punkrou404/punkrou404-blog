@@ -3,12 +3,14 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-export const blog = async (): Promise<{
+interface OutputFindAllBlog {
     contents: ({ id: string; summary: string } & { [key: string]: any })[];
     totalCount: number;
-}> => {
-    console.log(`[blog] start`);
-    console.log(`[blog]Get metadata to display on the page start`);
+}
+
+export const findAllBlog = async (): Promise<OutputFindAllBlog> => {
+    console.log(`[findAllBlog] start`);
+    console.log(`[findAllBlog]Get metadata to display on the page start`);
 
     const fileNames = fs.readdirSync(POSTS_PATH).filter((e) => /\.md$/.test(e));
     const totalCount = fileNames.length;
@@ -28,8 +30,8 @@ export const blog = async (): Promise<{
         return res;
     });
 
-    console.log(`[blog]Get metadata to display on the page end`);
-    console.log(`[blog] end`);
+    console.log(`[findAllBlog]Get metadata to display on the page end`);
+    console.log(`[findAllBlog] end`);
 
     return {
         contents,

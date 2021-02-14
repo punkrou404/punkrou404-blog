@@ -4,12 +4,12 @@ import { DOWNLOAD_POST_LIMIT, POSTS_PATH } from '~/pages/api/const';
 import matter from 'gray-matter';
 import { BlogError, ContentHeader, MicrocmsContent } from '~/pages/api/types';
 
-interface OutputBody {
+interface OutputInitialize {
     totalCount: number;
     totalPageCount: number;
 }
 
-export const initialize = async (): Promise<OutputBody> => {
+export const initialize = async (): Promise<OutputInitialize> => {
     console.log(`[initialize] start`);
     console.log(`[initialize]First API access start`);
 
@@ -79,7 +79,7 @@ export const initialize = async (): Promise<OutputBody> => {
     const res = {
         totalCount,
         totalPageCount,
-    } as OutputBody;
+    } as OutputInitialize;
 
     console.log(`[initialize]Response setting end`);
     console.log(`[initialize] end`);
