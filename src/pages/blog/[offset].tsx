@@ -3,12 +3,11 @@ import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
-import { Content } from '~/pages/api/blogs';
 import { PER_PAGE } from '~/lib/const';
 import { range } from '~/lib/range';
 
 interface BlogOffsetInput {
-    contents: Content[];
+    contents: ({ id: string; summary: string } & { [key: string]: any })[];
     totalCount: number;
     offset: number;
 }
