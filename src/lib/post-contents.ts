@@ -21,7 +21,8 @@ export const getSources = (): OutputGetSource[] => {
                 id,
                 fileContent,
             };
-        });
+        })
+        .sort();
 };
 
 export const getContentsByMarkdownFile = (sources: OutputGetSource[]): Content[] => {

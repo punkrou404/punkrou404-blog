@@ -66,7 +66,7 @@ export const getStaticProps = async (context: {
 
     const res = await fetch(
         `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams({
-            offset: String(offset),
+            pageOffset: String(offset),
         })}`,
         {
             method: 'GET',

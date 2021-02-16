@@ -27,7 +27,7 @@ const PageLinks = ({ current, start, end, total }) => (
 );
 
 export const Pagination = ({ current, totalCount }): JSX.Element => {
-    const lastIndex = Math.ceil(totalCount / PER_PAGE) - 1;
+    const lastIndex = Math.ceil(totalCount / PER_PAGE);
 
     if (current <= COUNT - START_INDEX)
         return (

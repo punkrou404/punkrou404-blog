@@ -4,7 +4,7 @@ import { getContentsByMarkdownFile, getSources } from '~/lib/post-contents';
 import { Content } from '~/pages/api/types';
 
 interface InputFindBlogByOffset {
-    offset: string | string[];
+    pageOffset: string | string[];
 }
 
 interface OutputFindBlogByOffset {
@@ -14,14 +14,14 @@ interface OutputFindBlogByOffset {
 }
 
 export const findBlogByOffset = async ({
-    offset,
+    pageOffset,
 }: InputFindBlogByOffset): Promise<OutputFindBlogByOffset> => {
     console.log(`[findBlogByOffset] start`);
     console.log(`[findBlogByOffset]Query parameter validation start`);
 
-    console.log(`[findBlogByOffset] offset=${offset}`);
-    const postIndex = Number(offset) - 1;
-    if (isNaN(postIndex) || postIndex < 0) {
+    console.log(`[findBlogByOffset] pageOffset=${pageOffset}`);
+    const pageOffsetNumber = Number(pageOffset) - 1;
+    if (isNaN(pageOffsetNumber) || pageOffsetNumber < 0) {
         throw {
             status: 400,
             message: `Bad Request. "offset" is a positive integer.`,
@@ -31,7 +31,6 @@ export const findBlogByOffset = async ({
     console.log(`[findBlogByOffset]Query parameter validation end`);
     console.log(`[findBlogByOffset]Get sources start`);
 
-    const end = MAX_DISPLAY_POST + postIndex;
     const sources = getSources();
     const totalCount = sources.length;
     const hitCount = sources.length;
@@ -39,7 +38,10 @@ export const findBlogByOffset = async ({
     console.log(`[findBlogByOffset]Get sources end`);
     console.log(`[findBlogByOffset]Filtered contents start`);
 
-    const filteredSources = sources.filter((_, i) => postIndex <= i && i < end);
+    const start = MAX_DISPLAY_POST * pageOffsetNumber;
+    const end = MAX_DISPLAY_POST * pageOffsetNumber + MAX_DISPLAY_POST;
+    console.log(`[findBlogByOffset]Page index start: ${start}    end: ${end}`);
+    const filteredSources = sources.filter((_, i) => start <= i && i < end);
 
     console.log(`[findBlogByOffset]Filtered contents end`);
     console.log(`[findBlogByOffset]Get metadata to display on the page start`);
