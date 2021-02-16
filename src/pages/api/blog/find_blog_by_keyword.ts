@@ -1,17 +1,16 @@
 import { BlogError } from '~/pages/api/types';
-import { POSTS_PATH } from '~/pages/api/const';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import { getSearchWords } from '~/lib/keyword';
+import { getContentsByMarkdownFile, getSources } from '~/lib/post-contents';
+import { Content } from '~/pages/api/types';
 
 interface InputFindBlogByKeyword {
     keyword: string | string[];
 }
 
 interface OutputFindBlogByKeyword {
-    contents: ({ id: string; summary: string } & { [key: string]: any })[];
+    contents: Content[];
     totalCount: number;
+    hitCount: number;
 }
 
 export const findBlogByKeyword = async ({
@@ -28,44 +27,24 @@ export const findBlogByKeyword = async ({
     }
 
     console.log(`[findBlogByKeyword]Query parameter validation end`);
-    console.log(`[findBlogByKeyword]Get metadata to display on the page start`);
+    console.log(`[findBlogByKeyword]Get sources start`);
 
     const keywords = getSearchWords(String(keyword));
-    const contents = fs
-        .readdirSync(POSTS_PATH)
-        .filter((e) => /\.md$/.test(e))
-        .map((e) => {
-            const fileContent = fs.readFileSync(path.join(POSTS_PATH, e));
-            const id = e.replace(/\.md$/, '');
-            return {
-                fileContent,
-                id,
-            };
-        })
-        .filter(
-            (e) =>
-                keywords
-                    // .map((k) => {
-                    //     console.log(k);
-                    //     return k;
-                    // })
-                    .map((keyword) => matter(e.fileContent).content.indexOf(`${keyword}`))
-                    .indexOf(-1) === -1
-        )
-        .map((e) => {
-            const matterResult = matter(e.fileContent);
-            const summary = matterResult.content.substr(0, 200);
-            const id = e.id;
-            const res = Object.assign(
-                {
-                    id,
-                    summary,
-                },
-                matterResult.data
-            );
-            return res;
-        });
-    const totalCount = contents.length;
+    const sources = getSources();
+    const totalCount = sources.length;
+
+    console.log(`[findBlogByKeyword]Get sources end`);
+    console.log(`[findBlogByKeyword]Filtered contents start`);
+
+    const filteredSources = sources.filter((content) => {
+        return !keywords.map((keyword) => content.fileContent.indexOf(`${keyword}`)).includes(-1);
+    });
+    const hitCount = filteredSources.length;
+
+    console.log(`[findBlogByKeyword]Filtered contents end`);
+    console.log(`[findBlogByKeyword]Get metadata to display on the page start`);
+
+    const contents = getContentsByMarkdownFile(filteredSources);
 
     console.log(`[findBlogByKeyword]Get metadata to display on the page end`);
     console.log(`[findBlogByKeyword] end`);
@@ -73,5 +52,6 @@ export const findBlogByKeyword = async ({
     return {
         contents,
         totalCount,
+        hitCount,
     };
 };

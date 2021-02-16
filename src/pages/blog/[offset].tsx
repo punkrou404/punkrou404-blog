@@ -74,10 +74,13 @@ export const getStaticProps = async (context: {
     );
     const json = await res.json();
 
+    const contents = json.contents;
+    const totalCount = json.totalCount;
+
     return {
         props: {
-            contents: json.contents,
-            totalCount: json.totalCount,
+            contents,
+            totalCount,
             offset,
         },
     };

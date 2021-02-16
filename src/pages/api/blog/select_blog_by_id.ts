@@ -4,13 +4,13 @@ import marked from 'marked';
 import path from 'path';
 import fs from 'fs';
 import { POSTS_PATH } from '~/pages/api/const';
-import { BlogError, ContentHeader } from '~/pages/api/types';
+import { BlogError } from '~/pages/api/types';
 
 interface InputSelectBlogById {
     id: string | string[];
 }
 
-interface OutputSelectBlogById extends ContentHeader {
+interface OutputSelectBlogById {
     id: string;
     contentHtml: string;
     time2FinishReading: number;

@@ -1,16 +1,16 @@
 import { BlogError } from '~/pages/api/types';
-import { MAX_DIPLAY_POST as MAX_DISPLAY_POST, POSTS_PATH } from '~/pages/api/const';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { MAX_DISPLAY_POST } from '~/pages/api/const';
+import { getContentsByMarkdownFile, getSources } from '~/lib/post-contents';
+import { Content } from '~/pages/api/types';
 
 interface InputFindBlogByOffset {
     offset: string | string[];
 }
 
 interface OutputFindBlogByOffset {
-    contents: ({ id: string; summary: string } & { [key: string]: any })[];
+    contents: Content[];
     totalCount: number;
+    hitCount: number;
 }
 
 export const findBlogByOffset = async ({
@@ -29,28 +29,22 @@ export const findBlogByOffset = async ({
     }
 
     console.log(`[findBlogByOffset]Query parameter validation end`);
-    console.log(`[findBlogByOffset]Get metadata to display on the page start`);
+    console.log(`[findBlogByOffset]Get sources start`);
 
     const end = MAX_DISPLAY_POST + postIndex;
-    const fileNames = fs.readdirSync(POSTS_PATH).filter((e) => /\.md$/.test(e));
-    const totalCount = fileNames.length;
-    const contents = fileNames
-        .filter((_, i) => postIndex <= i && i < end)
-        .map((e) => {
-            const fullPath = path.join(POSTS_PATH, e);
-            const postContent = fs.readFileSync(fullPath);
-            const matterResult = matter(postContent);
-            const id = e.replace(/\.md$/, '');
-            const summary = matterResult.content.substr(0, 200);
-            const res = Object.assign(
-                {
-                    id,
-                    summary,
-                },
-                matterResult.data
-            );
-            return res;
-        });
+    const sources = getSources();
+    const totalCount = sources.length;
+    const hitCount = sources.length;
+
+    console.log(`[findBlogByOffset]Get sources end`);
+    console.log(`[findBlogByOffset]Filtered contents start`);
+
+    const filteredSources = sources.filter((_, i) => postIndex <= i && i < end);
+
+    console.log(`[findBlogByOffset]Filtered contents end`);
+    console.log(`[findBlogByOffset]Get metadata to display on the page start`);
+
+    const contents = getContentsByMarkdownFile(filteredSources);
 
     console.log(`[findBlogByOffset]Get metadata to display on the page end`);
     console.log(`[findBlogByOffset] end`);
@@ -58,5 +52,6 @@ export const findBlogByOffset = async ({
     return {
         contents,
         totalCount,
+        hitCount,
     };
 };

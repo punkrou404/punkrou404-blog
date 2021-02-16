@@ -5,7 +5,7 @@ import PageHead from '~/components/page-head';
 import { NextPageContext } from 'next';
 import SearchInput from '~/components/search-input';
 
-const BlogSearch = ({ contents, totalCount, keyword }): JSX.Element => {
+const BlogSearch = ({ contents, hitCount, keyword }): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -33,7 +33,7 @@ const BlogSearch = ({ contents, totalCount, keyword }): JSX.Element => {
             />
             <SearchInput />
             <div className="text-blue-500">
-                {`Blog page. search for "${String(keyword)}". ${totalCount} hits.`}
+                {`Blog page. search for "${String(keyword)}". ${hitCount} hits.`}
             </div>
             {contents.map((content) => (
                 <Card props={content} key={content.id} />
@@ -53,12 +53,16 @@ export const getServerSideProps = async (params: NextPageContext) => {
         }
     );
     const json = await res.json();
-    const totalCount = json.contents.length;
+
+    const contents = json.contents;
+    const totalCount = json.totalCount;
+    const hitCount = json.hitCount;
 
     return {
         props: {
-            contents: json.contents,
-            totalCount: totalCount,
+            contents,
+            totalCount,
+            hitCount,
             keyword,
         },
     };
