@@ -46,7 +46,7 @@ const Contact: NextPage = (): JSX.Element => {
 
     const onSubmit = async (contact: Contact): Promise<void> => {
         try {
-            const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/contact`, {
+            const res = await fetch(`/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
@@ -54,7 +54,7 @@ const Contact: NextPage = (): JSX.Element => {
                 body: JSON.stringify(contact),
             });
 
-            if (!res.ok) {
+            if (res.status !== 200) {
                 throw Error(`${res.status} ${res.statusText}`);
             }
 
