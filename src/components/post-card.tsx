@@ -1,7 +1,9 @@
 import Date from '~/components/date';
 import MarkdownPreview from '~/components/markdown-preview';
 import Topics from '~/components/topics';
+import DeprecationAlert from '~/components/deprecation_alert';
 import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
+import { Alert } from '@material-ui/lab';
 
 type PostCardProps = {
     props: OutputSelectBlogById;
@@ -14,14 +16,18 @@ const PostCard = ({ props }: PostCardProps): JSX.Element => {
                 <header className="bg-cover">
                     <h3 className="mb-4 text-2xl">{props.title}</h3>
                     <div className="mb-4 text-sm">
+                        <DeprecationAlert props={props} />
+                    </div>
+                    <div className="mb-4 text-sm">
+                        {`作成: `}
                         <Date dateString={props.createdAt} />
-                        {` (created)`}
-                        {` `}
+                    </div>
+                    <div className="mb-4 text-sm">
+                        {`更新: `}
                         <Date dateString={props.updatedAt} />
-                        {` (updated)`}
                     </div>
                     <div className="pb-4 text-sm">
-                        このPOSTは約{props.time2FinishReading}分で読めます。
+                        <Alert severity="info">{`このPOSTは約${props.time2FinishReading}分で読めます。`}</Alert>
                     </div>
                     <div>
                         <Topics list={props.topics} title={props.title} />
