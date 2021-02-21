@@ -14,7 +14,7 @@ interface Contact {
     body: string;
 }
 
-const Contact: NextPage = () => {
+const Contact: NextPage = (): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -29,25 +29,24 @@ const Contact: NextPage = () => {
 
     const router = useRouter();
 
-    const validationSchema = Yup.object().shape({
+    const input = {
         name: Yup.string()
             .nullable()
             .max(64, 'It is too long!!!!!!')
             .required('名前は必須項目です'),
         email: Yup.string()
-            .nullable()
             .max(256, 'It is too long!!!!!!')
-            .email('正しいメールアドレスではありません')
-            .required('メールアドレスは必須です'),
+            .email('正しいメールアドレスではありません'),
         body: Yup.string()
             .nullable()
             .max(1024, 'It is too long!!!!!!')
             .required('お問い合わせ内容は必須です。'),
-    });
+    };
+    const validationSchema = Yup.object().shape(input);
 
     const onSubmit = async (contact: Contact): Promise<void> => {
         try {
-            const res = await fetch(`/api/contact`, {
+            const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
@@ -66,7 +65,7 @@ const Contact: NextPage = () => {
         }
     };
 
-    const { control, handleSubmit, errors } = useForm<Contact>({
+    const { control, handleSubmit, errors } = useForm({
         mode: 'onBlur',
         resolver: yupResolver(validationSchema),
     });

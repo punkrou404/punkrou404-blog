@@ -1,8 +1,13 @@
 import Date from '~/components/date';
 import Link from 'next/link';
 import Topics from '~/components/topics';
+import { Post } from '~/pages/api/types';
 
-const Card = ({ props }): JSX.Element => {
+type CardProps = {
+    props: Post;
+};
+
+const Card = ({ props }: CardProps): JSX.Element => {
     return (
         <Link href={`/blog/post/${props.id}`} key={props.id}>
             <div className="w-full flex flex-col p-3 text-gray-500">

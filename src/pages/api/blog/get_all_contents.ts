@@ -1,17 +1,15 @@
 import { DOWNLOAD_POST_LIMIT } from '~/pages/api/const';
 import matter from 'gray-matter';
-import { Content, MicrocmsContent } from '~/pages/api/types';
+import { Post, MicrocmsReq } from '~/pages/api/types';
+import { MICROCMS_GET_HEADER } from '~/lib/const';
 
-export const getAllContents = async (): Promise<Content[]> => {
+export const getAllContents = async (): Promise<Post[]> => {
     console.log(`[getAllContents] start`);
     console.log(`[getAllContents]Get Total PostCount API access start`);
 
-    const header = {
-        headers: { 'X-API-KEY': process.env.microcms_access_key },
-    };
     const firstUrls = `${process.env.MICROCMS_BASEURL}/blog`;
 
-    const firstRes = await fetch(firstUrls, header);
+    const firstRes = await fetch(firstUrls, MICROCMS_GET_HEADER);
     const json = await firstRes.json();
     const totalCount = json.totalCount;
 
@@ -34,11 +32,14 @@ export const getAllContents = async (): Promise<Content[]> => {
             const urls = `${process.env.MICROCMS_BASEURL}/blog?${query}`;
 
             console.log(`[getAllContents]API urls: ${urls}`);
-            const result = await fetch(urls, header);
+            const result = await fetch(urls, MICROCMS_GET_HEADER);
             const json = await result.json();
-            return json.contents as MicrocmsContent[];
+            return json.contents as MicrocmsReq[];
         })
-        .reduce(async (c, p): Promise<MicrocmsContent[]> => (await c).concat(p));
+        .reduce(
+            async (c: Promise<MicrocmsReq[]>, p: Promise<MicrocmsReq[]>): Promise<MicrocmsReq[]> =>
+                (await c).concat(await p)
+        );
 
     console.log(`[getAllContents]Get All Post API access end`);
     console.log(`[getAllContents]Convert post types start`);
@@ -60,7 +61,7 @@ export const getAllContents = async (): Promise<Content[]> => {
             updatedAt,
             publishedAt,
             revisedAt,
-        } as Content;
+        } as Post;
     });
 
     console.log(`[getAllContents]Convert post types end`);

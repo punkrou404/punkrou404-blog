@@ -1,16 +1,14 @@
 import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import marked from 'marked';
-import { BlogError, ContentHeader, MicrocmsContentHeader } from '~/pages/api/types';
+import { BlogError, PostHeader, MicrocmsReqHeader, PostDetail } from '~/pages/api/types';
+import { MICROCMS_GET_HEADER } from '~/lib/const';
 
 interface InputSelectBlogById {
     id: string | string[];
 }
 
-interface OutputSelectBlogById extends ContentHeader {
-    contentHtml: string;
-    time2FinishReading: number;
-}
+export interface OutputSelectBlogById extends PostHeader, MicrocmsReqHeader, PostDetail {}
 
 export const selectBlogById = async ({
     id,
@@ -27,13 +25,9 @@ export const selectBlogById = async ({
 
     console.log(`[getBlogByID]Query parameter validation end`);
     console.log(`[getBlogByID]Get content by id start`);
-
-    const header = {
-        headers: { 'X-API-KEY': process.env.microcms_access_key },
-    };
     const urls = `${process.env.MICROCMS_BASEURL}/blog/${id}`;
     console.log(`[getBlogByID]API urls: ${urls}`);
-    const result = await fetch(urls, header);
+    const result = await fetch(urls, MICROCMS_GET_HEADER);
     const json = await result.json();
 
     console.log(`[getBlogByID]Get content by id end`);
@@ -64,8 +58,8 @@ export const selectBlogById = async ({
             contentHtml,
             time2FinishReading,
         },
-        json as MicrocmsContentHeader,
-        matterResult.data as ContentHeader
+        json as MicrocmsReqHeader,
+        matterResult.data as PostHeader
     );
 
     console.log(`[getBlogByID]Response setting end`);

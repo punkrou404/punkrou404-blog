@@ -1,4 +1,9 @@
-const IconLink = ({ href, data }): JSX.Element => {
+type IconLinkProps = {
+    href: string;
+    data: string;
+};
+
+const IconLink = ({ href, data }: IconLinkProps): JSX.Element => {
     return (
         <div className="">
             <a className="block" href={href} target="_blank" rel="noreferrer">

@@ -1,8 +1,8 @@
-import { Content } from '~/pages/api/types';
+import { Post } from '~/pages/api/types';
 import { getAllContents } from './get_all_contents';
 
 interface OutputFindAllBlog {
-    contents: Content[];
+    contents: Post[];
     totalCount: number;
     hitCount: number;
 }

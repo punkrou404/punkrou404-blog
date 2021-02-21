@@ -5,7 +5,19 @@ import { range } from '~/lib/range';
 const START_INDEX = 1 as const;
 const COUNT = 4 as const;
 
-const PageLinks = ({ current, start, end, total }) => (
+type PageLinksProps = {
+    current: number;
+    start: number;
+    end: number;
+    total: number;
+};
+
+type PaginationProps = {
+    current: number;
+    totalCount: number;
+};
+
+const PageLinks = ({ current, start, end, total }: PageLinksProps) => (
     <nav className="flex justify-evenly w-full pt-4">
         <Link key={START_INDEX} href={`/blog/${START_INDEX}`}>
             <a>{`<<`}</a>
@@ -26,7 +38,7 @@ const PageLinks = ({ current, start, end, total }) => (
     </nav>
 );
 
-export const Pagination = ({ current, totalCount }): JSX.Element => {
+export const Pagination = ({ current, totalCount }: PaginationProps): JSX.Element => {
     const lastIndex = Math.ceil(totalCount / PER_PAGE);
 
     if (current <= COUNT - START_INDEX)

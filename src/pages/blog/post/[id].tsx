@@ -2,16 +2,16 @@ import PostCard from '~/components/post-card';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
-import { ContentHeader, MicrocmsContentHeader } from '~/pages/api/types';
+import { Post } from '~/pages/api/types';
+import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
 
-interface GetBlogByIDOutput extends ContentHeader, MicrocmsContentHeader {
-    time2FinishReading: number;
-    contentHtml: string;
+export interface OutputGetBlogByID {
+    props: OutputSelectBlogById;
 }
 
 type blogIdPaths = `/blog/post/${string}`;
 
-const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
+const BlogPostId = (props: OutputSelectBlogById): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -25,40 +25,35 @@ const BlogPostId = ({ content }: GetBlogByIDOutput): JSX.Element => {
         },
         {
             id: 3,
-            text: content.title,
+            text: props.title,
         },
     ]);
 
     return (
         <>
             <PageHead
-                subtitle={`${content.title}`}
+                subtitle={`${props.title}`}
                 description={`Blog detail page`}
                 image={``}
                 url={``}
             ></PageHead>
-            <PostCard props={content} />
+            <PostCard props={props} />
         </>
     );
 };
 
 export const getStaticProps = async (context: {
     params: { id: string };
-}): Promise<{
-    props: {
-        content: GetBlogByIDOutput;
-    };
-}> => {
+}): Promise<OutputGetBlogByID> => {
     const res = await fetch(
         `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams(context.params)}`,
         {
             method: 'GET',
         }
     );
+    const content = await res.json();
     return {
-        props: {
-            content: await res.json(),
-        },
+        props: content,
     };
 };
 
@@ -71,7 +66,7 @@ export const getStaticPaths = async (): Promise<{
     });
     const json = await res.json();
 
-    const paths = json.contents.map((c) => `/blog/post/${c.id}` as blogIdPaths);
+    const paths = json.contents.map((c: Post) => `/blog/post/${c.id}` as blogIdPaths);
 
     return { paths, fallback: false };
 };

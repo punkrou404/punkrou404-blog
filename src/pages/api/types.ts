@@ -1,30 +1,38 @@
-export interface ContentHeader {
+export interface Post extends PostHeader, PostBody, MicrocmsReqHeader {}
+
+export type PostDetail = {
+    contentHtml: string;
+    time2FinishReading: number;
+};
+
+export type PostHeader = {
     title: string;
     topics: string[];
     published: boolean;
-}
+};
 
-export interface Content extends ContentHeader {
-    id: string;
+export type PostBody = {
     summary: string;
     body: string;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
     revisedAt: string;
-}
+};
 
-export interface MicrocmsContentHeader {
+export interface MicrocmsReq extends MicrocmsReqHeader, MicrocmsReqBody {}
+
+export type MicrocmsReqHeader = {
     id: string;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
     revisedAt: string;
-}
+};
 
-export interface MicrocmsContent extends MicrocmsContentHeader {
+export type MicrocmsReqBody = {
     body: string;
-}
+};
 
 export type BlogError = {
     status: number;

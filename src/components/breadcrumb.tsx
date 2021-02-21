@@ -12,11 +12,13 @@ interface BreadcrumbProps {
     separator?: string;
 }
 
+type BreadcrumbItemE = string | JSX.Element;
+
 const Breadcrumb: FC<BreadcrumbProps> = ({ items, separator = '>' }) => {
     return (
         <>
             {items
-                .map((item) =>
+                .map((item: BreadcrumbItem) =>
                     item.href != null ? (
                         <span key={item.text} className="active:text-blue-600 hover:bg-blue-300">
                             <Link href={item.href}>{item.text}</Link>
@@ -25,11 +27,9 @@ const Breadcrumb: FC<BreadcrumbProps> = ({ items, separator = '>' }) => {
                         <span key={item.text}>{item.text}</span>
                     )
                 )
-                .reduce(
-                    (prev, curr) =>
-                        prev.length === 0 ? [curr] : [...prev, ` ${separator} `, curr],
-                    []
-                )}
+                .reduce((p: BreadcrumbItemE[], c) => {
+                    return p.length === 0 ? [c] : [...p, ` ${separator} `, c];
+                }, [])}
         </>
     );
 };

@@ -1,4 +1,9 @@
-const Topics = ({ list, title }): JSX.Element => {
+type TopicsProps = {
+    list: string[];
+    title: string;
+};
+
+const Topics = ({ list, title }: TopicsProps): JSX.Element => {
     if (null == list || undefined == list) {
         return <div />;
     }

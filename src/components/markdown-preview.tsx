@@ -1,4 +1,8 @@
-const MarkdownPreview = ({ content }): JSX.Element => {
+type MarkdownPreviewProps = {
+    content: string;
+};
+
+const MarkdownPreview = ({ content }: MarkdownPreviewProps): JSX.Element => {
     return (
         <div className="">
             <link

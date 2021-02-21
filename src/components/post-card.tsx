@@ -1,8 +1,13 @@
 import Date from '~/components/date';
 import MarkdownPreview from '~/components/markdown-preview';
 import Topics from '~/components/topics';
+import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
 
-const PostCard = ({ props }): JSX.Element => {
+type PostCardProps = {
+    props: OutputSelectBlogById;
+};
+
+const PostCard = ({ props }: PostCardProps): JSX.Element => {
     return (
         <div className="w-full flex-col p-3 text-gray-500">
             <div className="p-4 bg-white rounded-lg shadow-lg flex-col">

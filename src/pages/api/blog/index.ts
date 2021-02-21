@@ -20,7 +20,8 @@ const Blog = async (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
         }
 
         if (req.query.pageOffset) {
-            const result = await findBlogByOffset({ pageOffset: req.query.pageOffset });
+            const pageOffset = Number(req.query.pageOffset);
+            const result = await findBlogByOffset({ pageOffset });
             return res.status(200).json(result);
         }
 

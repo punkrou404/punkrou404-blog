@@ -4,8 +4,15 @@ import Card from '~/components/card';
 import PageHead from '~/components/page-head';
 import { NextPageContext } from 'next';
 import SearchInput from '~/components/search-input';
+import { Post } from '~/pages/api/types';
 
-const BlogSearch = ({ contents, hitCount, keyword }): JSX.Element => {
+type BlogSearchProps = {
+    contents: Post[];
+    hitCount: number;
+    keyword: string | string[];
+};
+
+const BlogSearch = ({ contents, hitCount, keyword }: BlogSearchProps): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,

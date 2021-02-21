@@ -1,14 +1,14 @@
 import { BlogError } from '~/pages/api/types';
 import { getSearchWords } from '~/lib/keyword';
-import { Content } from '~/pages/api/types';
+import { Post } from '~/pages/api/types';
 import { getAllContents } from './get_all_contents';
 
 interface InputFindBlogByKeyword {
-    keyword: string | string[];
+    keyword: string | string[] | undefined;
 }
 
 interface OutputFindBlogByKeyword {
-    contents: Content[];
+    contents: Post[];
     totalCount: number;
     hitCount: number;
 }

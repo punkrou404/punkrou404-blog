@@ -1,14 +1,14 @@
 import { BlogError } from '~/pages/api/types';
 import { MAX_DISPLAY_POST } from '~/pages/api/const';
-import { Content } from '~/pages/api/types';
+import { Post } from '~/pages/api/types';
 import { getAllContents } from './get_all_contents';
 
 interface InputFindBlogByOffset {
-    pageOffset: string | string[];
+    pageOffset: number;
 }
 
 interface OutputFindBlogByOffset {
-    contents: Content[];
+    contents: Post[];
     totalCount: number;
     hitCount: number;
 }
@@ -20,8 +20,8 @@ export const findBlogByOffset = async ({
     console.log(`[findBlogByOffset]Query parameter validation start`);
 
     console.log(`[findBlogByOffset] pageOffset=${pageOffset}`);
-    const pageOffsetNumber = Number(pageOffset) - 1;
-    if (isNaN(pageOffsetNumber) || pageOffsetNumber < 0) {
+    const pageOffsetNumber = pageOffset - 1;
+    if (pageOffsetNumber < 0) {
         throw {
             status: 400,
             message: `Bad Request. "offset" is a positive integer.`,
