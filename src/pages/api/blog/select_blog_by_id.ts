@@ -1,17 +1,13 @@
 import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import marked from 'marked';
-import path from 'path';
-import fs from 'fs';
-import { POSTS_PATH } from '~/pages/api/const';
-import { BlogError } from '~/pages/api/types';
+import { BlogError, ContentHeader, MicrocmsContentHeader } from '~/pages/api/types';
 
 interface InputSelectBlogById {
     id: string | string[];
 }
 
-interface OutputSelectBlogById {
-    id: string;
+interface OutputSelectBlogById extends ContentHeader {
     contentHtml: string;
     time2FinishReading: number;
 }
@@ -30,20 +26,18 @@ export const selectBlogById = async ({
     }
 
     console.log(`[getBlogByID]Query parameter validation end`);
-    console.log(`[getBlogByID]Read post content to local file start`);
+    console.log(`[getBlogByID]Get content by id start`);
 
-    const fullPath = path.join(POSTS_PATH, `${id}.md`);
-    if (!fs.existsSync(fullPath)) {
-        throw {
-            status: 404,
-            message: `Not found.`,
-        } as BlogError;
-    }
-    const postContent = await fs.readFileSync(fullPath);
-    const matterResult = matter(postContent);
+    const header = {
+        headers: { 'X-API-KEY': process.env.microcms_access_key },
+    };
+    const urls = `${process.env.MICROCMS_BASEURL}/blog/${id}`;
+    console.log(`[getBlogByID]API urls: ${urls}`);
+    const result = await fetch(urls, header);
+    const json = await result.json();
 
-    console.log(`[getBlogByID]Read post content to local file end`);
-    console.log(`[getBlogByID]Response setting start`);
+    console.log(`[getBlogByID]Get content by id end`);
+    console.log(`[getBlogByID]Parsed HTML for markdown start`);
 
     marked.setOptions({
         highlight: (code, lang) => highlightjs.highlightAuto(code, [lang]).value,
@@ -52,19 +46,27 @@ export const selectBlogById = async ({
         breaks: true,
         silent: false,
     });
+    const matterResult = matter(json.body);
     const contentHtml = marked(matterResult.content);
+
+    console.log(`[getBlogByID]Parsed HTML for markdown end`);
+    console.log(`[getBlogByID]Calcurate time to finish reading start`);
+
     const onlyContentString = /<("[^"]*"|'[^']*'|[^'">])*>/g;
     const time2FinishReading =
         Math.floor(contentHtml.replace(onlyContentString, '').length / 500) || 1;
 
+    console.log(`[getBlogByID]Calcurate time to finish reading end`);
+    console.log(`[getBlogByID]Response setting start`);
+
     const res = Object.assign(
         {
-            id,
             contentHtml,
             time2FinishReading,
         },
-        matterResult.data
-    ) as OutputSelectBlogById;
+        json as MicrocmsContentHeader,
+        matterResult.data as ContentHeader
+    );
 
     console.log(`[getBlogByID]Response setting end`);
     console.log(`[getBlogByID] end`);

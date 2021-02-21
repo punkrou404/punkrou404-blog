@@ -1,7 +1,7 @@
 import { BlogError } from '~/pages/api/types';
 import { getSearchWords } from '~/lib/keyword';
-import { getContentsByMarkdownFile, getSources } from '~/lib/post-contents';
 import { Content } from '~/pages/api/types';
+import { getAllContents } from './get_all_contents';
 
 interface InputFindBlogByKeyword {
     keyword: string | string[];
@@ -30,23 +30,18 @@ export const findBlogByKeyword = async ({
     console.log(`[findBlogByKeyword]Get sources start`);
 
     const keywords = getSearchWords(String(keyword));
-    const sources = getSources();
-    const totalCount = sources.length;
+    const allContents = await getAllContents();
+    const totalCount = allContents.length;
 
     console.log(`[findBlogByKeyword]Get sources end`);
     console.log(`[findBlogByKeyword]Filtered contents start`);
 
-    const filteredSources = sources.filter((content) => {
-        return !keywords.map((keyword) => content.fileContent.indexOf(`${keyword}`)).includes(-1);
+    const contents = allContents.filter((c) => {
+        return !keywords.map((keyword) => c.body.indexOf(`${keyword}`)).includes(-1);
     });
-    const hitCount = filteredSources.length;
+    const hitCount = contents.length;
 
     console.log(`[findBlogByKeyword]Filtered contents end`);
-    console.log(`[findBlogByKeyword]Get metadata to display on the page start`);
-
-    const contents = getContentsByMarkdownFile(filteredSources);
-
-    console.log(`[findBlogByKeyword]Get metadata to display on the page end`);
     console.log(`[findBlogByKeyword] end`);
 
     return {

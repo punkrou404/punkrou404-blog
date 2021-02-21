@@ -1,34 +1,29 @@
-export interface Content {
+export interface ContentHeader {
+    title: string;
+    topics: string[];
+    published: boolean;
+}
+
+export interface Content extends ContentHeader {
     id: string;
     summary: string;
     body: string;
-    title: string;
-    topics: string[];
-    published: boolean;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
     revisedAt: string;
 }
 
-export interface MicrocmsContent {
+export interface MicrocmsContentHeader {
     id: string;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
     revisedAt: string;
-    body: string;
 }
 
-export interface ContentHeader {
-    title: string;
-    type: string;
-    topics: string[];
-    published: boolean;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-    revisedAt: string;
+export interface MicrocmsContent extends MicrocmsContentHeader {
+    body: string;
 }
 
 export type BlogError = {

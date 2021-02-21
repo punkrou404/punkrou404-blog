@@ -57,13 +57,6 @@ export const getStaticProps = async (context: {
     props: BlogOffsetInput;
 }> => {
     const offset = context.params.offset;
-    if (1 == offset) {
-        // Dare asynchronous, only access `/blog/1`.
-        fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog/init`, {
-            method: 'GET',
-        });
-    }
-
     const res = await fetch(
         `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams({
             pageOffset: String(offset),

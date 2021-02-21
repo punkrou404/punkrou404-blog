@@ -2,16 +2,11 @@ import PostCard from '~/components/post-card';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
+import { ContentHeader, MicrocmsContentHeader } from '~/pages/api/types';
 
-interface GetBlogByIDOutput {
+interface GetBlogByIDOutput extends ContentHeader, MicrocmsContentHeader {
     time2FinishReading: number;
-    title: string;
-    type: string;
-    topics: string[];
-    published: boolean;
-    id: string;
     contentHtml: string;
-    date: string;
 }
 
 type blogIdPaths = `/blog/post/${string}`;

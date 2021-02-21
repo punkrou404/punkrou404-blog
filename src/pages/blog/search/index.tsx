@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
@@ -53,15 +53,11 @@ export const getServerSideProps = async (params: NextPageContext) => {
         }
     );
     const json = await res.json();
-
-    const contents = json.contents;
-    const totalCount = json.totalCount;
-    const hitCount = json.hitCount;
+    const { contents, hitCount } = json;
 
     return {
         props: {
             contents,
-            totalCount,
             hitCount,
             keyword,
         },

@@ -1,7 +1,7 @@
 import { BlogError } from '~/pages/api/types';
 import { MAX_DISPLAY_POST } from '~/pages/api/const';
-import { getContentsByMarkdownFile, getSources } from '~/lib/post-contents';
 import { Content } from '~/pages/api/types';
+import { getAllContents } from './get_all_contents';
 
 interface InputFindBlogByOffset {
     pageOffset: string | string[];
@@ -31,9 +31,9 @@ export const findBlogByOffset = async ({
     console.log(`[findBlogByOffset]Query parameter validation end`);
     console.log(`[findBlogByOffset]Get sources start`);
 
-    const sources = getSources();
-    const totalCount = sources.length;
-    const hitCount = sources.length;
+    const contents = await getAllContents();
+    const totalCount = contents.length;
+    const hitCount = contents.length;
 
     console.log(`[findBlogByOffset]Get sources end`);
     console.log(`[findBlogByOffset]Filtered contents start`);
@@ -41,18 +41,13 @@ export const findBlogByOffset = async ({
     const start = MAX_DISPLAY_POST * pageOffsetNumber;
     const end = MAX_DISPLAY_POST * pageOffsetNumber + MAX_DISPLAY_POST;
     console.log(`[findBlogByOffset]Page index start: ${start}    end: ${end}`);
-    const filteredSources = sources.filter((_, i) => start <= i && i < end);
+    const displayedContents = contents.filter((_, i) => start <= i && i < end);
 
     console.log(`[findBlogByOffset]Filtered contents end`);
-    console.log(`[findBlogByOffset]Get metadata to display on the page start`);
-
-    const contents = getContentsByMarkdownFile(filteredSources);
-
-    console.log(`[findBlogByOffset]Get metadata to display on the page end`);
     console.log(`[findBlogByOffset] end`);
 
     return {
-        contents,
+        contents: displayedContents,
         totalCount,
         hitCount,
     };
