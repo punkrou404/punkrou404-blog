@@ -1,5 +1,7 @@
 import { NextPage } from 'next';
 import PageHead from '~/components/page-head';
+import { Alert } from '@material-ui/lab';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
     return (
@@ -10,6 +12,13 @@ const Home: NextPage = () => {
                 image={``}
                 url={``}
             ></PageHead>
+            <Alert severity="info">
+                {`RSSフィードを公開しています。`}
+                <Link href={`/api/blog/feed`}>
+                    <span className="active:text-blue-500 hover:text-blue-400 cursor-pointer">{`こちら`}</span>
+                </Link>
+                {`を参照`}
+            </Alert>
             <div className="border">
                 {/* ここに自分の全部の行動履歴を(insta,tweet,blog,位置情報,etc..)出力したい */}
                 <div className="border m-5">timeline1</div>
