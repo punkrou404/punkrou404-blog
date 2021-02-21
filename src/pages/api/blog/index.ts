@@ -4,6 +4,7 @@ import { findAllBlog } from '~/pages/api/blog/find_all_blog';
 import { findBlogByOffset } from '~/pages/api/blog/find_blog_by_offset';
 import { findBlogByKeyword } from './find_blog_by_keyword';
 import { BlogError } from '~/pages/api/types';
+import { findBlogByTag } from './find_blog_by_tags';
 
 const Blog = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {
@@ -27,6 +28,12 @@ const Blog = async (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
 
         if (req.query.keyword) {
             const result = await findBlogByKeyword({ keyword: req.query.keyword });
+            return res.status(200).json(result);
+        }
+
+        if (req.query.tag) {
+            const tag = String(req.query.tag);
+            const result = await findBlogByTag({ tag });
             return res.status(200).json(result);
         }
 

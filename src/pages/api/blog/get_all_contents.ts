@@ -55,7 +55,7 @@ export const getAllContents = async (): Promise<Post[]> => {
             summary,
             body,
             title,
-            topics,
+            tagList: topics,
             published,
             createdAt,
             updatedAt,

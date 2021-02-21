@@ -7,7 +7,7 @@ export type PostDetail = {
 
 export type PostHeader = {
     title: string;
-    topics: string[];
+    tagList: string[];
     published: boolean;
 };
 

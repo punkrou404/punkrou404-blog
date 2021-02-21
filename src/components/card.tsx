@@ -1,6 +1,6 @@
 import Date from '~/components/date';
 import Link from 'next/link';
-import Topics from '~/components/topics';
+import TagList from '~/components/tag_list';
 import { Post } from '~/pages/api/types';
 
 type CardProps = {
@@ -18,7 +18,7 @@ const Card = ({ props }: CardProps): JSX.Element => {
                             <div className="mb-4 text-grey-darker text-sm flex-1">
                                 <Date dateString={props.createdAt} />
                             </div>
-                            <Topics list={props.topics} title={props.title} />
+                            <TagList list={props.tagList} title={props.title} />
                         </header>
                         <main className="p-4 flex-1 flex flex-col">
                             <p>{props.summary}</p>

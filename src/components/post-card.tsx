@@ -1,6 +1,6 @@
 import Date from '~/components/date';
 import MarkdownPreview from '~/components/markdown-preview';
-import Topics from '~/components/topics';
+import TagList from '~/components/tag_list';
 import DeprecationAlert from '~/components/deprecation_alert';
 import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
 import { Alert } from '@material-ui/lab';
@@ -30,7 +30,7 @@ const PostCard = ({ props }: PostCardProps): JSX.Element => {
                         <Alert severity="info">{`このPOSTは約${props.time2FinishReading}分で読めます。`}</Alert>
                     </div>
                     <div>
-                        <Topics list={props.topics} title={props.title} />
+                        <TagList list={props.tagList} title={props.title} />
                     </div>
                 </header>
                 <main className="pt-4 flex-col">
