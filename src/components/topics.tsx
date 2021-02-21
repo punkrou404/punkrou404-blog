@@ -4,7 +4,7 @@ type TopicsProps = {
 };
 
 const Topics = ({ list, title }: TopicsProps): JSX.Element => {
-    if (null == list || undefined == list) {
+    if (!list) {
         return <div />;
     }
     return (

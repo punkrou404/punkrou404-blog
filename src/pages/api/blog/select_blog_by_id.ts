@@ -47,8 +47,8 @@ export const selectBlogById = async ({
     console.log(`[getBlogByID]Calcurate time to finish reading start`);
 
     const onlyContentString = /<("[^"]*"|'[^']*'|[^'">])*>/g;
-    const time2FinishReading =
-        Math.floor(contentHtml.replace(onlyContentString, '').length / 500) || 1;
+    const onlyStringLength = contentHtml.replace(onlyContentString, '').length;
+    const time2FinishReading = Math.floor(onlyStringLength / 500) || 1;
 
     console.log(`[getBlogByID]Calcurate time to finish reading end`);
     console.log(`[getBlogByID]Response setting start`);
