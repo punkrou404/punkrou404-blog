@@ -29,7 +29,7 @@ const PostCard = ({ props }: PostCardProps): JSX.Element => {
                     <div className="pb-4 text-sm">
                         <Alert severity="info">{`このPOSTは約${props.time2FinishReading}分で読めます。`}</Alert>
                     </div>
-                    <div>
+                    <div className="mb-4 text-sm">
                         <TagList list={props.tagList} title={props.title} />
                     </div>
                 </header>

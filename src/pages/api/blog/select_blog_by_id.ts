@@ -49,6 +49,7 @@ export const selectBlogById = async ({
     const onlyContentString = /<("[^"]*"|'[^']*'|[^'">])*>/g;
     const onlyStringLength = contentHtml.replace(onlyContentString, '').length;
     const time2FinishReading = Math.floor(onlyStringLength / 500) || 1;
+    const tagList = matterResult.data.topics;
 
     console.log(`[getBlogByID]Calcurate time to finish reading end`);
     console.log(`[getBlogByID]Response setting start`);
@@ -57,6 +58,7 @@ export const selectBlogById = async ({
         {
             contentHtml,
             time2FinishReading,
+            tagList,
         },
         json as MicrocmsReqHeader,
         matterResult.data as PostHeader
