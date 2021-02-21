@@ -1,6 +1,7 @@
 import Date from '~/components/date';
 import MarkdownPreview from '~/components/markdown-preview';
 import TagList from '~/components/tag_list';
+import ShareButtonTwitter from '~/components/share-button-twitter';
 import DeprecationAlert from '~/components/deprecation_alert';
 import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
 import { Alert } from '@material-ui/lab';
@@ -15,6 +16,10 @@ const PostCard = ({ props }: PostCardProps): JSX.Element => {
             <div className="p-4 bg-white rounded-lg shadow-lg flex-col">
                 <header className="bg-cover">
                     <h3 className="mb-4 text-2xl">{props.title}</h3>
+                    <ShareButtonTwitter
+                        description={`${props.title}`}
+                        url={`${process.env.MYDOMAIN_BASEURL}/blog/post/${props.id}`}
+                    ></ShareButtonTwitter>
                     <div className="mb-4 text-sm">
                         <DeprecationAlert props={props} />
                     </div>
