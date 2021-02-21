@@ -2,8 +2,11 @@ import { DOWNLOAD_POST_LIMIT } from '~/pages/api/const';
 import matter from 'gray-matter';
 import { Post, MicrocmsReq } from '~/pages/api/types';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
+import { desc } from '~/lib/sort';
 
-export const getAllContents = async (): Promise<Post[]> => {
+type sorted = 'created' | 'updated';
+
+export const getAllContents = async (sorted: sorted = 'created'): Promise<Post[]> => {
     console.log(`[getAllContents] start`);
     console.log(`[getAllContents]Get Total PostCount API access start`);
 
@@ -42,9 +45,22 @@ export const getAllContents = async (): Promise<Post[]> => {
         );
 
     console.log(`[getAllContents]Get All Post API access end`);
+    console.log(`[getAllContents]Sorted posts start`);
+
+    const sortedResults = results.sort((a, b) => {
+        if (sorted === 'created') {
+            return desc(a.createdAt, b.createdAt);
+        }
+        if (sorted === 'updated') {
+            return desc(a.updatedAt, b.updatedAt);
+        }
+        return 0;
+    });
+
+    console.log(`[getAllContents]Sorted posts end`);
     console.log(`[getAllContents]Convert post types start`);
 
-    const contents = results.map((r) => {
+    const contents = sortedResults.map((r) => {
         const matterResult = matter(r.body);
         const { id, createdAt, updatedAt, publishedAt, revisedAt } = r;
         const { title, topics, published } = matterResult.data;
