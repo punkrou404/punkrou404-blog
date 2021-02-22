@@ -1,6 +1,10 @@
 const path = require('path');
 
 module.exports = {
+    images: {
+        path: '/_next/image',
+        domains: ['grass-graph.moshimo.works'],
+    },
     async redirects() {
         return [
             {
