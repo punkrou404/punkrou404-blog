@@ -1,4 +1,4 @@
-export const desc = (a, b) => {
+export const desc = (a: string | number, b: string | number): 1 | -1 | 0 => {
     if (a < b) {
         return 1;
     } else if (a > b) {
@@ -8,7 +8,7 @@ export const desc = (a, b) => {
     }
 };
 
-export const asc = (a, b) => {
+export const asc = (a: number, b: number): 1 | -1 | 0 => {
     if (a > b) {
         return 1;
     } else if (a < b) {
