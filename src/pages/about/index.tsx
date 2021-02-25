@@ -3,6 +3,7 @@ import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import MarkdownPreview from '~/components/markdown-preview';
 import React from 'react';
 import PageHead from '~/components/page-head';
+import { getProfile } from '~/api/profile/get_profile';
 
 const About: NextPage<{
     profile: string;
@@ -37,21 +38,17 @@ const About: NextPage<{
     );
 };
 
-const getStaticProps = async (): Promise<{
+export const getStaticProps = async (): Promise<{
     props: {
         profile: string;
     };
 }> => {
-    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/profile`, {
-        method: 'GET',
-    });
-    const json = await res.json();
+    const profile = await getProfile();
     return {
         props: {
-            profile: json.message,
+            profile,
         },
     };
 };
 
 export default About;
-export { getStaticProps };

@@ -2,16 +2,17 @@ import PostCard from '~/components/post-card';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
-import { Post } from '~/api/types';
-import { OutputSelectBlogById } from '~/api/blog/select_blog_by_id';
+import { Post, PostDetail } from '~/api/types';
+import { selectBlogById } from '~/api/blog/select_blog_by_id';
+import { getAllContents } from '~/api/blog/get_all_contents';
 
-export interface OutputGetBlogByID {
-    props: OutputSelectBlogById;
+export interface P {
+    props: PostDetail;
 }
 
 type blogIdPaths = `/blog/post/${string}`;
 
-const BlogPostId = (props: OutputSelectBlogById): JSX.Element => {
+const BlogPostId = (props: PostDetail): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -42,18 +43,11 @@ const BlogPostId = (props: OutputSelectBlogById): JSX.Element => {
     );
 };
 
-export const getStaticProps = async (context: {
-    params: { id: string };
-}): Promise<OutputGetBlogByID> => {
-    const res = await fetch(
-        `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams(context.params)}`,
-        {
-            method: 'GET',
-        }
-    );
-    const content = await res.json();
+export const getStaticProps = async (context: { params: { id: string } }): Promise<P> => {
+    const id = context.params.id;
+    const postDetail = await selectBlogById(id);
     return {
-        props: content,
+        props: postDetail,
     };
 };
 
@@ -61,12 +55,8 @@ export const getStaticPaths = async (): Promise<{
     paths: blogIdPaths[];
     fallback: boolean;
 }> => {
-    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog`, {
-        method: 'GET',
-    });
-    const json = await res.json();
-
-    const paths = json.contents.map((c: Post) => `/blog/post/${c.id}` as blogIdPaths);
+    const posts = await getAllContents();
+    const paths = posts.map((c: Post) => `/blog/post/${c.id}` as blogIdPaths);
 
     return { paths, fallback: false };
 };

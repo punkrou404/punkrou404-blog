@@ -5,14 +5,15 @@ import PageHead from '~/components/page-head';
 import { NextPageContext } from 'next';
 import SearchInput from '~/components/search-input';
 import { Post } from '~/api/types';
+import { findBlogByKeyword } from '~/api/blog/find_blog_by_keyword';
 
-type BlogSearchProps = {
+type P = {
     contents: Post[];
     hitCount: number;
     keyword: string | string[];
 };
 
-const BlogSearch = ({ contents, hitCount, keyword }: BlogSearchProps): JSX.Element => {
+const BlogSearch = ({ contents, hitCount, keyword }: P): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -51,16 +52,8 @@ const BlogSearch = ({ contents, hitCount, keyword }: BlogSearchProps): JSX.Eleme
 
 export const getServerSideProps = async (params: NextPageContext) => {
     const { keyword } = params.query;
-    const res = await fetch(
-        `${process.env.MYDOMAIN_BASEURL}/api/blog?${new URLSearchParams({
-            keyword: String(keyword),
-        })}`,
-        {
-            method: 'GET',
-        }
-    );
-    const json = await res.json();
-    const { contents, hitCount } = json;
+    const posts = await findBlogByKeyword(keyword);
+    const { contents, hitCount } = posts;
 
     return {
         props: {

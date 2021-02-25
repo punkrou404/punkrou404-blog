@@ -8,8 +8,9 @@ import { range } from '~/lib/range';
 import SearchInput from '~/components/search-input';
 import { Post } from '~/api/types';
 import { findBlogByOffset } from '~/api/blog/find_blog_by_offset';
+import { getAllContents } from '~/api/blog/get_all_contents';
 
-interface BlogOffsetInput {
+interface P {
     contents: Post[];
     totalCount: number;
     offset: number;
@@ -17,7 +18,7 @@ interface BlogOffsetInput {
 
 type blogOffsetPaths = `/blog/${number}`;
 
-const BlogOffset = ({ contents, totalCount, offset }: BlogOffsetInput): JSX.Element => {
+const BlogOffset = ({ contents, totalCount, offset }: P): JSX.Element => {
     useBreadcrumb([
         {
             id: 1,
@@ -56,13 +57,11 @@ const BlogOffset = ({ contents, totalCount, offset }: BlogOffsetInput): JSX.Elem
 export const getStaticProps = async (context: {
     params: { offset: number };
 }): Promise<{
-    props: BlogOffsetInput;
+    props: P;
 }> => {
     const offset = context.params.offset;
-    const json = await findBlogByOffset({ pageOffset: offset });
-
-    const contents = json.contents;
-    const totalCount = json.totalCount;
+    const posts = await findBlogByOffset({ pageOffset: offset });
+    const { contents, totalCount } = posts;
 
     return {
         props: {
@@ -77,12 +76,9 @@ export const getStaticPaths = async (): Promise<{
     paths: blogOffsetPaths[];
     fallback: boolean;
 }> => {
-    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog`, {
-        method: 'GET',
-    });
-    const json = await res.json();
+    const posts = await getAllContents();
 
-    const paths = range(1, Math.ceil(json.totalCount / PER_PAGE)).map(
+    const paths = range(1, Math.ceil(posts.length / PER_PAGE)).map(
         (offset) => `/blog/${offset}` as blogOffsetPaths
     );
 

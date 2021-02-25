@@ -4,15 +4,7 @@ import marked from 'marked';
 import { BlogError, PostHeader, MicrocmsReqHeader, PostDetail } from '~/api/types';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
 
-interface InputSelectBlogById {
-    id: string | string[];
-}
-
-export interface OutputSelectBlogById extends PostHeader, MicrocmsReqHeader, PostDetail {}
-
-export const selectBlogById = async ({
-    id,
-}: InputSelectBlogById): Promise<OutputSelectBlogById> => {
+export const selectBlogById = async (id: string): Promise<PostDetail> => {
     console.log(`[getBlogByID] start`);
     console.log(`[getBlogByID]Query parameter validation start`);
 

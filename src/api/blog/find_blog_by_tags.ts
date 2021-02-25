@@ -2,17 +2,15 @@ import { BlogError } from '~/api/types';
 import { Post } from '~/api/types';
 import { getAllContents } from './get_all_contents';
 
-interface InputFindBlogByTag {
-    tag: string;
-}
-
 interface OutputFindBlogByTag {
     contents: Post[];
     totalCount: number;
     hitCount: number;
 }
 
-export const findBlogByTag = async ({ tag }: InputFindBlogByTag): Promise<OutputFindBlogByTag> => {
+export const findBlogByTag = async (
+    tag: string | string[] | undefined
+): Promise<OutputFindBlogByTag> => {
     console.log(`[findBlogByTag] start`);
     console.log(`[findBlogByTag]Query parameter validation start`);
 

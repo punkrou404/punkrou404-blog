@@ -1,6 +1,6 @@
 export interface Post extends PostHeader, PostBody, MicrocmsReqHeader {}
 
-export type PostDetail = {
+export interface PostDetail extends PostHeader, MicrocmsReqHeader {
     contentHtml: string;
     time2FinishReading: number;
 };
