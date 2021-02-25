@@ -1,5 +1,6 @@
 import RSS from 'rss';
 import { Post } from '~/api/types';
+import { getAllContents } from '../get_all_contents';
 
 const generateFeedXml = async (): Promise<string> => {
     console.log(`[generateFeedXml] start`);
@@ -13,15 +14,12 @@ const generateFeedXml = async (): Promise<string> => {
         language: 'ja',
     });
 
-    const res = await fetch(`${process.env.MYDOMAIN_BASEURL}/api/blog`, {
-        method: 'GET',
-    });
-    const json = await res.json();
+    const posts = await getAllContents();
 
     console.log(`[generateFeedXml] get feed end`);
     console.log(`[generateFeedXml] generate xml start`);
 
-    json.contents.forEach((c: Post) => {
+    posts.forEach((c: Post) => {
         feed.item({
             title: c.title,
             description: c.summary,

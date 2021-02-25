@@ -34,15 +34,19 @@ export const postContact = async ({ name, email, body }: InputPostContact): Prom
     console.log(`[postContact]External API access start`);
 
     const urls = `${process.env.MICROCMS_BASEURL}/contact`;
-    try {
-        await fetch(urls, {
-            method: 'POST',
-            headers: MICROCMS_POST_HEADER,
-            body: JSON.stringify(body),
-        });
-    } catch {
+    console.log(`[postContact]urls= ${urls}`);
+
+    const httpHeader = {
+        method: 'POST',
+        headers: MICROCMS_POST_HEADER,
+        body: JSON.stringify({ name, email, body }),
+    };
+    const res = await fetch(urls, httpHeader);
+    console.log(`[postContact]res.status= ${res.status}`);
+
+    if (res.status < 200 || 300 <= res.status) {
         throw {
-            status: 500,
+            status: res.status,
             message: `Server error.`,
         } as BlogError;
     }
