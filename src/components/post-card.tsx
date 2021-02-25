@@ -3,7 +3,7 @@ import MarkdownPreview from '~/components/markdown-preview';
 import TagList from '~/components/tag_list';
 import ShareButtonTwitter from '~/components/share-button-twitter';
 import DeprecationAlert from '~/components/deprecation_alert';
-import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
+import { OutputSelectBlogById } from '~/api/blog/select_blog_by_id';
 import { Alert } from '@material-ui/lab';
 
 type PostCardProps = {

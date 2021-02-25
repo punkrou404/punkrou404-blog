@@ -1,6 +1,6 @@
-import { BlogError } from '~/pages/api/types';
-import { MAX_DISPLAY_POST } from '~/pages/api/const';
-import { Post } from '~/pages/api/types';
+import { BlogError } from '~/api/types';
+import { MAX_DISPLAY_POST } from '~/api/const';
+import { Post } from '~/api/types';
 import { getAllContents } from './get_all_contents';
 
 interface InputFindBlogByOffset {

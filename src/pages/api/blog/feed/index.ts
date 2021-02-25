@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import generateFeedXml from '~/pages/api/blog/feed/generate_feed_xml';
+import generateFeedXml from '~/api/blog/feed/generate_feed_xml';
 
 const BlogFeed = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {

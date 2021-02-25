@@ -1,4 +1,4 @@
-import { Post } from '~/pages/api/types';
+import { Post } from '~/api/types';
 import { getAllContents } from './get_all_contents';
 
 interface OutputFindAllBlog {

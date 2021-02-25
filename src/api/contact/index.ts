@@ -1,5 +1,5 @@
 import { NextApiResponse, NextApiRequest } from 'next';
-import { postContact } from '~/pages/api/contact/post_contact';
+import { postContact } from '~/api/contact/post_contact';
 
 const Contact = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {

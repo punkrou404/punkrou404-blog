@@ -1,5 +1,5 @@
 import RSS from 'rss';
-import { Post } from '~/pages/api/types';
+import { Post } from '~/api/types';
 
 const generateFeedXml = async (): Promise<string> => {
     console.log(`[generateFeedXml] start`);

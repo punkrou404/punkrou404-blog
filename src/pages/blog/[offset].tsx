@@ -6,8 +6,8 @@ import PageHead from '~/components/page-head';
 import { PER_PAGE } from '~/lib/const';
 import { range } from '~/lib/range';
 import SearchInput from '~/components/search-input';
-import { Post } from '~/pages/api/types';
-import { findBlogByOffset } from '../api/blog/find_blog_by_offset';
+import { Post } from '~/api/types';
+import { findBlogByOffset } from '~/api/blog/find_blog_by_offset';
 
 interface BlogOffsetInput {
     contents: Post[];

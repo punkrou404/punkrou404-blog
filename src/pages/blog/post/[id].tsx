@@ -2,8 +2,8 @@ import PostCard from '~/components/post-card';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
-import { Post } from '~/pages/api/types';
-import { OutputSelectBlogById } from '~/pages/api/blog/select_blog_by_id';
+import { Post } from '~/api/types';
+import { OutputSelectBlogById } from '~/api/blog/select_blog_by_id';
 
 export interface OutputGetBlogByID {
     props: OutputSelectBlogById;

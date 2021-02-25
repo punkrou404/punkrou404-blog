@@ -1,5 +1,5 @@
 import { MICROCMS_POST_HEADER } from '~/lib/const';
-import { BlogError } from '~/pages/api/types';
+import { BlogError } from '~/api/types';
 
 interface InputPostContact {
     name: string;

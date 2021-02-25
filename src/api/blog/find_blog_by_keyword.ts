@@ -1,6 +1,6 @@
-import { BlogError } from '~/pages/api/types';
+import { BlogError } from '~/api/types';
 import { getSearchWords } from '~/lib/keyword';
-import { Post } from '~/pages/api/types';
+import { Post } from '~/api/types';
 import { getAllContents } from './get_all_contents';
 
 interface InputFindBlogByKeyword {

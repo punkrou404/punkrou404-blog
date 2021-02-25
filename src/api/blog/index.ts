@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { selectBlogById } from '~/pages/api/blog/select_blog_by_id';
-import { findAllBlog } from '~/pages/api/blog/find_all_blog';
-import { findBlogByOffset } from '~/pages/api/blog/find_blog_by_offset';
+import { selectBlogById } from '~/api/blog/select_blog_by_id';
+import { findAllBlog } from '~/api/blog/find_all_blog';
+import { findBlogByOffset } from '~/api/blog/find_blog_by_offset';
 import { findBlogByKeyword } from './find_blog_by_keyword';
-import { BlogError } from '~/pages/api/types';
+import { BlogError } from '~/api/types';
 import { findBlogByTag } from './find_blog_by_tags';
 
 const Blog = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {

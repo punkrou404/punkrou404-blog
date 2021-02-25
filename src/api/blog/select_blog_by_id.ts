@@ -1,7 +1,7 @@
 import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import marked from 'marked';
-import { BlogError, PostHeader, MicrocmsReqHeader, PostDetail } from '~/pages/api/types';
+import { BlogError, PostHeader, MicrocmsReqHeader, PostDetail } from '~/api/types';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
 
 interface InputSelectBlogById {

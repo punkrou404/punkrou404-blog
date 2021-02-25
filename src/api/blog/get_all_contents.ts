@@ -1,6 +1,6 @@
-import { DOWNLOAD_POST_LIMIT } from '~/pages/api/const';
+import { DOWNLOAD_POST_LIMIT } from '~/api/const';
 import matter from 'gray-matter';
-import { Post, MicrocmsReq } from '~/pages/api/types';
+import { Post, MicrocmsReq } from '~/api/types';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
 import { desc } from '~/lib/sort';
 

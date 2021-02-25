@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getProfile } from '~/pages/api/profile/get_profile';
+import { getProfile } from '~/api/profile/get_profile';
 
 const Profile = async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     const message = await getProfile();
