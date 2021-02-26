@@ -3,14 +3,14 @@ import MarkdownPreview from '~/components/markdown-preview';
 import TagList from '~/components/tag_list';
 import ShareButtonTwitter from '~/components/share-button-twitter';
 import DeprecationAlert from '~/components/deprecation_alert';
-import { OutputSelectBlogById } from '~/api/blog/select_blog_by_id';
 import { Alert } from '@material-ui/lab';
+import { PostDetail } from '~/api/types';
 
-type PostCardProps = {
-    props: OutputSelectBlogById;
+type P = {
+    props: PostDetail;
 };
 
-const PostCard = ({ props }: PostCardProps): JSX.Element => {
+const PostCard = ({ props }: P): JSX.Element => {
     return (
         <div className="w-full flex-col p-3 text-gray-500">
             <div className="p-4 bg-white rounded-lg shadow-lg flex-col">

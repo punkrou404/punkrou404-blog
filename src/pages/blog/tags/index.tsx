@@ -52,7 +52,7 @@ const BlogTags = ({ contents, hitCount, tag }: P): JSX.Element => {
 
 export const getServerSideProps = async (params: NextPageContext) => {
     const { tag } = params.query;
-    const posts = await findBlogByTag(tag);
+    const posts = await findBlogByTag(String(tag));
     const { contents, hitCount } = posts;
 
     return {

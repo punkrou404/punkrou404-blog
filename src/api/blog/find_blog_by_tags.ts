@@ -8,9 +8,7 @@ interface OutputFindBlogByTag {
     hitCount: number;
 }
 
-export const findBlogByTag = async (
-    tag: string | string[] | undefined
-): Promise<OutputFindBlogByTag> => {
+export const findBlogByTag = async (tag: string): Promise<OutputFindBlogByTag> => {
     console.log(`[findBlogByTag] start`);
     console.log(`[findBlogByTag]Query parameter validation start`);
 
