@@ -4,6 +4,7 @@ import MarkdownPreview from '~/components/markdown-preview';
 import React from 'react';
 import PageHead from '~/components/page-head';
 import { getProfile } from '~/api/profile/get_profile';
+import { ISR_TIME } from '~/lib/const';
 
 const About: NextPage<{
     profile: string;
@@ -42,12 +43,14 @@ export const getStaticProps = async (): Promise<{
     props: {
         profile: string;
     };
+    revalidate: number;
 }> => {
     const profile = await getProfile();
     return {
         props: {
             profile,
         },
+        revalidate: ISR_TIME,
     };
 };
 

@@ -5,10 +5,7 @@ import PageHead from '~/components/page-head';
 import { Post, PostDetail } from '~/api/types';
 import { selectBlogById } from '~/api/blog/select_blog_by_id';
 import { getAllContents } from '~/api/blog/get_all_contents';
-
-export interface P {
-    props: PostDetail;
-}
+import { ISR_TIME } from '~/lib/const';
 
 type blogIdPaths = `/blog/post/${string}`;
 
@@ -43,11 +40,17 @@ const BlogPostId = (props: PostDetail): JSX.Element => {
     );
 };
 
-export const getStaticProps = async (context: { params: { id: string } }): Promise<P> => {
+export const getStaticProps = async (context: {
+    params: { id: string };
+}): Promise<{
+    props: PostDetail;
+    revalidate: number;
+}> => {
     const id = context.params.id;
     const postDetail = await selectBlogById(id);
     return {
         props: postDetail,
+        revalidate: ISR_TIME,
     };
 };
 

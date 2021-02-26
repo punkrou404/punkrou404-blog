@@ -3,7 +3,7 @@ import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import Card from '~/components/card';
 import PageHead from '~/components/page-head';
-import { PER_PAGE } from '~/lib/const';
+import { ISR_TIME, PER_PAGE } from '~/lib/const';
 import { range } from '~/lib/range';
 import SearchInput from '~/components/search-input';
 import { Post } from '~/api/types';
@@ -58,6 +58,7 @@ export const getStaticProps = async (context: {
     params: { offset: number };
 }): Promise<{
     props: P;
+    revalidate: number;
 }> => {
     const offset = context.params.offset;
     const posts = await findBlogByOffset({ pageOffset: offset });
@@ -69,6 +70,7 @@ export const getStaticProps = async (context: {
             totalCount,
             offset,
         },
+        revalidate: ISR_TIME,
     };
 };
 
