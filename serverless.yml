@@ -2,5 +2,10 @@ myApp:
   component: "@sls-next/serverless-component@1.18.0"
   inputs:
     bucketName: ${env.bucket}
-    name: ${env.function}
     domain: ${env.domain}
+    cloudfront:
+      distributionId: ${env.cloudfront-distro}
+    certificate:
+        cloudFrontDefaultCertificate: false
+        acmCertificateArn: ${env.acm}
+    name: ${env.function}

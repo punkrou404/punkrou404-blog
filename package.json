@@ -9,9 +9,10 @@
     "lint:fix": "npm lint --fix",
     "prettier:quick": "pretty-quick --staged",
     "start": "next start",
-    "clean": "if [ -d .serverless ]; then rm -rf .serverless ; fi; if [ -d .serverless_nextjs ]; then rm -rf .serverless_nextjs ; fi",
-    "deploy": "yarn run clean && npx serverless --stage=development",
-    "deploy:prod": "yarn run clean && npx serverless --stage=production"
+    "clean:deployment": "npx serverless remove",
+    "clean:local": "if [ -d .serverless ]; then rm -rf .serverless ; fi; if [ -d .serverless_nextjs ]; then rm -rf .serverless_nextjs ; fi",
+    "deploy:test": "yarn run clean:local && npx serverless --stage=development",
+    "deploy:prod": "yarn run clean:local && npx serverless --stage=production"
   },
   "devDependencies": {
     "@hookform/resolvers": "1.3.0 because of https://github.com/react-hook-form/resolvers/issues/100",
