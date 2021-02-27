@@ -1,10 +1,11 @@
 import Date from '~/components/date';
 import MarkdownPreview from '~/components/markdown-preview';
 import TagList from '~/components/tag_list';
-import ShareButtonTwitter from '~/components/share-button-twitter';
+// import ShareButtonTwitter from '~/components/share-button-twitter';
 import DeprecationAlert from '~/components/deprecation_alert';
 import { Alert } from '@material-ui/lab';
 import { PostDetail } from '~/api/types';
+import { SharedButton } from '~/components/shared-button';
 
 type P = {
     props: PostDetail;
@@ -16,10 +17,10 @@ const PostCard = ({ props }: P): JSX.Element => {
             <div className="p-4 bg-white rounded-lg shadow-lg flex-col">
                 <header className="bg-cover">
                     <h3 className="mb-4 text-2xl">{props.title}</h3>
-                    <ShareButtonTwitter
-                        description={`${props.title}`}
+                    <SharedButton
+                        title={`${props.title}`}
                         url={`${process.env.MYDOMAIN_BASEURL}/blog/post/${props.id}`}
-                    ></ShareButtonTwitter>
+                    ></SharedButton>
                     <div className="mb-4 text-sm">
                         <DeprecationAlert props={props} />
                     </div>
