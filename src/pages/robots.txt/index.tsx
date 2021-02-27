@@ -20,7 +20,7 @@ const getRobots = (): string => {
     if (process.env.ENV === 'PRODUCTION') {
         return `User-agent: *
 Allow: /
-Sitemap: ${process.env.MICROCMS_BASEURL}/sitemap.xml`;
+Sitemap: ${process.env.MYDOMAIN_BASEURL}/sitemap.xml`;
     } else {
         return `User-agent: *
 Disallow: /`;
