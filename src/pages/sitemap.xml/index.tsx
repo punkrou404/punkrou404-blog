@@ -26,7 +26,7 @@ const generateSitemapXml = async (): Promise<string> => {
     posts.forEach((post: Post) => {
         xml += `
         <url>
-          <loc>${process.env.MICROCMS_BASEURL}/blog/post/${post.id}</loc>
+          <loc>${process.env.MYDOMAIN_BASEURL}/blog/post/${post.id}</loc>
           <lastmod>${post.updatedAt}</lastmod>
           <changefreq>weekly</changefreq>
         </url>
