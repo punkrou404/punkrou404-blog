@@ -1,6 +1,6 @@
 import React from 'react';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
-import Card from '~/components/card';
+import PostListElement from '~/components/post-list-element';
 import PageHead from '~/components/page-head';
 import { NextPageContext } from 'next';
 import SearchInput from '~/components/search-input';
@@ -44,7 +44,7 @@ const BlogTags = ({ contents, hitCount, tag }: P): JSX.Element => {
                 {`Blog page. tags for "${String(tag)}". ${hitCount} hits.`}
             </div>
             {contents.map((content) => (
-                <Card props={content} key={content.id} />
+                <PostListElement props={content} key={content.id} />
             ))}
         </div>
     );

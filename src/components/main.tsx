@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import GithubGrass from '~/components/github_grass';
-import { CardOutside } from '~/components/card';
+import { CardOutside } from '~/components/card-outside';
 import Profile from './profile';
 
 type MainProps = {

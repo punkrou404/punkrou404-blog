@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pagination } from '~/components/pagination';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
-import Card from '~/components/card';
+import PostListElement from '~/components/post-list-element';
 import PageHead from '~/components/page-head';
 import { ISR_TIME, PER_PAGE } from '~/lib/const';
 import { range } from '~/lib/range';
@@ -47,7 +47,7 @@ const BlogOffset = ({ contents, totalCount, offset }: P): JSX.Element => {
             <SearchInput />
             <Pagination current={offset} totalCount={totalCount} />
             {contents.map((content) => (
-                <Card props={content} key={content.id} />
+                <PostListElement props={content} key={content.id} />
             ))}
             <Pagination current={offset} totalCount={totalCount} />
         </div>
