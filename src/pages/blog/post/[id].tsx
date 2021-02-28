@@ -1,4 +1,4 @@
-import PostCard from '~/components/post-card';
+import PostDetailElement from '~/components/post-detail-element';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import React from 'react';
 import PageHead from '~/components/page-head';
@@ -6,6 +6,7 @@ import { Post, PostDetail } from '~/api/types';
 import { selectBlogById } from '~/api/blog/select_blog_by_id';
 import { getAllContents } from '~/api/blog/get_all_contents';
 import { ISR_TIME } from '~/lib/const';
+import { CardOutside } from '~/components/card-outside';
 
 type blogIdPaths = `/blog/post/${string}`;
 
@@ -35,7 +36,9 @@ const BlogPostId = (props: PostDetail): JSX.Element => {
                 image={``}
                 url={``}
             ></PageHead>
-            <PostCard props={props} />
+            <CardOutside action={false}>
+                <PostDetailElement props={props} />
+            </CardOutside>
         </>
     );
 };
