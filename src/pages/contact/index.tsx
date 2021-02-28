@@ -7,6 +7,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import PageHead from '~/components/page-head';
+import { CardOutside } from '~/components/card-outside';
+import { Alert } from '@material-ui/lab';
 
 interface Contact {
     name: string;
@@ -79,61 +81,76 @@ const Contact: NextPage = (): JSX.Element => {
                 url={``}
             ></PageHead>
             <form onSubmit={handleSubmit(onSubmit)} noValidate className={``}>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <Controller
-                            as={TextField}
-                            control={control}
-                            variant={`standard`}
-                            required
-                            fullWidth
-                            id={`name`}
-                            label={`お名前`}
-                            name={`name`}
-                            autoComplete={`name`}
-                            defaultValue={``}
-                            error={!!errors.name?.message}
-                        />
-                        {errors.name && <p className={`red`}>{errors.name.message}</p>}
+                <CardOutside action={false}>
+                    <Alert severity="info">
+                        <a href="https://twitter.com/punkrou404" target="_blank" rel="noreferrer">
+                            <b>{`TwitterのDM`}</b>
+                        </a>
+                        {`,もしくは`}
+                        <a href="mailto:punkrou404@gmail.com" target="_blank" rel="noreferrer">
+                            <b>{`punkrou404@gmail.com`}</b>
+                        </a>
+                        {`まで`}
+                        <br />
+                        <br />
+                        {`下からでもOKです。`}
+                    </Alert>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <Controller
+                                as={TextField}
+                                control={control}
+                                variant={`standard`}
+                                required
+                                fullWidth
+                                id={`name`}
+                                label={`お名前`}
+                                name={`name`}
+                                autoComplete={`name`}
+                                defaultValue={``}
+                                error={!!errors.name?.message}
+                            />
+                            {errors.name && <p className={`red`}>{errors.name.message}</p>}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Controller
+                                as={TextField}
+                                control={control}
+                                variant={`standard`}
+                                required
+                                fullWidth
+                                id={`email`}
+                                label={`メールアドレス`}
+                                name={`email`}
+                                autoComplete={`email`}
+                                defaultValue={``}
+                                error={!!errors.email?.message}
+                            />
+                            {errors.email && <p className={`red`}>{errors.email.message}</p>}
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Controller
+                                as={TextField}
+                                control={control}
+                                variant={`standard`}
+                                required
+                                fullWidth
+                                multiline
+                                rows={6}
+                                name={`body`}
+                                label={`内容`}
+                                id={`body`}
+                                autoComplete={`body`}
+                                defaultValue={``}
+                                error={!!errors.body?.message}
+                            />
+                            {errors.body && <p className={`red`}>{errors.body.message}</p>}
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                        <Controller
-                            as={TextField}
-                            control={control}
-                            variant={`standard`}
-                            required
-                            fullWidth
-                            id={`email`}
-                            label={`メールアドレス`}
-                            name={`email`}
-                            autoComplete={`email`}
-                            defaultValue={``}
-                            error={!!errors.email?.message}
-                        />
-                        {errors.email && <p className={`red`}>{errors.email.message}</p>}
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Controller
-                            as={TextField}
-                            control={control}
-                            variant={`standard`}
-                            required
-                            fullWidth
-                            multiline
-                            rows={6}
-                            name={`body`}
-                            label={`内容`}
-                            id={`body`}
-                            autoComplete={`body`}
-                            defaultValue={``}
-                            error={!!errors.body?.message}
-                        />
-                        {errors.body && <p className={`red`}>{errors.body.message}</p>}
-                    </Grid>
-                </Grid>
-                <Button type="submit" variant={`text`} aria-label={`送信`}>
-                    {`送信`}
-                </Button>
+                    <Button type="submit" variant={`text`} aria-label={`送信`}>
+                        {`送信`}
+                    </Button>
+                </CardOutside>
             </form>
         </>
     );
