@@ -3,8 +3,20 @@ import PageHead from '~/components/page-head';
 import { Alert } from '@material-ui/lab';
 import Link from 'next/link';
 import Timeline from '~/components/timeline';
+import { useEffect } from 'react';
 
 const Home: NextPage = () => {
+    // Twitter Widget
+    let isLoadwidgets = false;
+    useEffect(() => {
+        if (!isLoadwidgets) {
+            const s = document.createElement('script');
+            s.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+            document.body.appendChild(s);
+            isLoadwidgets = true;
+        }
+    }, []);
+
     return (
         <>
             <PageHead
@@ -21,7 +33,7 @@ const Home: NextPage = () => {
                 {`を参照`}
             </Alert>
             <div className="border">
-                <Timeline></Timeline>
+                <Timeline />
             </div>
         </>
     );

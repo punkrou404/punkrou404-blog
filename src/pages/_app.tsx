@@ -15,6 +15,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
     const router = useRouter();
     const [search, setSearch] = useState<string | string[]>('');
 
+    // Search keyword
     useEffect(() => {
         const urlQuery = router.query;
         if (urlQuery && urlQuery.keyword) {
@@ -24,6 +25,7 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
         }
     }, [router]);
 
+    // Material UI
     useEffect(() => {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentNode) {

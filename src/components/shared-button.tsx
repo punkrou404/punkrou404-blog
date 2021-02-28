@@ -37,7 +37,6 @@ const Twitter = ({ title, url }: P): JSX.Element => {
                 data-via={`punkrou404`}
                 data-show-count="false"
             />
-            <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
         </>
     );
 };

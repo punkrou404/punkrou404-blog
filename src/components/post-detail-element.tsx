@@ -5,12 +5,24 @@ import DeprecationAlert from '~/components/deprecation_alert';
 import { Alert } from '@material-ui/lab';
 import { PostDetail } from '~/api/types';
 import { SharedButton } from '~/components/shared-button';
+import { useEffect } from 'react';
 
 type P = {
     props: PostDetail;
 };
 
 const PostDetailElement = ({ props }: P): JSX.Element => {
+    // Twitter Widget
+    let isLoadwidgets = false;
+    useEffect(() => {
+        if (!isLoadwidgets) {
+            const s = document.createElement('script');
+            s.setAttribute('src', 'https://platform.twitter.com/widgets.js');
+            document.body.appendChild(s);
+            isLoadwidgets = true;
+        }
+    }, []);
+
     return (
         <>
             <header className="bg-cover">
