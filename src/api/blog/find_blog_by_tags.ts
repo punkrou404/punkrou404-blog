@@ -15,7 +15,7 @@ export const findBlogByTag = async (tag: string): Promise<OutputFindBlogByTag> =
     if (!tag) {
         throw {
             status: 400,
-            message: `Bad Request. "keyword" is required.`,
+            message: `Bad Request. "tag" is required.`,
         } as BlogError;
     }
 

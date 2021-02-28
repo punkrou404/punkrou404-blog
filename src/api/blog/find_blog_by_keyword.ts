@@ -13,16 +13,6 @@ export const findBlogByKeyword = async (
     keyword: string | string[] | undefined
 ): Promise<OutputFindBlogByKeyword> => {
     console.log(`[findBlogByKeyword] start`);
-    console.log(`[findBlogByKeyword]Query parameter validation start`);
-
-    if (!keyword) {
-        throw {
-            status: 400,
-            message: `Bad Request. "keyword" is required.`,
-        } as BlogError;
-    }
-
-    console.log(`[findBlogByKeyword]Query parameter validation end`);
     console.log(`[findBlogByKeyword]Get sources start`);
 
     const keywords = getSearchWords(String(keyword));
