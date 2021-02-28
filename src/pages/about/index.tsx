@@ -5,6 +5,7 @@ import React from 'react';
 import PageHead from '~/components/page-head';
 import { getProfile } from '~/api/profile/get_profile';
 import { ISR_TIME } from '~/lib/const';
+import { CardOutside } from '~/components/card-outside';
 
 const About: NextPage<{
     profile: string;
@@ -29,12 +30,14 @@ const About: NextPage<{
                 image={``}
                 url={``}
             ></PageHead>
-            <section className="">
-                <div className="py-5">{/* padding area */}</div>
-                <div className="font-semibold text-m text-gray-400 pt-6">
-                    <MarkdownPreview content={profile} />
-                </div>
-            </section>
+            <CardOutside action={false}>
+                <section className="">
+                    <div className="py-5">{/* padding area */}</div>
+                    <div className="font-semibold text-m text-gray-400 pt-6">
+                        <MarkdownPreview content={profile} />
+                    </div>
+                </section>
+            </CardOutside>
         </>
     );
 };

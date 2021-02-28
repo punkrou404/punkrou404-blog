@@ -6,6 +6,7 @@ import { NextPageContext } from 'next';
 import SearchInput from '~/components/search-input';
 import { Post } from '~/api/types';
 import { findBlogByTag } from '~/api/blog/find_blog_by_tags';
+import { CardOutside } from '~/components/card-outside';
 
 type P = {
     contents: Post[];
@@ -39,7 +40,9 @@ const BlogTags = ({ contents, hitCount, tag }: P): JSX.Element => {
                 image={``}
                 url={``}
             />
-            <SearchInput />
+            <CardOutside action={false}>
+                <SearchInput />
+            </CardOutside>
             <div className="text-blue-500">
                 {`Blog page. tags for "${String(tag)}". ${hitCount} hits.`}
             </div>

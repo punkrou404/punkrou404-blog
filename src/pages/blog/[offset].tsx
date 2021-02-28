@@ -9,6 +9,7 @@ import SearchInput from '~/components/search-input';
 import { Post } from '~/api/types';
 import { findBlogByOffset } from '~/api/blog/find_blog_by_offset';
 import { getAllContents } from '~/api/blog/get_all_contents';
+import { CardOutside } from '~/components/card-outside';
 
 interface P {
     contents: Post[];
@@ -44,7 +45,9 @@ const BlogOffset = ({ contents, totalCount, offset }: P): JSX.Element => {
                 image={``}
                 url={``}
             />
-            <SearchInput />
+            <CardOutside action={false}>
+                <SearchInput />
+            </CardOutside>
             <Pagination current={offset} totalCount={totalCount} />
             {contents.map((content) => (
                 <PostListElement props={content} key={content.id} />

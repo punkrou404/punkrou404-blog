@@ -30,19 +30,18 @@ const SearchInput: React.FC = (): JSX.Element => {
     );
 
     return (
-        <div className={``}>
+        <>
             <InputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
-                className={``}
                 value={search}
                 onChange={handleChangeKeyword}
                 onKeyDown={handleKeyDownSearch}
             />
-            <IconButton className={``} onClick={handleClickSearchButton} aria-label="Search">
+            <IconButton onClick={handleClickSearchButton} aria-label="Search">
                 <SearchIcon />
             </IconButton>
-        </div>
+        </>
     );
 };
 
