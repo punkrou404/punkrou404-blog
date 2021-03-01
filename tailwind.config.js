@@ -2,7 +2,7 @@ module.exports = {
     purge: ['./src/**/*.tsx'],
     variants: {
         extend: {
-            textColor: ['active'],
+            textColor: ['active', 'visited'],
         },
     },
     // eslint-disable-next-line @typescript-eslint/no-var-requires

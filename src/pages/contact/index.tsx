@@ -83,11 +83,21 @@ const Contact: NextPage = (): JSX.Element => {
             <form onSubmit={handleSubmit(onSubmit)} noValidate className={``}>
                 <CardOutside action={false}>
                     <Alert severity="info">
-                        <a href="https://twitter.com/punkrou404" target="_blank" rel="noreferrer">
+                        <a
+                            className="text-blue-500 hover:text-blue-600 visited:text-purple-600"
+                            href="https://twitter.com/punkrou404"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             <b>{`TwitterのDM`}</b>
                         </a>
                         {`,もしくは`}
-                        <a href="mailto:punkrou404@gmail.com" target="_blank" rel="noreferrer">
+                        <a
+                            className="text-blue-500 hover:text-blue-600 visited:text-purple-600"
+                            href="mailto:punkrou404@gmail.com"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             <b>{`punkrou404@gmail.com`}</b>
                         </a>
                         {`まで`}
