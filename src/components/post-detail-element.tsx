@@ -23,13 +23,15 @@ const PostDetailElement = ({ props }: P): JSX.Element => {
         }
     }, []);
 
+    const origin = process.env.MYDOMAIN_BASEURL;
+
     return (
         <>
             <header className="bg-cover">
                 <h3 className="mb-4 text-2xl">{props.title}</h3>
                 <SharedButton
                     title={`${props.title}`}
-                    url={`${process.env.MYDOMAIN_BASEURL}/blog/post/${props.id}`}
+                    url={`${origin}/blog/post/${props.id}`}
                 ></SharedButton>
                 <div className="mb-4 text-sm">
                     <DeprecationAlert props={props} />

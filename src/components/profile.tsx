@@ -4,10 +4,10 @@ import Image from 'next/image';
 const Profile = (): JSX.Element => {
     return (
         <div>
-            <Image
+            <img
                 src={`/profile.png`}
-                alt="My profile icon"
-                loading="lazy"
+                alt={`My profile icon`}
+                loading={`lazy`}
                 width={64}
                 height={64}
             />

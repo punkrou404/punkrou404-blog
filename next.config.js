@@ -1,14 +1,6 @@
 const path = require('path');
-const DOMAIN = process.env.domain;
-if (!DOMAIN) {
-    throw new Error(`Can't read Environment Valiable.`);
-}
 
 module.exports = {
-    images: {
-        path: '/_next/image',
-        domains: [DOMAIN, 'grass-graph.moshimo.works'],
-    },
     async redirects() {
         return [
             {

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
 const GithubGrass = (): JSX.Element => {
@@ -14,9 +13,10 @@ const GithubGrass = (): JSX.Element => {
 
             <div className="pt-2">
                 <a href="https://github.com/punkrou404" target="_blank" rel="noreferrer">
-                    <Image
-                        src="https://grass-graph.moshimo.works/images/punkrou404.png?rotate=90"
-                        loading="lazy"
+                    <img
+                        src={`https://grass-graph.moshimo.works/images/punkrou404.png?rotate=90`}
+                        alt={`Github grass`}
+                        loading={`lazy`}
                         width={155}
                         height={870}
                     />
