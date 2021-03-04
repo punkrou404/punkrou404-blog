@@ -1,17 +1,15 @@
-import { parseISO } from 'date-fns';
 import { Alert } from '@material-ui/lab';
+
 const DAY = 1000 * 60 * 60 * 24;
 const YEAR = DAY * 365;
 const MONTH = YEAR / 12;
 
 type DeprecationAlertProps = {
-    props: {
-        updatedAt: string;
-    };
+    date: string;
 };
 
-const DeprecationAlert = ({ props }: DeprecationAlertProps): JSX.Element => {
-    const current = parseISO(props.updatedAt);
+export const DeprecationAlert = ({ date }: DeprecationAlertProps): JSX.Element => {
+    const current = new Date(date);
     const today = new Date();
     const diff = today.getTime() - current.getTime();
     const month = Math.floor(diff / MONTH);
@@ -31,5 +29,3 @@ const DeprecationAlert = ({ props }: DeprecationAlertProps): JSX.Element => {
 
     return <></>;
 };
-
-export default DeprecationAlert;

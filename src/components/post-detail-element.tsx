@@ -1,7 +1,7 @@
 import Date from '~/components/date';
 import MarkdownPreview from '~/components/markdown-preview';
 import TagList from '~/components/tag_list';
-import DeprecationAlert from '~/components/deprecation_alert';
+import { DeprecationAlert } from '~/components/deprecation_alert';
 import { Alert } from '@material-ui/lab';
 import { PostDetail } from '~/api/types';
 import { SharedButton } from '~/components/shared-button';
@@ -34,7 +34,7 @@ const PostDetailElement = ({ props }: P): JSX.Element => {
                     url={`${origin}/blog/post/${props.id}`}
                 ></SharedButton>
                 <div className="mb-4 text-sm">
-                    <DeprecationAlert props={props} />
+                    <DeprecationAlert date={props.updatedAt} />
                 </div>
                 <div className="mb-4 text-sm">
                     {`作成: `}
