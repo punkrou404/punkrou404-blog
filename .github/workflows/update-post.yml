@@ -1,0 +1,14 @@
+name: UpdatePost
+on:
+  repository_dispatch:
+    types: [update_post]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 13.x
+    - run: yarn install
+    - run: yarn run deploy:prod

@@ -12,7 +12,7 @@
     "clean:deployment": "npx serverless remove",
     "clean:local": "if [ -d .serverless ]; then rm -rf .serverless ; fi; if [ -d .serverless_nextjs ]; then rm -rf .serverless_nextjs ; fi",
     "deploy:test": "yarn run clean:local && npx serverless --stage=development",
-    "deploy:prod": "yarn run clean:local && npx serverless --stage=production",
+    "deploy:prod": "yarn run test && yarn run clean:local && npx serverless --stage=production",
     "test": "jest",
     "test:coverage": "jest --collect-coverage"
   },
