@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { IS_DEVELOP, MY_ORIGIN, NODE_ENV_DEV } from '~/lib/const';
+import { IS_DEVELOP, MY_ORIGIN } from '~/lib/const';
 
 export const getServerSideProps = async ({
     res,
