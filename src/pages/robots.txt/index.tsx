@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { MY_ORIGIN, NODE_ENV_DEV } from '~/lib/const';
+import { IS_DEVELOP, MY_ORIGIN, NODE_ENV_DEV } from '~/lib/const';
 
 export const getServerSideProps = async ({
     res,
@@ -18,7 +18,7 @@ export const getServerSideProps = async ({
 };
 
 const getRobots = (): string => {
-    if (process.env.NODE_ENV === NODE_ENV_DEV) {
+    if (IS_DEVELOP) {
         return `User-agent: *
 Disallow: /`;
     } else {
