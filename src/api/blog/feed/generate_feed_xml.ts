@@ -6,25 +6,31 @@ const generateFeedXml = async (): Promise<string> => {
     console.log(`[generateFeedXml] start`);
     console.log(`[generateFeedXml] get feed start`);
 
-    const feed = new RSS({
+    const feedOptions = {
         title: 'タイトル',
         description: '説明',
         site_url: 'サイトのURL',
         feed_url: 'フィードページのURL',
         language: 'ja',
-    });
-
+    };
+    const feed = new RSS(feedOptions);
     const posts = await getAllContents();
 
     console.log(`[generateFeedXml] get feed end`);
     console.log(`[generateFeedXml] generate xml start`);
 
+    const baseUrl = `${process.env.MYDOMAIN_BASEURL}/blog/post/`;
+    console.log(`[generateFeedXml] url=${baseUrl}[id]`);
     posts.forEach((c: Post) => {
+        const url = `${baseUrl}${c.id}`;
+        const title = c.title;
+        const description = c.summary;
+        const date = new Date(c.createdAt);
         feed.item({
-            title: c.title,
-            description: c.summary,
-            date: new Date(c.createdAt),
-            url: `${process.env.MYDOMAIN_BASEURL}/blog/post/${c.id}`,
+            title,
+            description,
+            date,
+            url,
         });
     });
     const xml = feed.xml();

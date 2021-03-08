@@ -6,7 +6,9 @@ import { MICROCMS_GET_HEADER } from '~/lib/const';
 export const getProfile = async () => {
     console.log(`[getProfile] start`);
 
-    const result = await fetch(`${process.env.MICROCMS_BASEURL}/profile`, MICROCMS_GET_HEADER);
+    const url = `${process.env.MICROCMS_BASEURL}/profile`;
+    console.log(`[getProfile] url=${url}`);
+    const result = await fetch(url, MICROCMS_GET_HEADER);
     const body = await result.json();
     const matterResult = matter(body.contents[0].body);
     marked.setOptions({

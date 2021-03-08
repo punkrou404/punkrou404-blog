@@ -11,6 +11,7 @@ export const getAllContents = async (sorted: sorted = 'created'): Promise<Post[]
     console.log(`[getAllContents]Get Total PostCount API access start`);
 
     const firstUrls = `${process.env.MICROCMS_BASEURL}/blog`;
+    console.log(`[getAllContents] url=${firstUrls}`);
 
     const firstRes = await fetch(firstUrls, MICROCMS_GET_HEADER);
     const json = await firstRes.json();
@@ -33,8 +34,8 @@ export const getAllContents = async (sorted: sorted = 'created'): Promise<Post[]
                 limit: String(DOWNLOAD_POST_LIMIT),
             });
             const urls = `${process.env.MICROCMS_BASEURL}/blog?${query}`;
+            console.log(`[getAllContents] url=${urls}`);
 
-            console.log(`[getAllContents]API urls: ${urls}`);
             const result = await fetch(urls, MICROCMS_GET_HEADER);
             const json = await result.json();
             return json.contents as MicrocmsReq[];

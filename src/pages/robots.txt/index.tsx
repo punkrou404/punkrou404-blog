@@ -17,7 +17,7 @@ export const getServerSideProps = async ({
 };
 
 const getRobots = (): string => {
-    if (process.env.ENV === 'PRODUCTION') {
+    if (process.env.ENVTYPE === 'PRODUCTION') {
         return `User-agent: *
 Allow: /
 Sitemap: ${process.env.MYDOMAIN_BASEURL}/sitemap.xml`;
