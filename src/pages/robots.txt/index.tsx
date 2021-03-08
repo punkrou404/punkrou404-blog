@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+import { MYDOMAIN } from '~/api/const';
 
 export const getServerSideProps = async ({
     res,
@@ -19,7 +20,7 @@ export const getServerSideProps = async ({
 const getRobots = (): string => {
     return `User-agent: *
 Allow: /
-Sitemap: ${process.env.MYDOMAIN_BASEURL}/sitemap.xml`;
+Sitemap: https://${MYDOMAIN}/sitemap.xml`;
 };
 
 const Robots = (): null => null;
