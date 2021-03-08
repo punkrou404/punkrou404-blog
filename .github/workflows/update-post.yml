@@ -2,17 +2,17 @@ name: UpdatePost
 on:
   repository_dispatch:
     types: [update_post]
-env:
-  MICROCMS_ACCESS_KEY: ${{secrets.MICROCMS_ACCESS_KEY}}
-  MICROCMS_WHITE_ACCESS_KEY: ${{secrets.MICROCMS_WHITE_ACCESS_KEY}}
-  MICROCMS_BASEURL: ${{secrets.MICROCMS_BASEURL}}
-  AWS_ACM: ${{secrets.AWS_ACM}}
-  AWS_S3_NAME: ${{secrets.AWS_S3_NAME}}
-  AWS_LAMBDA_NAME: ${{secrets.AWS_LAMBDA_NAME}}
-  AWS_CLOUDFRONT_NAME: ${{secrets.AWS_CLOUDFRONT_NAME}}
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      MICROCMS_ACCESS_KEY: ${{secrets.MICROCMS_ACCESS_KEY}}
+      MICROCMS_WHITE_ACCESS_KEY: ${{secrets.MICROCMS_WHITE_ACCESS_KEY}}
+      MICROCMS_BASEURL: ${{secrets.MICROCMS_BASEURL}}
+      AWS_ACM: ${{secrets.AWS_ACM}}
+      AWS_S3_NAME: ${{secrets.AWS_S3_NAME}}
+      AWS_LAMBDA_NAME: ${{secrets.AWS_LAMBDA_NAME}}
+      AWS_CLOUDFRONT_NAME: ${{secrets.AWS_CLOUDFRONT_NAME}}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
