@@ -3,6 +3,7 @@ import matter from 'gray-matter';
 import marked from 'marked';
 import { BlogError, PostHeader, MicrocmsReqHeader, PostDetail } from '~/api/types';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
+import { MYDOMAIN } from '../const';
 
 export const selectBlogById = async (id: string): Promise<PostDetail> => {
     console.log(`[getBlogByID] start`);
@@ -17,7 +18,7 @@ export const selectBlogById = async (id: string): Promise<PostDetail> => {
 
     console.log(`[getBlogByID]Query parameter validation end`);
     console.log(`[getBlogByID]Get content by id start`);
-    const urls = `${process.env.MICROCMS_BASEURL}/blog/${id}`;
+    const urls = `https://${MYDOMAIN}/blog/${id}`;
     console.log(`[getBlogByID] url=${urls}`);
     const result = await fetch(urls, MICROCMS_GET_HEADER);
     const json = await result.json();
