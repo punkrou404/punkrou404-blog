@@ -17,7 +17,7 @@ export const selectBlogById = async (id: string): Promise<PostDetail> => {
 
     console.log(`[getBlogByID]Query parameter validation end`);
     console.log(`[getBlogByID]Get content by id start`);
-    const urls = `${MY_ORIGIN}/blog/${id}`;
+    const urls = `${process.env.MICROCMS_BASEURL}/blog/${id}`;
     console.log(`[getBlogByID] url=${urls}`);
     const result = await fetch(urls, MICROCMS_GET_HEADER);
     const json = await result.json();

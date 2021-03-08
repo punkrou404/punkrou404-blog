@@ -3,6 +3,7 @@ export const MAX_PAGE = 5 as const;
 export const ISR_TIME = 3600 as const;
 export const NODE_ENV_DEV = 'development' as const;
 
+console.log(`Current environmental : ${process.env.NODE_ENV}`);
 export const MY_ORIGIN =
     process.env.NODE_ENV === NODE_ENV_DEV
         ? `http://${process.env.MYDOMAIN}`

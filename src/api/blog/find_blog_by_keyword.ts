@@ -1,4 +1,3 @@
-import { BlogError } from '~/api/types';
 import { getSearchWords } from '~/lib/keyword';
 import { Post } from '~/api/types';
 import { getAllContents } from './get_all_contents';

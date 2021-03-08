@@ -33,7 +33,7 @@ export const postContact = async ({ name, email, body }: InputPostContact): Prom
     console.log(`[postContact] Query parameter validation end`);
     console.log(`[postContact]External API access start`);
 
-    const urls = `${MY_ORIGIN}/contact`;
+    const urls = `${process.env.MICROCMS_BASEURL}/contact`;
     console.log(`[postContact] url=${urls}`);
 
     const httpHeader = {
