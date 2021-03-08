@@ -23,7 +23,7 @@ const PostDetailElement = ({ props }: P): JSX.Element => {
         }
     }, []);
 
-    const origin = process.env.MYDOMAIN_BASEURL;
+    const origin = `https://${process.env.MYDOMAIN}`;
 
     return (
         <>

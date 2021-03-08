@@ -9,6 +9,7 @@ type sorted = 'created' | 'updated';
 export const getAllContents = async (sorted: sorted = 'created'): Promise<Post[]> => {
     console.log(`[getAllContents] start`);
     console.log(`[getAllContents]Get Total PostCount API access start`);
+    console.log(`AAAAAAAAAAAAA : ${process.env.NODE_ENV}`);
 
     const firstUrls = `${process.env.MICROCMS_BASEURL}/blog`;
 

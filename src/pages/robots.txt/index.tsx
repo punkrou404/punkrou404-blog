@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
+import { NODE_ENV_DEV } from '~/lib/const';
 
 export const getServerSideProps = async ({
     res,
@@ -17,13 +18,13 @@ export const getServerSideProps = async ({
 };
 
 const getRobots = (): string => {
-    if (process.env.ENV === 'PRODUCTION') {
-        return `User-agent: *
-Allow: /
-Sitemap: ${process.env.MYDOMAIN_BASEURL}/sitemap.xml`;
-    } else {
+    if (process.env.NODE_ENV === NODE_ENV_DEV) {
         return `User-agent: *
 Disallow: /`;
+    } else {
+        return `User-agent: *
+Allow: /
+Sitemap: https://${process.env.MYDOMAIN}/sitemap.xml`;
     }
 };
 

@@ -24,7 +24,7 @@ const generateFeedXml = async (): Promise<string> => {
             title: c.title,
             description: c.summary,
             date: new Date(c.createdAt),
-            url: `${process.env.MYDOMAIN_BASEURL}/blog/post/${c.id}`,
+            url: `https://${process.env.MYDOMAIN}/blog/post/${c.id}`,
         });
     });
     const xml = feed.xml();
