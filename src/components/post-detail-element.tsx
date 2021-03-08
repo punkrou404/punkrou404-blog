@@ -6,7 +6,6 @@ import { Alert } from '@material-ui/lab';
 import { PostDetail } from '~/api/types';
 import { SharedButton } from '~/components/shared-button';
 import { useEffect } from 'react';
-import { MYDOMAIN } from '~/api/const';
 
 type P = {
     props: PostDetail;
@@ -24,7 +23,7 @@ const PostDetailElement = ({ props }: P): JSX.Element => {
         }
     }, []);
 
-    const origin = `https://${MYDOMAIN}`;
+    const origin = `https://${process.env.MYDOMAIN}`;
 
     return (
         <>

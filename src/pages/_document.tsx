@@ -13,6 +13,8 @@ import { ServerStyleSheets as MaterialServerStyleSheets } from '@material-ui/cor
 
 class Document extends NextDocument {
     static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+        console.log(`Current environmental : ${process.env.NODE_ENV}`);
+
         const styledComponentsSheet = new ServerStyleSheet();
         const materialUiSheets = new MaterialServerStyleSheets();
         const originalRenderPage = ctx.renderPage;

@@ -1,4 +1,4 @@
-import { DOWNLOAD_POST_LIMIT, MYDOMAIN } from '~/api/const';
+import { DOWNLOAD_POST_LIMIT } from '~/api/const';
 import matter from 'gray-matter';
 import { Post, MicrocmsReq } from '~/api/types';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
@@ -10,7 +10,7 @@ export const getAllContents = async (sorted: sorted = 'created'): Promise<Post[]
     console.log(`[getAllContents] start`);
     console.log(`[getAllContents]Get Total PostCount API access start`);
 
-    const firstUrls = `https://${MYDOMAIN}/blog`;
+    const firstUrls = `https://${process.env.MYDOMAIN}/blog`;
     console.log(`[getAllContents] url=${firstUrls}`);
 
     const firstRes = await fetch(firstUrls, MICROCMS_GET_HEADER);

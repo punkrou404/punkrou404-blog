@@ -2,12 +2,11 @@ import marked from 'marked';
 import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import { MICROCMS_GET_HEADER } from '~/lib/const';
-import { MYDOMAIN } from '../const';
 
 export const getProfile = async () => {
     console.log(`[getProfile] start`);
 
-    const url = `https://${MYDOMAIN}/profile`;
+    const url = `https://${process.env.MYDOMAIN}/profile`;
     console.log(`[getProfile] url=${url}`);
     const result = await fetch(url, MICROCMS_GET_HEADER);
     const body = await result.json();

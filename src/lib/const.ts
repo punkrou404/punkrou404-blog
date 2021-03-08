@@ -1,6 +1,7 @@
 export const PER_PAGE = 5 as const;
 export const MAX_PAGE = 5 as const;
 export const ISR_TIME = 3600 as const;
+export const NODE_ENV_DEV = 'development' as const;
 
 /** microcms http get header(api-key) */
 type MicrocmsHTTPGETHeader = {
@@ -8,7 +9,7 @@ type MicrocmsHTTPGETHeader = {
         'X-API-KEY': string;
     };
 };
-const GET_KEY = process.env.microcms_access_key;
+const GET_KEY = process.env.MICROCMS_ACCESS_KEY;
 export const MICROCMS_GET_HEADER = {
     headers: { 'X-API-KEY': GET_KEY },
 } as MicrocmsHTTPGETHeader;
@@ -18,7 +19,7 @@ type MicrocmsHTTPPOSTHeader = {
     'Content-Type': string;
     'X-WRITE-API-KEY': string;
 };
-const POST_KEY = process.env.microcms_white_access_key;
+const POST_KEY = process.env.MICROCMS_WHITE_ACCESS_KEY;
 export const MICROCMS_POST_HEADER = {
     'Content-Type': 'application/json; charset=utf-8',
     'X-WRITE-API-KEY': POST_KEY,
