@@ -9,6 +9,8 @@ jobs:
       MICROCMS_ACCESS_KEY: ${{secrets.MICROCMS_ACCESS_KEY}}
       MICROCMS_WHITE_ACCESS_KEY: ${{secrets.MICROCMS_WHITE_ACCESS_KEY}}
       MICROCMS_BASEURL: ${{secrets.MICROCMS_BASEURL}}
+      AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+      AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
       AWS_ACM: ${{secrets.AWS_ACM}}
       AWS_S3_NAME: ${{secrets.AWS_S3_NAME}}
       AWS_LAMBDA_NAME: ${{secrets.AWS_LAMBDA_NAME}}
