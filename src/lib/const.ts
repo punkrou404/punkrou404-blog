@@ -3,6 +3,12 @@ export const MAX_PAGE = 5 as const;
 export const ISR_TIME = 3600 as const;
 export const NODE_ENV_DEV = 'development' as const;
 
+export const MY_ORIGIN =
+    process.env.NODE_ENV === NODE_ENV_DEV
+        ? `http://${process.env.MYDOMAIN}`
+        : `https://${process.env.MYDOMAIN}`;
+console.log(`MY_ORIGIN: ${MY_ORIGIN}`);
+
 /** microcms http get header(api-key) */
 type MicrocmsHTTPGETHeader = {
     headers: {

@@ -1,6 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 import { getAllContents } from '~/api/blog/get_all_contents';
 import { Post } from '~/api/types';
+import { MY_ORIGIN } from '~/lib/const';
 
 export const getServerSideProps = async ({
     res,
@@ -26,7 +27,7 @@ const generateSitemapXml = async (): Promise<string> => {
     posts.forEach((post: Post) => {
         xml += `
         <url>
-          <loc>https://${process.env.MYDOMAIN}/blog/post/${post.id}</loc>
+          <loc>${MY_ORIGIN}/blog/post/${post.id}</loc>
           <lastmod>${post.updatedAt}</lastmod>
           <changefreq>weekly</changefreq>
         </url>

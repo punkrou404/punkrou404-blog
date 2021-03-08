@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { NODE_ENV_DEV } from '~/lib/const';
+import { MY_ORIGIN, NODE_ENV_DEV } from '~/lib/const';
 
 export const getServerSideProps = async ({
     res,
@@ -24,7 +24,7 @@ Disallow: /`;
     } else {
         return `User-agent: *
 Allow: /
-Sitemap: https://${process.env.MYDOMAIN}/sitemap.xml`;
+Sitemap: ${MY_ORIGIN}/sitemap.xml`;
     }
 };
 

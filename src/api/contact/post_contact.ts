@@ -1,4 +1,4 @@
-import { MICROCMS_POST_HEADER } from '~/lib/const';
+import { MICROCMS_POST_HEADER, MY_ORIGIN } from '~/lib/const';
 import { BlogError } from '~/api/types';
 
 interface InputPostContact {
@@ -33,7 +33,7 @@ export const postContact = async ({ name, email, body }: InputPostContact): Prom
     console.log(`[postContact] Query parameter validation end`);
     console.log(`[postContact]External API access start`);
 
-    const urls = `https://${process.env.MYDOMAIN}/contact`;
+    const urls = `${MY_ORIGIN}/contact`;
     console.log(`[postContact] url=${urls}`);
 
     const httpHeader = {

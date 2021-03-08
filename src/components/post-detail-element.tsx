@@ -6,6 +6,7 @@ import { Alert } from '@material-ui/lab';
 import { PostDetail } from '~/api/types';
 import { SharedButton } from '~/components/shared-button';
 import { useEffect } from 'react';
+import { MY_ORIGIN } from '~/lib/const';
 
 type P = {
     props: PostDetail;
@@ -23,15 +24,13 @@ const PostDetailElement = ({ props }: P): JSX.Element => {
         }
     }, []);
 
-    const origin = `https://${process.env.MYDOMAIN}`;
-
     return (
         <>
             <header className="bg-cover">
                 <h3 className="mb-4 text-2xl">{props.title}</h3>
                 <SharedButton
                     title={`${props.title}`}
-                    url={`${origin}/blog/post/${props.id}`}
+                    url={`${MY_ORIGIN}/blog/post/${props.id}`}
                 ></SharedButton>
                 <div className="mb-4 text-sm">
                     <DeprecationAlert date={props.updatedAt} />

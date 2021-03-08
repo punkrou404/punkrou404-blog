@@ -1,5 +1,6 @@
 import RSS from 'rss';
 import { Post } from '~/api/types';
+import { MY_ORIGIN } from '~/lib/const';
 import { getAllContents } from '../get_all_contents';
 
 const generateFeedXml = async (): Promise<string> => {
@@ -19,7 +20,7 @@ const generateFeedXml = async (): Promise<string> => {
     console.log(`[generateFeedXml] get feed end`);
     console.log(`[generateFeedXml] generate xml start`);
 
-    const baseUrl = `https://${process.env.MYDOMAIN}/blog/post/`;
+    const baseUrl = `${MY_ORIGIN}/blog/post/`;
     console.log(`[generateFeedXml] url=${baseUrl}[id]`);
     posts.forEach((c: Post) => {
         const url = `${baseUrl}${c.id}`;

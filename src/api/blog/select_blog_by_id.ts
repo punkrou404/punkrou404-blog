@@ -2,7 +2,7 @@ import highlightjs from 'highlight.js';
 import matter from 'gray-matter';
 import marked from 'marked';
 import { BlogError, PostHeader, MicrocmsReqHeader, PostDetail } from '~/api/types';
-import { MICROCMS_GET_HEADER } from '~/lib/const';
+import { MICROCMS_GET_HEADER, MY_ORIGIN } from '~/lib/const';
 
 export const selectBlogById = async (id: string): Promise<PostDetail> => {
     console.log(`[getBlogByID] start`);
@@ -17,7 +17,7 @@ export const selectBlogById = async (id: string): Promise<PostDetail> => {
 
     console.log(`[getBlogByID]Query parameter validation end`);
     console.log(`[getBlogByID]Get content by id start`);
-    const urls = `https://${process.env.MYDOMAIN}/blog/${id}`;
+    const urls = `${MY_ORIGIN}/blog/${id}`;
     console.log(`[getBlogByID] url=${urls}`);
     const result = await fetch(urls, MICROCMS_GET_HEADER);
     const json = await result.json();
