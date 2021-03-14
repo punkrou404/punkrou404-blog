@@ -7,11 +7,15 @@ const SAUNNER_ID = process.env.NEXT_PUBLIC_SAUNNER_ID;
 const HANDLE_NAME = process.env.NEXT_PUBLIC_HANDLE_NAME;
 const MY_FIRST_NAME = process.env.NEXT_PUBLIC_MY_FIRST_NAME;
 const MY_LAST_NAME = process.env.NEXT_PUBLIC_MY_LAST_NAME;
-console.log(`[ENV]      SAUNNER_ID: ${SAUNNER_ID}`);
-console.log(`[ENV]     HANDLE_NAME: ${HANDLE_NAME}`);
-console.log(`[ENV]   MY_FIRST_NAME: ${MY_FIRST_NAME}`);
-console.log(`[ENV]    MY_LAST_NAME: ${MY_LAST_NAME}`);
-export { HANDLE_NAME, MY_FIRST_NAME, MY_LAST_NAME };
+const NODE_ENV = process.env.NODE_ENV;
+const IS_DEVELOP = (NODE_ENV === 'development') as boolean;
+console.log(`[ENV]    SAUNNER_ID: ${SAUNNER_ID}`);
+console.log(`[ENV]   HANDLE_NAME: ${HANDLE_NAME}`);
+console.log(`[ENV] MY_FIRST_NAME: ${MY_FIRST_NAME}`);
+console.log(`[ENV]  MY_LAST_NAME: ${MY_LAST_NAME}`);
+console.log(`[ENV]      NODE_ENV: ${NODE_ENV}`);
+console.log(`[ENV]    IS_DEVELOP: ${String(IS_DEVELOP)}`);
+export { IS_DEVELOP, HANDLE_NAME, MY_FIRST_NAME, MY_LAST_NAME };
 
 console.log(`[PUBLIC ENVIRONMENT VALIABLES READING END]`);
 
@@ -20,23 +24,23 @@ console.log(`[PUBLIC ENVIRONMENT VALIABLES READING END]`);
  */
 console.log(`[PRIVATE ENVIRONMENT VALIABLES READING END]`);
 
-const NODE_ENV = process.env.NODE_ENV;
 const MYDOMAIN = process.env.MYDOMAIN;
 const GET_KEY = process.env.MICROCMS_ACCESS_KEY;
 const POST_KEY = process.env.MICROCMS_WHITE_ACCESS_KEY;
 const MICROCMS_BASEURL = process.env.MICROCMS_BASEURL;
-const EXISTS = NODE_ENV || MYDOMAIN || GET_KEY || POST_KEY || MICROCMS_BASEURL;
+const MY_ORIGIN = IS_DEVELOP ? `http://${MYDOMAIN}` : `https://${MYDOMAIN}`;
+const EXISTS = MYDOMAIN && GET_KEY && POST_KEY && MICROCMS_BASEURL;
 if (!EXISTS) {
     console.log(`no reading.`);
 } else {
     console.log(`reading successful.`);
-    console.log(`[ENV]        NODE_ENV: ${NODE_ENV}`);
     console.log(`[ENV]        MYDOMAIN: ${MYDOMAIN}`);
     console.log(`[ENV]         GET_KEY: ${GET_KEY}`);
     console.log(`[ENV]        POST_KEY: ${POST_KEY}`);
     console.log(`[ENV]MICROCMS_BASEURL: ${MICROCMS_BASEURL}`);
+    console.log(`[ENV]       MY_ORIGIN: ${MY_ORIGIN}`);
 }
-export { MICROCMS_BASEURL };
+export { MICROCMS_BASEURL, MY_ORIGIN };
 
 console.log(`[PRIVATE ENVIRONMENT VALIABLES READING END]`);
 
@@ -62,17 +66,13 @@ console.log(`[LINKS READING END]`);
  */
 console.log(`[ELSE CONST SETTING START]`);
 
-const IS_DEVELOP = (NODE_ENV === 'development') as boolean;
 const PER_PAGE = 5 as const;
 const MAX_PAGE = 5 as const;
 const ISR_TIME = 3600 as const;
-const MY_ORIGIN = IS_DEVELOP ? `http://${MYDOMAIN}` : `https://${MYDOMAIN}`;
-console.log(`[VALUE]IS_DEVELOP: ${String(IS_DEVELOP)}`);
 console.log(`[VALUE]  PER_PAGE: ${String(PER_PAGE)}`);
 console.log(`[VALUE]  MAX_PAGE: ${String(MAX_PAGE)}`);
 console.log(`[VALUE]  ISR_TIME: ${String(ISR_TIME)}`);
-console.log(`[VALUE] MY_ORIGIN: ${MY_ORIGIN}`);
-export { IS_DEVELOP, PER_PAGE, MAX_PAGE, ISR_TIME, MY_ORIGIN };
+export { PER_PAGE, MAX_PAGE, ISR_TIME };
 
 console.log(`[ELSE CONST SETTING END]`);
 
