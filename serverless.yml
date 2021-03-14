@@ -2,7 +2,7 @@ myApp:
   component: "@sls-next/serverless-component@1.18.0"
   inputs:
     bucketName: ${env.AWS_S3_NAME}
-    domain: ${env.MYDOMAIN}
+    domain: ${env.NEXT_PUBLIC_MYDOMAIN}
     cloudfront:
       distributionId: ${env.AWS_CLOUDFRONT_NAME}
     certificate:
