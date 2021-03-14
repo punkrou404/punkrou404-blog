@@ -29,7 +29,7 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# punkrou404-blog
+# my-portfolio-blog
 src/pages/posts/*.md
 .env
 .vscode/

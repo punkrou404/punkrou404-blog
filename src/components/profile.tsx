@@ -1,5 +1,6 @@
 import SNSLink from '~/components/sns_link';
 import Image from 'next/image';
+import { HANDLE_NAME, MY_FIRST_NAME, MY_LAST_NAME } from '~/lib/const';
 
 const Profile = (): JSX.Element => {
     return (
@@ -12,8 +13,8 @@ const Profile = (): JSX.Element => {
                 height={64}
             />
             <div className="">
-                <div className="font-semibold text-sm py-2">{`Sato Kotaro`}</div>
-                <div className="font-semibold text-xs py-2">{`@punkrou404`}</div>
+                <div className="font-semibold text-sm py-2">{`${MY_FIRST_NAME} ${MY_LAST_NAME}`}</div>
+                <div className="font-semibold text-xs py-2">{`@${HANDLE_NAME}`}</div>
                 <div className="">
                     <SNSLink></SNSLink>
                 </div>

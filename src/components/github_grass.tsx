@@ -1,20 +1,21 @@
 import GitHubIcon from '@material-ui/icons/GitHub';
+import { GITHUB_GRASS_URL, GITHUB_URL, HANDLE_NAME } from '~/lib/const';
 
 const GithubGrass = (): JSX.Element => {
     return (
         <div>
             <div className="font-semibold text-xs pb-1">{`GitHub Activities`}</div>
             <div className="font-semibold text-xs">
-                <a href="https://github.com/punkrou404" target="_blank" rel="noreferrer">
+                <a href="https://github.com/kounetsuman" target="_blank" rel="noreferrer">
                     <GitHubIcon fontSize="small"></GitHubIcon>
-                    {` @punkrou404`}
+                    {` @${HANDLE_NAME}`}
                 </a>
             </div>
 
             <div className="pt-2">
-                <a href="https://github.com/punkrou404" target="_blank" rel="noreferrer">
+                <a href={GITHUB_URL} target="_blank" rel="noreferrer">
                     <img
-                        src={`https://grass-graph.moshimo.works/images/punkrou404.png?rotate=90`}
+                        src={GITHUB_GRASS_URL}
                         alt={`Github grass`}
                         loading={`lazy`}
                         width={155}

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Head from 'next/head';
+import { HANDLE_NAME } from '~/lib/const';
 
 interface Props {
     subtitle: string;
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const PageHead = ({ subtitle, description, image, url }: Props): JSX.Element => {
-    const title = `punkrou404 blog - ${subtitle}`;
+    const title = `${HANDLE_NAME} blog - ${subtitle}`;
     image = `/profile.png`;
     return (
         <Head>
@@ -21,7 +22,7 @@ const PageHead = ({ subtitle, description, image, url }: Props): JSX.Element => 
             <meta property="og:image" content={image} />
             <meta property="og:site_name" content={title} />
             <meta name="twitter:card" content="summary" />
-            <meta name="twitter:site" content={`@punkrou404`} />
+            <meta name="twitter:site" content={`@${HANDLE_NAME}`} />
             <meta name="twitter:url" content={image} />
             <meta name="twitter:title" content={title} />
             {/* <meta name="twitter:description" content={description} /> */}

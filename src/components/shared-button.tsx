@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { HANDLE_NAME } from '~/lib/const';
 
 interface P {
     title: string;
@@ -34,7 +35,7 @@ const Twitter = ({ title, url }: P): JSX.Element => {
                 className="twitter-share-button"
                 data-text={title}
                 data-url={url}
-                data-via={`punkrou404`}
+                data-via={`${HANDLE_NAME}`}
                 data-show-count="false"
             />
         </>

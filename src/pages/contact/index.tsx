@@ -9,6 +9,7 @@ import { useBreadcrumb } from '~/lib/use-breadcrumb';
 import PageHead from '~/components/page-head';
 import { CardOutside } from '~/components/card-outside';
 import { Alert } from '@material-ui/lab';
+import { TWITTER_URL } from '~/lib/const';
 
 interface Contact {
     name: string;
@@ -85,20 +86,11 @@ const Contact: NextPage = (): JSX.Element => {
                     <Alert severity="info">
                         <a
                             className="text-blue-500 hover:text-blue-600 visited:text-purple-600"
-                            href="https://twitter.com/punkrou404"
+                            href={`${TWITTER_URL}`}
                             target="_blank"
                             rel="noreferrer"
                         >
                             <b>{`TwitterのDM`}</b>
-                        </a>
-                        {`,もしくは`}
-                        <a
-                            className="text-blue-500 hover:text-blue-600 visited:text-purple-600"
-                            href="mailto:punkrou404@gmail.com"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <b>{`punkrou404@gmail.com`}</b>
                         </a>
                         {`まで`}
                         <br />

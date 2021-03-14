@@ -5,10 +5,10 @@ const Footer = (): JSX.Element => {
                 {`created by `}
                 <a
                     className="text-blue-500 hover:text-blue-600 visited:text-purple-600"
-                    href={`https://github.com/punkrou404/punkrou404-blog`}
+                    href={`https://github.com/kounetsuman/my-portfolio-blog`}
                     target="_blank"
                     rel="noreferrer"
-                >{`punkrou404-blog`}</a>
+                >{`kounetsuman/my-portfolio-blog`}</a>
                 {` | This site uses Google Analytics.`}{' '}
             </p>
         </footer>
